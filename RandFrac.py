@@ -3,19 +3,24 @@ import sys
 import numpy as np
 from random import randrange
 import math
-import random
+from random import choice, randrange, 
+
+
 
 
 """ This script does some stuff
 
-    1. Coding random fraction models
-    2. Defining our models functions
-    3. Creating a module to hold our functions
+    1. house functions for random fraction models
+    2. return expected of random fraction models 
     
 """
 
 
 def simple_random_fraction(N, S, sample_size):
+    
+    """ What this doesn't do:
+    1. Currently is not callable by outside """
+    
     
     RAC_samples = [] # this is a list of RACs, and each RAC is a list   ...a list of lists            
     while len(RAC_samples) < sample_size:
@@ -34,19 +39,38 @@ def simple_random_fraction(N, S, sample_size):
                 
             sp2_ab = randrange(1, sp1_ab) # pick a random number (abundance) between 1 and sp1_ab - 1, inclusive
             sp1_index = RAC.index(sp1_ab) # index in the RAC of the species we picked
-            RAC[sp1_index] = sp1_ab - sp2_ab # decrease its abundance according to sp_ab
+            RAC[sp1_index] = sp1_ab - sp2_ab # decrease its abundance according to sp2_ab
             
             RAC.append(sp2_ab)
             
         RAC_samples.append(RAC) # appending a list (i.e. an RAC) to another list
     
+    # Get the average form from the set of random samples
+    
     return RAC_samples
     
+    
+def logNormal_random_fraction(N, S, sample_size):
+    
+    pass
+    
+    return
+    
 
-N = 100 # total abundance
-S = 4 # species richness
-sample_size = 100   
-RAC_samples = simple_random_fraction(N, S, sample_size)
 
-# do some stuff with your RACs
-print len(RAC_samples)
+
+def get_expectedRAC(N, S, size, algorithm ):
+    
+    if algorithm == 'simple random fraction':
+        RACsample =  simple_random_fraction(N, S, sample_size)
+        
+
+def get_sample(N, S, size, algorithm)
+
+
+
+def get_heatmap_data(N, S,....)
+
+
+
+    
