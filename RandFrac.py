@@ -3,7 +3,7 @@ import sys
 import numpy as np
 from random import randrange
 import math
-from random import choice, randrange, 
+from random import choice
 
 
 
@@ -20,7 +20,7 @@ def simple_random_fraction(N, S, sample_size):
     
     """ What this doesn't do:
     1. Currently is not callable by outside """
-    
+
     
     RAC_samples = [] # this is a list of RACs, and each RAC is a list   ...a list of lists            
     while len(RAC_samples) < sample_size:
@@ -29,7 +29,7 @@ def simple_random_fraction(N, S, sample_size):
         
         while len(RAC) < S:
             
-            sp1_ab = random.choice(RAC) # pick a species abundance at random
+            sp1_ab = choice.random(RAC) # pick a species abundance at random
             if sp1_ab == 0:
                 print 'you\'re model stick sucks. fix your bug'
                 sys.exit()
@@ -49,8 +49,16 @@ def simple_random_fraction(N, S, sample_size):
     
     return RAC_samples
     
+    N = 100
+    S = 4
+    sample_size = 100
+    RAC_samples = simple_random_fraction(N, S, sample_size)
+
+    print(RAC_samples)
     
-def logNormal_random_fraction(N, S, sample_size):
+    
+    
+'''def logNormal_random_fraction(N, S, sample_size):
     
     pass
     
@@ -69,7 +77,7 @@ def get_sample(N, S, size, algorithm)
 
 
 
-def get_heatmap_data(N, S,....)
+def get_heatmap_data(N, S,....)'''
 
 
 

@@ -9,6 +9,8 @@ import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import matplotlib.path as path
+
+
 """ This script does some stuff
 
     1. Coding random fraction models
@@ -46,15 +48,15 @@ def simple_random_fraction(N, S, sample_size):
     return RAC_samples
     
 
-N = 100 # total abundance
-S = 4 # species richness
-sample_size = 9
+N = 1000 # total abundance
+S = 10 # species richness
+sample_size = 10
 
 RAC_samples = simple_random_fraction(N, S, sample_size)
 RAC_mean = [sum(x)/len(x) for x in itertools.izip(*RAC_samples)] #find mean for the lists in lists
 
 
-RAC_hist = plt.hist(RAC_mean) #attempt to plot as histogram (not coming out right)
+RAC_hist = plt.hist(RAC_mean, bins=20) #attempt to plot as histogram (not coming out right)
 plt.title("RAC_Mean")
 plt.show(RAC_hist)
 
