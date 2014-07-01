@@ -37,29 +37,45 @@ def simple_random_fraction(N, S, sample_size):
             if sp1_ab == 1:
                 continue # this is a control statement
                 
-            sp2_ab = randrange(1, sp1_ab) # pick a random number (abundance) between 1 and sp1_ab - 1, inclusive
+            sp2_ab = randrange(1, sp1_ab)# pick a random number (abundance) between 1 and sp1_ab - 1, inclusive
             sp1_index = RAC.index(sp1_ab) # index in the RAC of the species we picked
             RAC[sp1_index] = sp1_ab - sp2_ab # decrease its abundance according to sp_ab
             
             RAC.append(sp2_ab)
-            
+            RAC.sort(reverse = True)  #sorts RAC's in decending order to aid in graphing
         RAC_samples.append(RAC) # appending a list (i.e. an RAC) to another list
-    
+       
+
     return RAC_samples
     
 
-N = 1000 # total abundance
+N = 100 # total abundance
 S = 10 # species richness
 sample_size = 10
 
 RAC_samples = simple_random_fraction(N, S, sample_size)
+
+
 RAC_mean = [sum(x)/len(x) for x in itertools.izip(*RAC_samples)] #find mean for the lists in lists
+sample_RAC = [RAC_samples]
+print sample_RAC
 
 
-RAC_hist = plt.hist(RAC_mean, bins=20) #attempt to plot as histogram (not coming out right)
+import csv   #saving RAC_samples as csv file not sure how to determine where it saves yet
+out=open('sample_RAC.csv','wb')
+output=csv.writer(out)
+for row in sample_RAC:
+    output.writerow(row)
+out.close()
+
+
+'''RAC_hist = plt.hist(RAC_mean, bins=1000) #attempt to plot as histogram (not coming out right)
 plt.title("RAC_Mean")
-plt.show(RAC_hist)
+plt.show(RAC_hist)'''
 
+RAC_plot = plt.plot(RAC_mean) # plots RAC mean
+plt.ylabel('RAC')
+plt.show()
 
 print RAC_samples
 print RAC_mean
