@@ -5,7 +5,7 @@ from random import randrange
 import math
 import random
 
-"""This script codes lognormal models """
+"""This script codes lognormal models """ # playing around with this 
 
 """ N = Total abundance #copied from RandFrac_1 
     S = Number of Species (Total Abundance)
@@ -33,7 +33,7 @@ print RAC #this gives me random float numbers
 
 
 
-for i in range(sample_size): # this is giving me just random nums between 0 and N, but not sure how to figure out how to make them sum to N
+'''for i in range(sample_size): # this is giving me just random nums between 0 and N, but not sure how to figure out how to make them sum to N
     print random.randrange(0, N, 1)
 
 
@@ -45,5 +45,5 @@ for i in xrange(S-1):
     n = N - newSize
     RAC.append(newSize)
 RAC.append(n)
-print RAC     
+print RAC     '''
             
