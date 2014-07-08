@@ -2,28 +2,20 @@ from __future__ import division
 import sys                                            
 import numpy as np
 from random import randrange
-import math
+import math # delete if you it's not sued
 import random
 import itertools
-import matplotlib # delete; don't need
 import matplotlib.pyplot as plt
-import matplotlib.patches as patches # delete; don't need
-import matplotlib.path as path # delete; don't need
-
-import matplotlib.pyplot as plt
-from matplotlib import patches, path # you can import modules like this
+from matplotlib import patches, path # import multiple methods from the same module
 
 
-""" This script does some stuff
-
-    1. Coding random fraction models
-    2. Defining our models functions
-    3. Creating a module to hold our functions
-    
-"""
 
 
-def simple_random_fraction(N, S, sample_size):
+""" This file contains code to generate either random samples of simple random
+    fraction models. Everything in here is a function or a class of functions"""
+
+
+def SimpleRandomFraction_Sample(N, S, sample_size):
     
     RAC_samples = [] # this is a list of RACs, and each RAC is a list   ...a list of lists            
     while len(RAC_samples) < sample_size:
@@ -52,36 +44,13 @@ def simple_random_fraction(N, S, sample_size):
     return RAC_samples
     
 
-N = 100 # total abundance
-S = 10 # species richness
-sample_size = 10
 
-RAC_samples = simple_random_fraction(N, S, sample_size)
+def SimpleRandomFraction_Single(N, S, sample_size): # Find and return the 'average' form
+    AvgSAD = []
 
-
-RAC_mean = [sum(x)/len(x) for x in itertools.izip(*RAC_samples)] #find mean for the lists in lists
-sample_RAC = [RAC_samples]
-print sample_RAC
+    return AvgSAD
 
 
-import csv   #saving RAC_samples as csv file not sure how to determine where it saves yet
-out=open('sample_RAC.csv','wb')
-output=csv.writer(out)
-for row in sample_RAC:
-    output.writerow(row)
-out.close()
-
-
-'''RAC_hist = plt.hist(RAC_mean, bins=1000) #attempt to plot as histogram (not coming out right)
-plt.title("RAC_Mean")
-plt.show(RAC_hist)'''
-
-RAC_plot = plt.plot(RAC_mean) # plots RAC mean
-plt.ylabel('RAC')
-plt.show()
-
-print RAC_samples
-print RAC_mean
 
 
 '''def logNormal_random_fraction(N, S, sample_size):
