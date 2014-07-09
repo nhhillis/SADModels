@@ -69,7 +69,9 @@ def Expected_SimpleRandomFraction(N, S, sample_size): # Find and return the 'ave
     # Comment out this print statement if you don't want the sample printed to
     # your screen.
     
-    AvgSAD = []
+    AvgSAD = [float(sum(col))/len(col) for col in zip(*sample)]
+    print AvgSAD
+    #finds average for sample
     
     """ Need a function to find the average form of the SAD from the sample you
     obtained """
