@@ -4,13 +4,13 @@ import numpy as np
 from random import randrange
 import math
 import random
-
+import matplotlib.pyplot as plt
 """This script codes Broken Stick models """
     
 # Simultaneous or Sequential? We should probably try to do both. -Ken
 
-def SimBrokenStick(N, S, sample_size):
-    """
+
+"""
     A function to generate random samples of the simultaneous Broken Stick Model
     of MacArthur 1957 or 1961. We need the actual citation.
     
@@ -21,7 +21,7 @@ def SimBrokenStick(N, S, sample_size):
     
     # Do some stuff
     
-    return
+  
      
 #################  Notes 'N Stuff  #############################################
 # Try to keep your lines under 80 or so characters. Something of a programming 
@@ -41,22 +41,70 @@ def SimBrokenStick(N, S, sample_size):
 # Hint: Let N = 15, S = 4, and SortedIndices = [2, 5, 9]
 # So: oo|ooo|oooo|oooooo  = [2, 3, 4, 6] -> N = 15 and S = 4
 # 2-0 = 2  :  5-2 = 3  :  9-5 = 4  :  15-9 = 6
-#
 # i now have values that represent divisions in N not the number of individuals
 # in each species -Nathan
 # 
 # You got on the right track very quickly. Nice job.
+
+#This is what I have so far this morning.  It does the job well for five species
+#I realize that it needs to be done with some loops to properly work with 
+#different variables, but this code is just to get the idea down on how 
+#it should work.  -N
 ###########################  END  ############################################## 
 
-
-N = 20
-S = 4
-sample_size = 10
-
+N = 100
+S = 5
+sample_size = 10  
+   
 n = range(N) # creates range of N 
-print n
 s = S-1 #number of divisions(species minus 1)
 
-cuts = random.sample(set(n), s) #randomly selecting s number of items in range 
+cuts = random.sample(set(n), s) #randomly selecting s number of items in 
+                                #range 
 cuts.sort(reverse = True) #sorts numbers
-print cuts #gives where the range is split 
+    
+RAC = []
+    
+fst_cut = cuts[0]   # this Identifies the numbers
+snd_cut = cuts[1]   # Needs a loop to deal with different number of S
+thd_cut = cuts[2]
+frth_cut = cuts[3]
+    
+sp_1 = N - fst_cut # this gives the number of species within each cut
+RAC.append(sp_1)   #ie. the number of individuals in each species
+sp_2 = fst_cut - snd_cut #could use a loop to deal with this amount of code
+RAC.append(sp_2)         #and to make it useful with different numbers of S
+sp_3 = snd_cut - thd_cut
+RAC.append(sp_3)
+sp_4 = thd_cut -frth_cut
+RAC.append(sp_4)
+sp_5 = frth_cut
+RAC.append(sp_5)
+RAC.sort(reverse = True)
+print RAC
+    
+plt.plot(RAC)  #added this just because i think plots are pretty
+plt.ylabel('Abundance')
+plt.xlabel('Rank')
+plt.show(RAC)
+    
+  
+############################ END of first BRKSTK ##############################
+#Working on creating brokenstick with loops to handle different variables not
+#finished
+'''def SimBrokenStick(N, S, sample_size):
+    for i in range(sample_size):
+        RAC = [N]
+        n = range(N) 
+        s = S-1
+        cuts = random.sample(set(n), s)                           
+        cuts.sort(reverse = True)
+        cut1 = cuts[0]
+        sp_1 = N - cut1
+        RAC.append(sp_1)
+        while len(RAC) < S:
+            cut2 = cuts[1]
+            sp_2 = cut1 - cut2
+            RAC.append(cut2)  
+    print RAC
+SimBrokenStick(100, 5, 10)'''
