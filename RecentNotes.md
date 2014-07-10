@@ -8,3 +8,5 @@ What Ken did recently:
 	* Probably don't need the csv module. Really only need it when there is special encoding that normal text parsing can't handle.
 	
 * Tweaked with files in Models directory to reflect that all 'things' in those files are either functions or classes of functions.
+
+* Commented on Broken Stick Model, suggested tips for how to generate random samples from the Broken Stick "feasible set"
