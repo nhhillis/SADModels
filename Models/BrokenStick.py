@@ -60,7 +60,7 @@ cuts = random.sample(range(N), S-1) #randomly selecting S-1 number of items to
 # serve as dividers
 
 cuts.sort(reverse = True) #sorts numbers -Nathan   ...least to greatest -Ken
-print cuts
+#print cuts
 #sys.exit()
 
 RAC = []
@@ -81,13 +81,40 @@ RAC.append(sp_4)
 sp_5 = frth_cut
 RAC.append(sp_5)
 RAC.sort(reverse = True)
-print RAC
+#print RAC
     
+<<<<<<< HEAD
 plt.plot(RAC)  #added this just because i think plots are pretty -Nathan  ...absolutely -Ken 
 plt.ylabel('Abundance')
 plt.xlabel('Rank')
 plt.show(RAC)'''
     
+=======
+#plt.plot(RAC)  #added this just because i think plots are pretty -Nathan  ...absolutely -Ken 
+#plt.ylabel('Abundance')
+#plt.xlabel('Rank')
+#plt.show(RAC)
+    
+    
+mylist = ['a','b','c','d']
+
+for i, val in enumerate(mylist):
+    print val, i
+    
+print '\n'
+
+for val in mylist:
+    print val,
+    ind = mylist.index(val)
+    print ind
+
+print '\n'    
+            
+for i in range(len(mylist)):
+    print mylist[i], i
+    
+
+>>>>>>> origin/master
 ############################ END of first BRKSTK ##############################
 #Working on creating brokenstick with loops to handle different variables not
 #finished
