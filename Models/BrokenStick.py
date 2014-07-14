@@ -83,13 +83,6 @@ RAC.append(sp_5)
 RAC.sort(reverse = True)
 #print RAC
     
-<<<<<<< HEAD
-plt.plot(RAC)  #added this just because i think plots are pretty -Nathan  ...absolutely -Ken 
-plt.ylabel('Abundance')
-plt.xlabel('Rank')
-plt.show(RAC)'''
-    
-=======
 #plt.plot(RAC)  #added this just because i think plots are pretty -Nathan  ...absolutely -Ken 
 #plt.ylabel('Abundance')
 #plt.xlabel('Rank')
@@ -111,19 +104,13 @@ for val in mylist:
 print '\n'    
             
 for i in range(len(mylist)):
-    print mylist[i], i
+    print mylist[i], i'''
     
 
->>>>>>> origin/master
+... Broken Stick Update
 ############################ END of first BRKSTK ##############################
-#Working on creating brokenstick with loops to handle different variables not
-#finished
-
-def SimBrokenStick(N, S, sample_size):
-    
-    RACs = []
-    for i in range(sample_size):
-        cuts = random.sample(range(N), S-1)                           
+# new BrokenStick Model Needs to be tested...
+  cuts = random.sample(range(N), S-1)                           
         cuts.sort()
         RAC = [cuts[0]]
        
@@ -149,6 +136,3 @@ def SimBrokenStick(N, S, sample_size):
        
 sample = SimBrokenStick(100, 5, 10)
 print sample
-
-
-
