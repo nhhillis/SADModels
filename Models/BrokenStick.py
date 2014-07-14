@@ -52,68 +52,25 @@ import matplotlib.pyplot as plt
 #it should work.  -N
 ###########################  END  ############################################## 
 
-'''sample_size = 10
+sample_size = 10
 N = 100
 S = 5
 
-cuts = random.sample(range(N), S-1) #randomly selecting S-1 number of items to
-# serve as dividers
 
-cuts.sort(reverse = True) #sorts numbers -Nathan   ...least to greatest -Ken
-#print cuts
-#sys.exit()
-
-RAC = []
-    
-fst_cut = cuts[0]   # this Identifies the numbers
-snd_cut = cuts[1]   # Needs a loop to deal with different number of S
-thd_cut = cuts[2]
-frth_cut = cuts[3]
-    
-sp_1 = N - fst_cut # this gives the number of species within each cut
-RAC.append(sp_1)   # i.e. the number of individuals in each species
-sp_2 = fst_cut - snd_cut #could use a loop to deal with this amount of code
-RAC.append(sp_2)         #and to make it useful with different numbers of S
-sp_3 = snd_cut - thd_cut
-RAC.append(sp_3)
-sp_4 = thd_cut -frth_cut
-RAC.append(sp_4)
-sp_5 = frth_cut
-RAC.append(sp_5)
-RAC.sort(reverse = True)
-#print RAC
-    
-#plt.plot(RAC)  #added this just because i think plots are pretty -Nathan  ...absolutely -Ken 
-#plt.ylabel('Abundance')
-#plt.xlabel('Rank')
-#plt.show(RAC)
-    
-    
-mylist = ['a','b','c','d']
-
-for i, val in enumerate(mylist):
-    print val, i
-    
-print '\n'
-
-for val in mylist:
-    print val,
-    ind = mylist.index(val)
-    print ind
-
-print '\n'    
-            
-for i in range(len(mylist)):
-    print mylist[i], i'''
-    
-
-... Broken Stick Update
 ############################ END of first BRKSTK ##############################
 # new BrokenStick Model Needs to be tested...
-  cuts = random.sample(range(N), S-1)                           
+def SimBrokenStick(N, S, sample_size):  # This statement was there. Be sure to check and run your code before pushing changes.
+    
+    RACs = []
+    RAC = []
+    
+    while len(RACs) < sample_size:
+        
+        cuts = random.sample(range(N), S-1)  # This is a very very time costly operation
+                                             # We'll want to find something faster                       
         cuts.sort()
         RAC = [cuts[0]]
-       
+        
         sp_ab = float()
         cut = float()
         for i, cut in enumerate(cuts):    
@@ -127,12 +84,12 @@ for i in range(len(mylist)):
         #print N - sp_ab, sum(RAC) - (N- sp_ab)
         RAC.sort(reverse = True)    
         RACs.append(RAC)
-    
-    for _list in RACs:
-        if sum(RAC) !=N or len(RAC) != S:
-            print 'you suck', sum(RAC), len(RAC)
-    #print RACs
+        
+        for _list in RACs:
+            if sum(RAC) !=N or len(RAC) != S:
+                print 'Incorrect N and S: N=',sum(RAC),' S=', len(RAC)
+        
     return RACs 
        
 sample = SimBrokenStick(100, 5, 10)
-print sample
+print len(sample)
