@@ -52,7 +52,7 @@ import matplotlib.pyplot as plt
 #it should work.  -N
 ###########################  END  ############################################## 
 
-sample_size = 10
+'''sample_size = 10
 N = 100
 S = 5
 
@@ -86,26 +86,42 @@ print RAC
 plt.plot(RAC)  #added this just because i think plots are pretty -Nathan  ...absolutely -Ken 
 plt.ylabel('Abundance')
 plt.xlabel('Rank')
-plt.show(RAC)
+plt.show(RAC)'''
     
-  
 ############################ END of first BRKSTK ##############################
 #Working on creating brokenstick with loops to handle different variables not
 #finished
 
-'''def SimBrokenStick(N, S, sample_size):
+def SimBrokenStick(N, S, sample_size):
+    
+    RACs = []
     for i in range(sample_size):
-        RAC = [N]
-        n = range(N) 
-        s = S-1
-        cuts = random.sample(set(n), s)                           
-        cuts.sort(reverse = True)
-        cut1 = cuts[0]
-        sp_1 = N - cut1
-        RAC.append(sp_1)
-        while len(RAC) < S:
-            cut2 = cuts[1]
-            sp_2 = cut1 - cut2
-            RAC.append(cut2)  
-    print RAC
-SimBrokenStick(100, 5, 10)'''
+        cuts = random.sample(range(N), S-1)                           
+        cuts.sort()
+        RAC = [cuts[0]]
+       
+        sp_ab = float()
+        cut = float()
+        for i, cut in enumerate(cuts):    
+            if i == 0:
+                continue
+            
+            sp_ab = cut - cuts[i-1]
+            RAC.append(sp_ab)
+        
+        RAC.append(N - cut) 
+        #print N - sp_ab, sum(RAC) - (N- sp_ab)
+        RAC.sort(reverse = True)    
+        RACs.append(RAC)
+    
+    for _list in RACs:
+        if sum(RAC) !=N or len(RAC) != S:
+            print 'you suck', sum(RAC), len(RAC)
+    #print RACs
+    return RACs 
+       
+sample = SimBrokenStick(100, 5, 10)
+print sample
+
+
+
