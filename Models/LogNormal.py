@@ -11,24 +11,30 @@ import scipy.stats
 # Still working on this...numbers are not properly summing to N yet
 # Getting proper number of divisions but whole thing is yet to come together
 
+
 def SimLogNorm(N, S, sample_size):
     
     for i in range(sample_size):
         
         sample = []
-        RAC = [N*.75,N*.25]
+        RAC = []
         
         while len(RAC) < S:
-            x = choice(RAC)
-            new1 = x * .75
-            new2 = x * .25
-            RAC.append(x)
-            RAC.append(new1)
-            RAC.append(new2)
-            print RAC
+            
+            sp1 = N * .75
+            RAC.append(sp1)
+            sp2 = N * .25
+            RAC.append(sp2)
+            sp3 = choice(RAC) * .75
+            RAC.append(sp3)
+            sp4 = sp3 * 1/3
+            RAC.append(sp4)
+            #print RAC
+            
         sample.append(RAC)
-        
-sample = SimLogNorm(20, 5, 10)
-print sample
+    
+        print sample
+    
+samples = SimLogNorm(8, 4, 5)
 
 
