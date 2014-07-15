@@ -34,10 +34,7 @@ def SimBrokenStick(N, S, sample_size):
     Hint: Let N = 15, S = 4, and SortedIndices = [2, 5, 9]
     So: oo|ooo|oooo|oooooo  = [2, 3, 4, 6] -> N = 15 and S = 4
     2-0 = 2  :  5-2 = 3  :  9-5 = 4  :  15-9 = 6
-    We now have values that represent divisions in N not the number of 
-    individuals in each species -Nathan
-
-    You got on the right track very quickly. Nice job.
+    
     """    
 
     
