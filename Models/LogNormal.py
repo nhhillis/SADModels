@@ -12,34 +12,30 @@ import scipy.stats
 # Getting proper number of divisions but whole thing is yet to come together
 
 
-def SimLogNorm(N, S, sample_size):
+
+def SimLogNorm(N, S, sample_size, integer=False):
     
-    for i in range(sample_size):
+    for i in range(sample_size): # This is where the RACs are accumulated
         
         sample = []
-        RAC = []
+        RAC = [0.75*N, 0.25*N]
         
-        while len(RAC) < S:
-            chunks = []
+        while len(RAC) < S: # This is where the RACs are built
             
-            sp1 = N * .75 # divide N 75-25 and place into chunks list
-            chunks.append(sp1)
-            sp2 = N * .25
-            chunks.append(sp2)
+                
+                
+                        
             
-            sp3 = choice(chunks) * .75 #Choose one of the existing chunks to
-            RAC.append(sp3)            #divide by 75.
-            sp4 = sp3 * 1/3 #Find the 25% portion of the selected chunk
-            RAC.append(sp4)
-            #print RAC
-            RAC.sort(reverse = True)
-            
-        
-        sample.append(RAC)     
-        for _list in sample:
+        if integer == True:    
             if sum(RAC) !=N or len(RAC) != S:
                 print 'Incorrect N and S: N=',sum(RAC),' S=', len(RAC)
-        
+        elif integer == False:
+            if len(RAC) != S:
+                print 'Incorrect S:', len(RAC)
+        else: 
+            print 'Integer values need to be either \'False\' or \'True\' 
+            
+         
        
     
         print sample
