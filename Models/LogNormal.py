@@ -32,7 +32,9 @@ def SimLogNorm(N, S, sample_size):
             sp4 = sp3 * 1/3 #Find the 25% portion of the selected chunk
             RAC.append(sp4)
             #print RAC
-       
+            RAC.sort(reverse = True)
+            
+        
         sample.append(RAC)     
         for _list in sample:
             if sum(RAC) !=N or len(RAC) != S:
