@@ -20,18 +20,25 @@ def SimLogNorm(N, S, sample_size):
         RAC = []
         
         while len(RAC) < S:
+            chunks = []
             
-            sp1 = N * .75
-            RAC.append(sp1)
+            sp1 = N * .75 # divide N 75-25 and place into chunks list
+            chunks.append(sp1)
             sp2 = N * .25
-            RAC.append(sp2)
-            sp3 = choice(RAC) * .75
-            RAC.append(sp3)
-            sp4 = sp3 * 1/3
+            chunks.append(sp2)
+            
+            sp3 = choice(chunks) * .75 #Choose one of the existing chunks to
+            RAC.append(sp3)            #divide by 75.
+            sp4 = sp3 * 1/3 #Find the 25% portion of the selected chunk
             RAC.append(sp4)
             #print RAC
-            
-        sample.append(RAC)
+       
+        sample.append(RAC)     
+        for _list in sample:
+            if sum(RAC) !=N or len(RAC) != S:
+                print 'Incorrect N and S: N=',sum(RAC),' S=', len(RAC)
+        
+       
     
         print sample
     
