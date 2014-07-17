@@ -23,5 +23,7 @@ for i in my_data1:
 n2 = sum(d)
 
 D = n2/N1
+SD = 1 - D
 print D
+print SD
 
