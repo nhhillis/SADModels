@@ -11,13 +11,14 @@
 
 #def Simpson(my_data):
     
-my_data = [1,2,3,4,10]
+my_data = [2,8,1,1,3]
+S = len(my_data)
 my_data1 = [float(i) for i in my_data]
 d = []
 N = sum(my_data1)
 N1 = N*(N-1)
 
-for i in my_data1:
+for x in my_data1:# This is were my problem is right now
     n = my_data1.pop()
     n1 = n * (n-1)
     d.append(n1)
@@ -26,10 +27,12 @@ n2 = sum(d)
 
 D = n2/N1
 SD = 1 - D
-D1 = 1 / D
-Evns = D1/len(my_data1)
+D1 = 1 / D 
+Evns = D1/S #Evenness (Magurran 2004)
 
+print d
+print n2
 print 'Simpson\'s Index---', D
 print 'Simpson\'s Index of Diversity---', SD
 print 'Simpson\'s Index Reciprocal---', D1
-print 'Simpson\'s Measure of Evenness---',Evns
+print 'Measure of Evenness---',Evns
