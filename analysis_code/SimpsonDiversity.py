@@ -13,6 +13,7 @@
     
 my_data = [2,8,1,1,3]
 S = len(my_data)
+
 my_data1 = [float(i) for i in my_data]
 d = []
 N = sum(my_data1)
@@ -32,6 +33,7 @@ Evns = D1/S #Evenness (Magurran 2004)
 
 print d
 print n2
+print S
 print 'Simpson\'s Index---', D
 print 'Simpson\'s Index of Diversity---', SD
 print 'Simpson\'s Index Reciprocal---', D1
