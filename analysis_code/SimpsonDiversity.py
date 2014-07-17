@@ -22,7 +22,7 @@ for x in my_data1:# This is were my problem is right now
     n = my_data1.pop()
     n1 = n * (n-1)
     d.append(n1)
-        
+    
 n2 = sum(d)
 
 D = n2/N1
