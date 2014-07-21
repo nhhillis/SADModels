@@ -39,3 +39,4 @@ def SimLogNorm(N, S, sample_size, integer=False):
         sample.append(RAC)
     
     return sample
+
