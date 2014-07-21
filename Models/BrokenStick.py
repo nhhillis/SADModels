@@ -67,4 +67,3 @@ def SimBrokenStick(N, S, sample_size):
                 print 'Incorrect N and S: N=',sum(RAC),' S=', len(RAC)
         
     return RACs 
-    
