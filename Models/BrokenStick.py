@@ -61,7 +61,6 @@ def SimBrokenStick(N, S, sample_size):
         RAC.sort(reverse = True)    
         RACs.append(RAC)
         
-        print RACs
         
         for _list in RACs:
             if sum(RAC) !=N or len(RAC) != S:
