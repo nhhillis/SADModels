@@ -1,5 +1,6 @@
 from __future__ import division
 import math
+import numpy as np
 #This code calculates diversity and Evenness
 #This code is in the beginning stages 
 #Simpson's index = D = sum(ni[ni-1])/(N[N-1])
@@ -32,12 +33,14 @@ def BergerP(RAC):
     return max(RAC)/sum(RAC)
 
 
-def PielouEven(RAC): #Based on Smith and Wilson 1996
-    RAC1 = [float(i) for i in RAC]
-    D = SimpsonD(RAC1) + 1
-    lnD = math.log(1/D)
-    lnS = math.log(len(RAC1))
-    return lnD/lnS #returning Negative Values at the moment
-
-RAC = [10,1,1,1]  
-print PielouEven(RAC)
+def ShannonH(RAC): 
+    totab = sum(RAC)
+    H = 0
+    for v in RAC:
+       H += (v / totab) * np.log(v/totab)
+    H = -H
+    return H
+    
+def ShannonEven(RAC): #Based on Smith and Wilson 1996
+    return ShannonH(RAC)/np.log(len(RAC))
+    
