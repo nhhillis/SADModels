@@ -1,36 +1,56 @@
 from __future__ import division
 import sys                                            
 import numpy as np
-import random 
+from random import randrange, randint, uniform
 
-'''This script codes Tokeshi's Dominance Preemption Model'''
+'''This script codes Tokeshi's Dominance Preemption Model
+this code does not work well with small N or high S'''
 #To Code the DPM: 1st species = random selection between .5 and 1
 # of N, add species one to RAC, randomly select .5 and 1 of remaining N, 
 # and until S is satisified
-'''Currently this code has a bug.  It is not returning the sample and
-the RAC is not properly summing to N.
-Also, I realize this could probably be cut down to fewer lines of code'''
 
-def DomPre(N, S, sample_size):
+
+def DomPreInt(N, S, sample_size): # Works only with positive integers
     sample = [] # A list of RACs
    
-    for i in range(sample_size): # number of samples loop     
+    while len(sample) != sample_size: # number of samples loop     
         RAC = [] #RAC is a list
-        sp1 = random.uniform((N *.5), N) #Rand select from N to N(.5)
+        sp1 = randrange(int(N *.5), N) #Rand select from N to N(.5)
         ab1 = N - sp1
-        RAC.append(ab1)
-        RAC.append(sp1)  
+        RAC.extend([sp1, ab1]) 
         
         while len(RAC) < S:
-            ab2 = min(RAC)
-            sp2 = random.uniform((ab2*.5), ab2)
-            RAC.append(sp2)#original N not the new in
-            RAC.sort(reverse = True)
+            ab2 = RAC.pop()
+            if ab2 < S - len(RAC):
+                break
+            sp2 = randrange(int(ab2*.5), ab2)
+            RAC.extend([sp2, ab2-sp2])
+
+        if len(RAC) == S and sum(RAC) == N:
+            sample.append(RAC)
+        else:
+            print len(RAC), sum(RAC)
+        
+    return sample
+    
+
+
+def DomPreFloat(N, S, sample_size):#Works with decimal values
+    sample = [] # A list of RACs
+   
+    for i in range(sample_size):     
+        RAC = []
+        sp1 = uniform((N *.5), N) 
+        ab1 = N - sp1
+        RAC.extend([sp1, ab1])
+       
+        
+        while len(RAC) < S:
+            ab2 = RAC.pop()
+            sp2 = uniform((ab2*.5), ab2)
+            RAC.extend([sp2, ab2-sp2])
             
-        return RAC
     	sample.append(RAC)
         
     return sample
     
-trial = DomPre(10000,10,2)
-print sum(trial), len(trial), trial
