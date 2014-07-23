@@ -5,7 +5,7 @@ from random import randrange, choice
 import scipy.stats
 
 
-'''This script codes the LogNormal Models'''
+'''This script codes the LogNormal Model'''
 
 
 def SimLogNorm(N, S, sample_size, integer=False):
