@@ -11,19 +11,13 @@ def AvgAbun(sample): #Total abundance / Species
 # - compare each SAD to each other SAD and find which one is 
 #   most similar to the others
 # - compare S in list to the average of the other Ss in other lists
-# - 
-SADs = [[6,3,1],[5,4,1],[6,2,2]]
-
+# - OR do you just find which SAD has the most ranks in common with the
+#     others?
+SADs = [[5,3,1,1],[6,2,1,1],[4,3,2,1], [7,1,1,1]]
 
 def AvgShape(sample):
-    avg1 = (sample[1][0] + sample[2][0]) / (len(sample) -1)# need loop to generate
-    avg2 = (sample[1][1] + sample[2][1]) / (len(sample) -1)# avg S's for each SAD
-    avg3 = (sample[1][2] + sample[2][2]) / (len(sample) -1)
-    print avg1, avg2, avg3
-    x1 = abs(sample[0][0] - avg1) # this will need to be a loop for each 
-    x2 = abs(sample[0][1] - avg2) # SAD in sample
-    x3 = abs(sample[0][2] - avg3)
-    print x1, x2, x3
-     
+    return [rank for rank in sample[0] if rank in sample[1]]
+    
+            
 print AvgShape(SADs)     
     
