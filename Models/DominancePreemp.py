@@ -2,6 +2,7 @@ from __future__ import division
 import sys                                            
 import numpy as np
 from random import randrange, randint, uniform
+import matplotlib.pyplot as plt
 
 '''This script codes Tokeshi's Dominance Preemption Model
 this code does not work well with small N or high S'''
@@ -28,7 +29,8 @@ def DomPreInt(N, S, sample_size): # Works only with positive integers
             print len(RAC), sum(RAC)
         
     return sample
-    
+
+
 
 def DomPreFloat(N, S, sample_size):#Works with decimal values
     sample = [] # A list of RACs
@@ -49,3 +51,4 @@ def DomPreFloat(N, S, sample_size):#Works with decimal values
         
     return sample
     
+print DomPreFloat(1000,8,5) 
