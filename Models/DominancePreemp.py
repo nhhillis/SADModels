@@ -5,10 +5,6 @@ from random import randrange, randint, uniform
 
 '''This script codes Tokeshi's Dominance Preemption Model
 this code does not work well with small N or high S'''
-#To Code the DPM: 1st species = random selection between .5 and 1
-# of N, add species one to RAC, randomly select .5 and 1 of remaining N, 
-# and until S is satisified
-
 
 def DomPreInt(N, S, sample_size): # Works only with positive integers
     sample = [] # A list of RACs
@@ -33,7 +29,6 @@ def DomPreInt(N, S, sample_size): # Works only with positive integers
         
     return sample
     
-
 
 def DomPreFloat(N, S, sample_size):#Works with decimal values
     sample = [] # A list of RACs
