@@ -9,9 +9,10 @@ def RACHeatMap(fig, RACs):
     for RAC in RACs:
         
         RAC.sort(reverse = True)
+        RAC = np.log(RAC).tolist()
         ab.extend(RAC)
         ranks.extend(range(len(RAC)))
     
-    plt.hexbin(ranks, ab, bins = 'log', cmap=plt.cm.jet)
+    plt.hexbin(ranks, ab, gridsize = 20, bins = 'log', cmap=plt.cm.jet)
     
     return fig

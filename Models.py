@@ -88,13 +88,13 @@ def DomPreInt(N, S, sample_size): # Works only with positive integers
             ab2 = RAC.pop()
             if ab2 < S - len(RAC):
                 break
-            sp2 = randrange(int(ab2*.5), ab2)
+            sp2 = randrange(int(ab2 * .5), ab2)
             RAC.extend([sp2, ab2-sp2])
 
         if len(RAC) == S and sum(RAC) == N:
             sample.append(RAC)
-        else:
-            print len(RAC), sum(RAC)
+        #else:
+            #print len(RAC), sum(RAC)
         
     return sample
 
@@ -139,7 +139,7 @@ def SimLogNorm(N, S, sample_size):
             RAC.sort()
             RAC.reverse()
             sample.append(RAC)
-            print len(sample)
+            #print len(sample)
             
     return sample
 
