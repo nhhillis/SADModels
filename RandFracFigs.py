@@ -1,10 +1,12 @@
 from __future__ import division
 import sys
-import Models 
+
 import matplotlib.pyplot as plt
-sys.path.append('/Users/Nathan_Hillis/SADModels/tools/')
+sys.path.append('/Users/Nathan_Hillis/SADModels/Models/')
+import Models 
+
 import HeatMap
-#sys.path.append('/Users/lisalocey/Desktop/SADModels/tools/')
+sys.path.append('/Users/Nathan_Hillis/SADModels/tools/')
 
 
 
