@@ -73,10 +73,11 @@ def SimBrokenStick(N, S, sample_size):
     return RACs 
     
    
-'''This script codes Tokeshi's Dominance Preemption Model
-this code does not work well with small N or high S'''
+    
 
 def DomPreInt(N, S, sample_size): # Works only with positive integers
+    '''This script codes Tokeshi's Dominance Preemption Model
+    this code does not work well with small N or high S'''
     sample = [] # A list of RACs
    
     while len(sample) != sample_size: # number of samples loop     
@@ -145,9 +146,9 @@ def SimLogNorm(N, S, sample_size):
     return sample
 
 
-'''This script codes the Pareto Model'''
+
 def SimPareto(N, S, sample_size, integer=False):
-    
+    '''This script codes the Pareto Model'''
     sample = []
     
     for i in range(sample_size): 
