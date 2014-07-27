@@ -4,9 +4,9 @@ import sys
 import matplotlib.pyplot as plt
 sys.path.append('/Users/Nathan_Hillis/SADModels/Models/')
 import Models 
-
-import HeatMap
 sys.path.append('/Users/Nathan_Hillis/SADModels/tools/')
+import HeatMap
+
 
 
 
