@@ -246,5 +246,5 @@ def DomFloat(N, S, sample_size): # Works only with positive integers
             #print len(RAC), sum(RAC)
         
     return sample
-
+  
     
