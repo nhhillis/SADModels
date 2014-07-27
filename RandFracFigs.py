@@ -3,7 +3,7 @@ import sys
 import Models 
 sys.path.append('/Users/Nathan_Hillis/SADModels/tools/')
 
-sys.path.append('/Users/lisalocey/Desktop/SADModels/tools/')
+#sys.path.append('/Users/lisalocey/Desktop/SADModels/tools/')
 
 import HeatMap
 import matplotlib.pyplot as plt
@@ -70,7 +70,7 @@ plt.xlabel('Rank')
 plt.ylabel('Abundance')
 print 'finished simple random fraction'
 
-ax = fig.add_subplot(3, 3, 8)
+ax = fig.add_subplot(3, 3, 9)
 DDF = Models.DomFloat(N, S, sample_size)
 fig = HeatMap.RACHeatMap(fig, DDF)
 plt.title('Dominance Decay (float)', fontsize = 13)
@@ -79,5 +79,5 @@ plt.ylabel('Abundance')
 print 'finished Dominance decay float'
 
 plt.subplots_adjust(wspace=0.8, hspace=0.8)
-plt.savefig('/Users/Nathan_Hillis/SADModels/Results/Figure')
+plt.savefig('Figure')
 plt.show()
