@@ -10,12 +10,12 @@ import matplotlib.pyplot as plt
 
 
 
-N = 10000
-S = 75
-sample_size = 50
+N = 1000
+S = 50
+sample_size = 10
 
 fig = plt.figure()
-
+""" The Broken Stick Model constrained by N and S """
 ax = fig.add_subplot(3, 3, 1)
 BrkStk = Models.SimBrokenStick(N, S, sample_size)
 fig = HeatMap.RACHeatMap(fig, BrkStk)
@@ -25,6 +25,7 @@ plt.ylabel('Abundance')
 
 print 'finished broken stick'
 
+""" The Dominance Preemption constrained by N and S, excluding decimals """
 '''ax = fig.add_subplot(3, 3, 2)  # Debug me
 DPI = Models.DomPreInt(N, S, sample_size)
 fig = HeatMap.RACHeatMap(fig, DPI)
@@ -33,14 +34,16 @@ plt.xlabel('Rank')
 plt.ylabel('Abundance')
 print 'finished dominance preemption (integers)' '''
 
+""" The Dominance Preemption constrained by N and S, allowing decimals """
 ax = fig.add_subplot(3, 3, 4)
 DPF = Models.DomPreFloat(N, S, sample_size)
 fig = HeatMap.RACHeatMap(fig, DPF)
 plt.title('Dominance Preemption (Float)', fontsize = 13)
 plt.xlabel('Rank')
 plt.ylabel('Abundance')
-print 'finished dominance preemption (decimals)'
+print 'finished dominance preemption (decimals)' 
 
+""" The Log-normal (75/25) constrained by N and S """
 ax = fig.add_subplot(3, 3, 5)
 SLN = Models.SimLogNorm(N, S, sample_size)
 fig = HeatMap.RACHeatMap(fig, SLN)
@@ -49,6 +52,7 @@ plt.xlabel('Rank')
 plt.ylabel('Abundance')
 print 'finished lognormal'
 
+""" Pareto (80/20) constrained by N and S """
 ax = fig.add_subplot(3, 3, 7)
 SP = Models.SimPareto(N, S, sample_size, integer=False)
 fig = HeatMap.RACHeatMap(fig, SP)
@@ -57,6 +61,7 @@ plt.xlabel('Rank')
 plt.ylabel('Abundance')
 print 'finished Pareto'
 
+""" Simple random fraction constrained by N and S """
 ax = fig.add_subplot(3, 3, 8)
 SRF = Models.Sample_SimpleRandomFraction(N, S, sample_size)
 fig = HeatMap.RACHeatMap(fig, SRF)
