@@ -30,7 +30,7 @@ def DomPreInt(N, S, sample_size): # Works only with positive integers
         
     return sample
 
-
+print DomPreInt(500, 10, 5)
 
 def DomPreFloat(N, S, sample_size):#Works with decimal values
     sample = [] # A list of RACs
@@ -51,4 +51,4 @@ def DomPreFloat(N, S, sample_size):#Works with decimal values
         
     return sample
     
-print DomPreFloat(1000,8,5) 
+#print DomPreFloat(1000,8,5) 
