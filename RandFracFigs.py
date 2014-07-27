@@ -11,8 +11,8 @@ import matplotlib.pyplot as plt
 
 
 N = 500
-S = 10
-sample_size = 5
+S = 8
+sample_size = 10
 
 fig = plt.figure()
 
@@ -44,7 +44,7 @@ print 'finished dominance preemption (decimals)'
 ax = fig.add_subplot(3, 3, 5)
 SLN = Models.SimLogNorm(N, S, sample_size)
 fig = HeatMap.RACHeatMap(fig, SLN)
-plt.title('Log Noramal', fontsize = 13)
+plt.title('Log Normal', fontsize = 13)
 plt.xlabel('Rank')
 plt.ylabel('Abundance')
 print 'finished lognormal'
@@ -66,5 +66,5 @@ plt.ylabel('Abundance')
 print 'finished simple random fraction'
 
 plt.subplots_adjust(wspace=0.8, hspace=0.8)
-plt.savefig('Figure_1')
+plt.savefig('/Users/Nathan_Hillis/SADModels/Results/Figure')
 plt.show()
