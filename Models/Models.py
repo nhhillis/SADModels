@@ -67,12 +67,13 @@ def SimBrokenStick(N, S, sample_size):
         
         for _list in RACs:
             if sum(RAC) !=N or len(RAC) != S:
-                #print 'Incorrect N and S: N=',sum(RAC),' S=', len(RAC)
-        
+                print 'Incorrect N and S: N=',sum(RAC),' S=', len(RAC)
+                sys.exit()
+                
     return RACs 
     
    
-    '''This script codes Tokeshi's Dominance Preemption Model
+'''This script codes Tokeshi's Dominance Preemption Model
 this code does not work well with small N or high S'''
 
 def DomPreInt(N, S, sample_size): # Works only with positive integers
@@ -222,3 +223,27 @@ def Sample_SimpleRandomFraction(N, S, sample_size):
         sample.append(RAC) # appending a list (i.e. an RAC) to another list
         
     return sample
+    
+def DomFloat(N, S, sample_size): # Works only with positive integers
+    sample = [] # A list of RACs
+   
+    while len(sample) != sample_size: # number of samples loop     
+        RAC = [] #RAC is a list
+        sp1 = uniform(0,  N*.5) #Rand select from N to N(.5)
+        ab1 = N - sp1
+        RAC.extend([sp1, ab1]) 
+        
+        while len(RAC) < S:
+            ab2 = RAC.pop()
+            sp2 = uniform(0, ab2 *.5)
+            RAC.extend([sp2, ab2-sp2])
+
+        if len(RAC) == S and int(round(sum(RAC))) == N:
+            RAC.sort(reverse = True)
+            sample.append(RAC)
+        #else:
+            #print len(RAC), sum(RAC)
+        
+    return sample
+
+    

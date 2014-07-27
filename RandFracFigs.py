@@ -10,9 +10,9 @@ import matplotlib.pyplot as plt
 
 
 
-N = 1000
-S = 50
-sample_size = 10
+N = 10000000
+S = 20
+sample_size = 1
 
 fig = plt.figure()
 """ The Broken Stick Model constrained by N and S """
@@ -25,8 +25,8 @@ plt.ylabel('Abundance')
 
 print 'finished broken stick'
 
-""" The Dominance Preemption constrained by N and S, excluding decimals """
-'''ax = fig.add_subplot(3, 3, 2)  # Debug me
+'''"""The Dominance Preemption constrained by N and S, excluding decimals """
+ax = fig.add_subplot(3, 3, 2)  # Debug me
 DPI = Models.DomPreInt(N, S, sample_size)
 fig = HeatMap.RACHeatMap(fig, DPI)
 plt.title('Dominance Preemption (Integer)', fontsize = 13)
@@ -69,6 +69,14 @@ plt.title('Simple Random Fraction', fontsize = 13)
 plt.xlabel('Rank')
 plt.ylabel('Abundance')
 print 'finished simple random fraction'
+
+ax = fig.add_subplot(3, 3, 8)
+DDF = Models.DomFloat(N, S, sample_size)
+fig = HeatMap.RACHeatMap(fig, DDF)
+plt.title('Dominance Decay (float)', fontsize = 13)
+plt.xlabel('Rank')
+plt.ylabel('Abundance')
+print 'finished Dominance decay float'
 
 plt.subplots_adjust(wspace=0.8, hspace=0.8)
 plt.savefig('/Users/Nathan_Hillis/SADModels/Results/Figure')
