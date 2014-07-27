@@ -10,9 +10,9 @@ import matplotlib.pyplot as plt
 
 
 
-N = 1000
-S = 50
-sample_size = 120
+N = 500
+S = 10
+sample_size = 5
 
 fig = plt.figure()
 
@@ -25,10 +25,10 @@ plt.ylabel('Abundance')
 
 print 'finished broken stick'
 
-ax = fig.add_subplot(3, 2, 2)  # Debug me
+ax = fig.add_subplot(3, 3, 2)  # Debug me
 DPI = Models.DomPreInt(N, S, sample_size)
 fig = HeatMap.RACHeatMap(fig, DPI)
-plt.title('Dominance Preemption (Integer)', fontsize = 10)
+plt.title('Dominance Preemption (Integer)', fontsize = 13)
 plt.xlabel('Rank')
 plt.ylabel('Abundance')
 print 'finished dominance preemption (integers)' 
