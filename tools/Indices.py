@@ -1,15 +1,22 @@
 from __future__ import division
 import math
 import numpy as np
-#This code calculates diversity and Evenness
-#This code is in the beginning stages 
-#Simpson's index = D = sum(ni[ni-1])/(N[N-1])
-######Steps######
-#Select each species as n, for each n multiply n * n-1
-#sum all n(n-1) then divide by N(N-1)
-#D = Simpson's Index
-#SD = Simpson's index of Diversity
-#Evns = Simpson's measure of Evenness
+import scipy
+from scipy import stats
+
+
+def GetAvgVar(RACsample):
+    
+    VARs = []
+    
+    for RAC in RACsample:
+        VARs.append(np.var(RAC))
+    
+    avgVar = np.mean(VARs)
+    
+    return avgVar
+        
+
 
 def SimpsonD(RAC):
 
@@ -24,13 +31,19 @@ def SimpsonD(RAC):
     
     return SD
 
+
+
 def SimpsonE(RAC):
     D = SimpsonD(RAC) + 1     
     D = 1/D 
     return D/len(RAC) #Evenness (Magurran 2004)
+ 
     
+   
+       
 def BergerP(RAC):
     return max(RAC)/sum(RAC)
+
 
 
 def ShannonH(RAC): 
@@ -44,3 +57,49 @@ def ShannonH(RAC):
 def ShannonEven(RAC): #Based on Smith and Wilson 1996
     return ShannonH(RAC)/np.log(len(RAC))
     
+        
+            
+#### functions for calculating stats for lists of RACs (curves) and SADs (histograms)                    
+def GetAvgEvenness(RACsample):
+    
+    EVs = []
+    
+    for RAC in RACsample:
+        EV = SimpsonE(RAC)
+        EVs.append(EV)
+    
+    avgVar = np.mean(EVs)
+    
+    return avgVar         
+             
+
+def GetAvgSkew(RACsample):
+    
+    Skews = []
+    for RAC in RACsample:
+        Skews.append(stats.skew(RAC))
+    
+    avgSk = np.mean(Skews)
+    return avgSk
+    
+ 
+def GetAvgDominance(RACsample):
+    
+    Doms = []
+    for RAC in RACsample:
+        Doms.append(BergerP(RAC))
+    
+    avgDom = np.mean(Doms)
+    return avgDom
+                      
+
+def GetAvgDiversity(RACsample):
+    
+    SimpDs = []
+    for RAC in RACsample:
+        SimpDs.append(SimpsonD(RAC))
+    
+    AvgSimpD = np.mean(SimpDs)
+    return AvgSimpD
+                                                                           
+                            

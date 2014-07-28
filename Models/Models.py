@@ -18,6 +18,20 @@ def GetRelAbs(RACsample): # a function to transform abundance into relative abun
     return RACs
     
 
+def GetAvgVar(RACsample):
+    
+    VARs = []
+    
+    for RAC in RACsample:
+        VARs.append(np.var(RAC))
+    
+    avgVar = np.mean(VARs)
+    
+    return avgVar
+        
+
+
+
 
 """This script codes Broken Stick models for species abundance distribution.
     These are generally conceived as models for how species partition a niche
