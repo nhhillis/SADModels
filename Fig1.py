@@ -14,8 +14,9 @@ from AverageShape import PlotAvgShape
 
 N = 1000
 S = 100
-sample_size = 100
+sample_size = 50
 
+rel = False
 
 fig = plt.figure()
 title = 'log(%N)'
@@ -23,7 +24,7 @@ title = 'log(%N)'
 
 """ 1. The Broken Stick Model constrained by N and S """
 ax = fig.add_subplot(3, 3, 1)
-RACsample = Models.SimBrokenStick(N, S, sample_size, rel=True)
+RACsample = Models.SimBrokenStick(N, S, sample_size, rel)
 
 fig = HeatMap.RACHeatMap(fig, RACsample)
 fig = PlotAvgShape(fig, RACsample)
@@ -39,7 +40,7 @@ print 'finished broken stick\n'
 
 """ 2. The Log-normal (75/25) constrained by N and S """
 ax = fig.add_subplot(3, 3, 2)
-RACsample = Models.SimLogNormFloat(N, S, sample_size, rel=True)
+RACsample = Models.SimLogNormFloat(N, S, sample_size, rel)
 
 fig = HeatMap.RACHeatMap(fig, RACsample)
 fig = PlotAvgShape(fig, RACsample)
@@ -55,7 +56,7 @@ print 'finished lognormal\n'
 
 """ 3. Pareto (80/20) constrained by N and S """
 ax = fig.add_subplot(3, 3, 4)
-RACsample = Models.SimParetoFloat(N, S, sample_size, rel=True)
+RACsample = Models.SimParetoFloat(N, S, sample_size, rel)
 
 fig = HeatMap.RACHeatMap(fig, RACsample)
 fig = PlotAvgShape(fig, RACsample)
@@ -71,7 +72,7 @@ print 'finished Pareto\n'
 
 """ 4. Random fraction constrained by N and S """
 ax = fig.add_subplot(3, 3, 5)
-RACsample = Models.Sample_SimpleRandomFraction(N, S, sample_size, rel=True)
+RACsample = Models.Sample_SimpleRandomFraction(N, S, sample_size, rel)
 
 fig = HeatMap.RACHeatMap(fig, RACsample)
 fig = PlotAvgShape(fig, RACsample)
@@ -102,7 +103,7 @@ print 'finished dominance preemption (decimals)\n'
 
 """ 6. The Dominance Decay constrained by N and S, allowing decimals """
 ax = fig.add_subplot(3, 3, 8)
-RACsample = Models.DomDecayFloat(N, S, sample_size, rel=True)
+RACsample = Models.DomDecayFloat(N, S, sample_size, rel)
 
 fig = HeatMap.RACHeatMap(fig, RACsample)
 fig = PlotAvgShape(fig, RACsample)
