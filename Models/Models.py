@@ -8,6 +8,16 @@ import scipy.stats
 from random import randrange, randint, uniform, seed, choice
 
 
+def GetRelAbs(RACsample): # a function to transform abundance into relative abundances for many RACs
+    
+    RACs = []
+    for RAC in RACsample:
+        RAC = (np.array(RAC) / sum(RAC)) * 100 # operate on a numpy array (vector multiplication) get relative abundance of each species
+        RACs.append(RAC.tolist()) # convert the array back to a list and append to RACs 
+        
+    return RACs
+    
+
 
 """This script codes Broken Stick models for species abundance distribution.
     These are generally conceived as models for how species partition a niche
@@ -16,7 +26,7 @@ from random import randrange, randint, uniform, seed, choice
     Task: Nathan contribute one or two nice sentences. """
     
      
-def SimBrokenStick(N, S, sample_size):
+def SimBrokenStick(N, S, sample_size, rel=False):
     
     """
     A function to generate random samples of the simultaneous Broken Stick Model
@@ -40,7 +50,6 @@ def SimBrokenStick(N, S, sample_size):
     
     """    
 
-    
     RACs = []
     RAC = []
     
@@ -64,74 +73,81 @@ def SimBrokenStick(N, S, sample_size):
         RAC.sort(reverse = True)    
         RACs.append(RAC)
         
-        
+        """
         for _list in RACs:
             if sum(RAC) !=N or len(RAC) != S:
                 print 'Incorrect N and S: N=',sum(RAC),' S=', len(RAC)
                 sys.exit()
-                
+        """        
+    if rel == True: RACs = GetRelAbs(RACs) 
     return RACs 
     
    
     
 
-def DomPreInt(N, S, sample_size): # Works only with positive integers
+def DomPreInt(N, S, sample_size, rel=False): # Works only with positive integers
     '''This script codes Tokeshi's Dominance Preemption Model
     this code does not work well with small N or high S'''
     sample = [] # A list of RACs
    
-    while len(sample) != sample_size: # number of samples loop     
+    while len(sample) < sample_size: # number of samples loop     
         RAC = [] #RAC is a list
-        sp1 = randrange(int(N *.5), N) #Rand select from N to N(.5)
+        sp1 = randrange(int(round(N *.5)), N) #Rand select from N to N(.5)
         ab1 = N - sp1
-        RAC.extend([sp1, ab1]) 
+        RAC.extend([sp1, ab1])
         
         while len(RAC) < S:
+            
             ab2 = RAC.pop()
-            if ab2 < S - len(RAC):
+            if ab2 < S - len(RAC) or ab2 < 2:
                 break
-            sp2 = randrange(int(ab2*.5), ab2)
+                
+            sp2 = randrange(int(round(ab2*.5)), ab2)
             RAC.extend([sp2, ab2-sp2])
 
         if len(RAC) == S and sum(RAC) == N:
             sample.append(RAC)
-        #else:
-            #print len(RAC), sum(RAC)
-        
+    
+    if rel == True: sample = GetRelAbs(sample)    
     return sample
 
 
-def DomPreFloat(N, S, sample_size):#Works with decimal values
+
+def DomPreFloat(N, S, sample_size, rel=False):#Works with decimal values
     sample = [] # A list of RACs
    
-    for i in range(sample_size):     
+    while len(sample) < sample_size:     
         RAC = []
         sp1 = uniform((N *.5), N) 
         ab1 = N - sp1
         RAC.extend([sp1, ab1])
        
-        
         while len(RAC) < S:
             ab2 = RAC.pop()
             sp2 = uniform((ab2*.5), ab2)
             RAC.extend([sp2, ab2-sp2])
             
     	sample.append(RAC)
-        
+    
+    if rel == True: sample = GetRelAbs(sample)        
     return sample
     
     
-def SimLogNorm(N, S, sample_size):
     
+def SimLogNormInt(N, S, sample_size, rel=False):
+    '''This script codes the Lognormal Model'''
     sample = []
     while len(sample) < sample_size:
-        RAC = [0.75*N, 0.25*N]
+        
+        n = int(round(0.75 * N))
+        RAC = [n, N - n]
         
         while len(RAC) < S:
+            
             ind = randrange(len(RAC))
             v = RAC.pop(ind)
-            v1, v2 = int(0.75 * v), v - int(0.75 * v) # forcing all abundance
-                                                      # values to be integers
+            v1 = int(round(0.75 * v)) 
+            v2 = v - v1   # forcing all abundance values to be integers
             
             if v1 < 1 or v2 < 1: break  # forcing smallest abundance to be 
                                         # greater than one
@@ -141,46 +157,84 @@ def SimLogNorm(N, S, sample_size):
             RAC.sort()
             RAC.reverse()
             sample.append(RAC)
-            #print len(sample)
-            
+    
+    if rel == True: sample = GetRelAbs(sample)       
     return sample
 
 
+def SimLogNormFloat(N, S, sample_size, rel=False):
+    '''This script codes the Lognormal Model'''
+    sample = []
+    while len(sample) < sample_size:
+        
+        n = 0.75 * N
+        RAC = [n, N - n]
+        
+        while len(RAC) < S:
+            
+            ind = randrange(len(RAC))
+            v = RAC.pop(ind)
+            v1 = 0.75 * v
+            v2 = v - v1   # forcing all abundance values to be integers
+            
+            RAC.extend([v1, v2])
+        
+        if len(RAC) == S and int(round(sum(RAC))) == N:
+            RAC.sort()
+            RAC.reverse()
+            sample.append(RAC)
+    
+    if rel == True: sample = GetRelAbs(sample)       
+    return sample
 
-def SimPareto(N, S, sample_size, integer=False):
+
+def SimParetoFloat(N, S, sample_size, rel=False):
     '''This script codes the Pareto Model'''
     sample = []
-    
-    for i in range(sample_size): 
-        
-        
+    while len(sample) < sample_size: 
         RAC = [0.8*N, 0.2*N]
         
         while len(RAC) < S:
             ind = randrange(len(RAC))
             v = RAC.pop(ind)
-            v1, v2 = [0.8 * v, v - 0.8 * v]
+            v1 = int(round(0.8 * v))
+            v2 = v - v1  # forcing all abundance values to be integers
+            
             RAC.extend([v1, v2])       
                         
-        if integer == True:    
-            if sum(RAC) !=N or len(RAC) != S:
-                #print 'Incorrect N and S: N=',sum(RAC),' S=', len(RAC)
-                sys.exit()
-        elif integer == False:
-            if len(RAC) != S:
-                #print 'Incorrect S:', len(RAC)
-                sys.exit()
-        else: 
-            #print 'Integer values need to be either \'False\' or \'True\''
-            sys.exit()
-       
         RAC.sort(reverse = True)
         sample.append(RAC)
     
+    if rel == True: sample = GetRelAbs(sample) 
+    return sample
+
+
+
+def SimParetoInt(N, S, sample_size, rel=False):
+    '''This script codes the Pareto Model'''
+    sample = []
+    while len(sample) < sample_size: 
+        RAC = [0.8*N, 0.2*N]
+        
+        while len(RAC) < S:
+            ind = randrange(len(RAC))
+            v = RAC.pop(ind)
+            v1 = int(round(0.8 * v))
+            v2 = v - v1  # forcing all abundance values to be integers
+            
+            if v1 < 1 or v2 < 1: break  # forcing smallest abundance to be 
+                                        # greater than one
+            RAC.extend([v1, v2])       
+                        
+        if len(RAC) == S and sum(RAC) == N:        
+            RAC.sort(reverse = True)
+            sample.append(RAC)
+    
+    if rel == True: sample = GetRelAbs(sample) 
     return sample
     
     
-def Sample_SimpleRandomFraction(N, S, sample_size):
+def Sample_SimpleRandomFraction(N, S, sample_size, rel=False):
     
     """ 
     This function randomly and sequently splits N into two integers by
@@ -203,10 +257,6 @@ def Sample_SimpleRandomFraction(N, S, sample_size):
         while len(RAC) < S:
                 
             sp1_ab = choice(RAC) # pick a species (i.e. vector value) abundance at random
-            if sp1_ab == 0:
-                #print 'you\'re model has a bug'
-                sys.exit()
-                
             if sp1_ab == 1:
                 continue # this is a control statement to prevent the program
                 # from encountering an impossible conditions, i.e., dividing 1
@@ -219,18 +269,20 @@ def Sample_SimpleRandomFraction(N, S, sample_size):
             RAC.append(sp2_ab)
             
         RAC.sort(reverse = True)  #sorts RAC's in decending order to aid in graphing. 
-        #Ken: Nice job. But it was in a loop that caused it to be repeated w/out need.
-        
         sample.append(RAC) # appending a list (i.e. an RAC) to another list
-        
+    
+    if rel == True: sample = GetRelAbs(sample)      
     return sample
     
-def DomFloat(N, S, sample_size): # Works only with positive integers
+    
+    
+def DomDecayFloat(N, S, sample_size, rel=False):
     sample = [] # A list of RACs
    
     while len(sample) != sample_size: # number of samples loop     
+        
         RAC = [] #RAC is a list
-        sp1 = uniform(0,  N*.5) #Rand select from N to N(.5)
+        sp1 = uniform(0,  N * .5) #Rand select from N to N(.5)
         ab1 = N - sp1
         RAC.extend([sp1, ab1]) 
         
@@ -242,9 +294,33 @@ def DomFloat(N, S, sample_size): # Works only with positive integers
         if len(RAC) == S and int(round(sum(RAC))) == N:
             RAC.sort(reverse = True)
             sample.append(RAC)
-        #else:
-            #print len(RAC), sum(RAC)
-        
+     
+    if rel == True: sample = GetRelAbs(sample)           
     return sample
 
-    
+
+
+def DomDecayInt(N, S, sample_size, rel=False): # Works only with positive integers    ...if you think about it, there can never be two 1's
+    sample = [] # A list of RACs
+   
+    while len(sample) < sample_size: # number of samples loop     
+        
+        RAC = [] #RAC is a list
+        sp1 = randint(1, int(round(N*.5)))
+        ab1 = N - sp1
+        RAC.extend([sp1, ab1]) 
+        
+        while len(RAC) < S:
+            if min(RAC) < 2: break
+            
+            ab2 = RAC.pop()
+            sp2 = randint(1, int(round(ab2 * .5)))
+            RAC.extend([sp2, ab2 - sp2])
+
+        if len(RAC) == S and sum(RAC) == N:
+            RAC.sort(reverse = True)
+            sample.append(RAC)
+     
+    if rel == True: sample = GetRelAbs(sample)     
+    return sample
+
