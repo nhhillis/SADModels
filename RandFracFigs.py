@@ -1,85 +1,123 @@
 from __future__ import division
 import sys
 
+import numpy as np
 import matplotlib.pyplot as plt
-sys.path.append('/Users/Nathan_Hillis/SADModels/Models/')
+sys.path.append('Models/')
 import Models 
-sys.path.append('/Users/Nathan_Hillis/SADModels/tools/')
+sys.path.append('tools/')
 import HeatMap
+sys.path.append('Analysis/')
+from AverageShape import PlotAvgShape
 
 
 
+N = 1000
+S = 100
+sample_size = 100
 
-
-
-N = 10000000
-S = 20
-sample_size = 1
 
 fig = plt.figure()
-""" The Broken Stick Model constrained by N and S """
+title = 'log(%N)'
+
+
+""" 1. The Broken Stick Model constrained by N and S """
 ax = fig.add_subplot(3, 3, 1)
-BrkStk = Models.SimBrokenStick(N, S, sample_size)
-fig = HeatMap.RACHeatMap(fig, BrkStk)
+RACsample = Models.SimBrokenStick(N, S, sample_size, rel=True)
+
+fig = HeatMap.RACHeatMap(fig, RACsample)
+fig = PlotAvgShape(fig, RACsample)
+
 plt.title('Broken Stick', fontsize = 13)
 plt.xlabel('Rank')
-plt.ylabel('Abundance')
+#plt.ylabel('Abundance')
+plt.ylabel(title)
 
-print 'finished broken stick'
+print 'finished broken stick\n'
 
-'''"""The Dominance Preemption constrained by N and S, excluding decimals """
-ax = fig.add_subplot(3, 3, 2)  # Debug me
-DPI = Models.DomPreInt(N, S, sample_size)
-fig = HeatMap.RACHeatMap(fig, DPI)
-plt.title('Dominance Preemption (Integer)', fontsize = 13)
-plt.xlabel('Rank')
-plt.ylabel('Abundance')
-print 'finished dominance preemption (integers)' '''
 
-""" The Dominance Preemption constrained by N and S, allowing decimals """
-ax = fig.add_subplot(3, 3, 4)
-DPF = Models.DomPreFloat(N, S, sample_size)
-fig = HeatMap.RACHeatMap(fig, DPF)
-plt.title('Dominance Preemption (Float)', fontsize = 13)
-plt.xlabel('Rank')
-plt.ylabel('Abundance')
-print 'finished dominance preemption (decimals)' 
 
-""" The Log-normal (75/25) constrained by N and S """
-ax = fig.add_subplot(3, 3, 5)
-SLN = Models.SimLogNorm(N, S, sample_size)
-fig = HeatMap.RACHeatMap(fig, SLN)
+""" 2. The Log-normal (75/25) constrained by N and S """
+ax = fig.add_subplot(3, 3, 2)
+RACsample = Models.SimLogNormFloat(N, S, sample_size, rel=True)
+
+fig = HeatMap.RACHeatMap(fig, RACsample)
+fig = PlotAvgShape(fig, RACsample)
+
 plt.title('Log Normal', fontsize = 13)
 plt.xlabel('Rank')
-plt.ylabel('Abundance')
-print 'finished lognormal'
+#plt.ylabel('Abundance')
+plt.ylabel(title)
 
-""" Pareto (80/20) constrained by N and S """
-ax = fig.add_subplot(3, 3, 7)
-SP = Models.SimPareto(N, S, sample_size, integer=False)
-fig = HeatMap.RACHeatMap(fig, SP)
+print 'finished lognormal\n'
+
+
+
+""" 3. Pareto (80/20) constrained by N and S """
+ax = fig.add_subplot(3, 3, 4)
+RACsample = Models.SimParetoFloat(N, S, sample_size, rel=True)
+
+fig = HeatMap.RACHeatMap(fig, RACsample)
+fig = PlotAvgShape(fig, RACsample)
+
 plt.title('Pareto', fontsize = 13)
 plt.xlabel('Rank')
-plt.ylabel('Abundance')
-print 'finished Pareto'
+#plt.ylabel('Abundance')
+plt.ylabel(title)
 
-""" Simple random fraction constrained by N and S """
+print 'finished Pareto\n'
+
+
+
+""" 4. Random fraction constrained by N and S """
+ax = fig.add_subplot(3, 3, 5)
+RACsample = Models.Sample_SimpleRandomFraction(N, S, sample_size, rel=True)
+
+fig = HeatMap.RACHeatMap(fig, RACsample)
+fig = PlotAvgShape(fig, RACsample)
+
+plt.title('Random Fraction', fontsize = 13)
+plt.xlabel('Rank')
+#plt.ylabel('Abundance')
+plt.ylabel(title)
+
+print 'finished random fraction\n'
+
+
+""" 5. The Dominance Preemption constrained by N and S, allowing decimals """
+ax = fig.add_subplot(3, 3, 7)
+RACsample = Models.DomPreFloat(N, S, sample_size, rel=True)
+
+fig = HeatMap.RACHeatMap(fig, RACsample)
+fig = PlotAvgShape(fig, RACsample)
+
+plt.title('Dominance Preemption', fontsize = 13)
+plt.xlabel('Rank')
+#plt.ylabel('Abundance')
+plt.ylabel(title)
+
+print 'finished dominance preemption (decimals)\n' 
+
+
+
+""" 6. The Dominance Decay constrained by N and S, allowing decimals """
 ax = fig.add_subplot(3, 3, 8)
-SRF = Models.Sample_SimpleRandomFraction(N, S, sample_size)
-fig = HeatMap.RACHeatMap(fig, SRF)
-plt.title('Simple Random Fraction', fontsize = 13)
-plt.xlabel('Rank')
-plt.ylabel('Abundance')
-print 'finished simple random fraction'
+RACsample = Models.DomDecayFloat(N, S, sample_size, rel=True)
 
-ax = fig.add_subplot(3, 3, 9)
-DDF = Models.DomFloat(N, S, sample_size)
-fig = HeatMap.RACHeatMap(fig, DDF)
-plt.title('Dominance Decay (float)', fontsize = 13)
-plt.xlabel('Rank')
-plt.ylabel('Abundance')
-print 'finished Dominance decay float'
+fig = HeatMap.RACHeatMap(fig, RACsample)
+fig = PlotAvgShape(fig, RACsample)
 
+plt.title('Dominance Decay', fontsize = 13)
+plt.xlabel('Rank')
+#plt.ylabel('Abundance')
+plt.ylabel(title)
+
+print 'finished Dominance decay float\n'
+
+
+
+""" Additional figure functions """
 plt.subplots_adjust(wspace=0.8, hspace=0.8)
-plt.savefig('Figure')
-plt.show()
+#fig.suptitle('N = '+str(N)+', S = '+str(S)) 
+plt.savefig('figures/Heat_N='+str(N)+'_S='+str(S)+'.png', transparent=True, dpi=600, pad_inches = 0.1)
+#plt.show()

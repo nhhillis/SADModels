@@ -1,4 +1,5 @@
 from __future__ import division                                        
+import matplotlib.pyplot as plt
 import numpy as np
 import random
 
@@ -13,28 +14,27 @@ def AvgShape(RACs):
     
     N = sum(RACs[0])
     S = len(RACs[0])
-    a1 = 0 # mean of overlap of the ranks
+    a1 = 10**10 # assume an initially high average difference among ranks 
     v1 = 0 # variance in overlap of ranks
     
+    xRAC = list()
     for RAC in RACs: # for a RAC in the list of RACs
-        in_common = [] # the number of times that each value of the ranks
+        AvgDiffAcrossRanks = [] # the number of times that each value of the ranks
                             # in the reference RAC is found in the other RACs
-        ct1 = 0 # the index we are looking at
         
-        for a in RAC: # for each value at each rank in reference RAC
-            c = 0 # number of common values
+        for i, ab in enumerate(RAC): # for each value at each rank in reference RAC
             
+            diff = 0 # 
             for RAC1 in RACs: # selecting which RAC will be compared to reference
-                if a == RAC1[ct1]: # if value of the rank = the value at the index[ct1]
-                    c += 1 
-           
-            in_common.append(np.log(c)) #  Transforming C to not give unequal weights to large numbers
-            ct1 += 1 # this changes the index we are looking at
+                ab1 = RAC1[i] # the abundance value at the index[i] of RAC1
+                diff += np.abs(ab1 - ab)/S # absolute difference between reference and querry RACs, divided by S....yields avg absolute difference at a given rank
+                
+            AvgDiffAcrossRanks.append(np.log(diff)) #  Transforming C to not give disproportionate weight to large numbers
+            
+        a2 = np.mean(AvgDiffAcrossRanks) #find mean of in_common
+        v2 = np.var(AvgDiffAcrossRanks)  #find variance of in_common
         
-        a2 = np.mean(in_common) #find mean of in_common
-        v2 = np.var(in_common)  #find variance of in_common
-        
-        if a2 > a1: # if our new mean is higher than previous mean
+        if a2 < a1: # if our new mean is lower than the previous mean
             a1 = a2 # assigns new average to a1
             v1 = v2 # assigns new variance to v1
             xRAC = RAC
@@ -45,10 +45,22 @@ def AvgShape(RACs):
                 v1 = v2 # assigns new variance to v1
                 xRAC = RAC
         
-    if sum(xRAC) != N and len(xRAC) != S:
-        print 'Sum of RAC and/or length of RAC not equal to starting N and S'
+    #if sum(xRAC) != N and len(xRAC) != S:
+    #    print 'Sum of RAC and/or length of RAC not equal to starting N and S'
     
     return xRAC
     
 
+    
+    
+def PlotAvgShape(fig, sampleRACs):
+    
+    avgRAC = AvgShape(sampleRACs)
+    ranks = range(1, len(avgRAC)+1)
+    plt.plot(ranks, np.log(avgRAC), lw=1, color='Lime')
+    return fig
+    
+    
+    
+    
     
