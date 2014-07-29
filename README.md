@@ -19,9 +19,9 @@ Files:
 
 * In Models:
 	* BrokenStick.py: code to generate random samples of both the sequential and simultaneous Broken Stick SAD models. Results match desired values of total abudance (N) and species richness (S). Accomplished by random fractioning of N into S parts as implied by both models.
-	* BrokenStick.py:
-	* RandFrac.py:
-	* LogNormal.py:
+	* BrokenStick.py: The Broken Stick model
+	* RandFrac.py: The Random Fraction model
+	* LogNormal.py: 
 	* DominancePreemp.py:
 	* Pareto.py
 	* LogNormal_v2.py

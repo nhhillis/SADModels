@@ -32,16 +32,8 @@ title = 'log(%N)'
 N = 3000
 Ss = [4, 16, 32, 64, 128, 256, 512, 1024, 2042]
 
-N = 1000
-Ss = [10, 20, 40, 80, 160, 320, 640]
 
-
-# S = 50
-# Ns = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
-
-
-
-sample_size = 4
+sample_size = 200
 
 BSsample = []
 LNsample = []
@@ -132,7 +124,7 @@ leg.get_frame().set_alpha(0.0)
 for text in leg.get_texts():
     text.set_color('k')
 
-plt.title('N = 1000', fontsize=14)     
+plt.title('N = 3000', fontsize=14)     
 plt.xlabel('S')
 plt.ylabel('Evenness')  
 plt.tick_params(axis='both', which='major', labelsize=5)
@@ -189,7 +181,7 @@ plt.subplots_adjust(wspace=0.4, hspace=0.4)
 
 S = 50
 Ns = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
-sample_size = 4
+sample_size = 200
 
 BSsample = []
 LNsample = []
@@ -271,14 +263,7 @@ for N in Ns:
     plt.scatter([N],[RF_AvgEv], color='Maroon', alpha=0.9)
     print 'finished random fraction'
     
-    
 
-leg = plt.legend(loc=1, prop={'size':5})
-leg.draw_frame(False)
-        
-leg.get_frame().set_alpha(0.0)
-for text in leg.get_texts():
-    text.set_color('k')
 
 plt.title('S = 50', fontsize=14)     
 plt.xlabel('N')
