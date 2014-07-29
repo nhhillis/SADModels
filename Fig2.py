@@ -318,5 +318,5 @@ plt.tick_params(axis='both', which='major', labelsize=5)
 plt.subplots_adjust(wspace=0.4, hspace=0.4)
 plt.show()   
                         
-            
+plt.savefig('/figures/Figure_2', transparent=True, dpi=600, pad_inches = 0.1)            
                        
