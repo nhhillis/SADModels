@@ -19,10 +19,10 @@ def SimLogNorm(N, S, sample_size):
     to then determine their effect.'''
     
     sample = []
-    samplex = [] #List of RACs that Broke
+    #samplex = [] #List of RACs that Broke
     while len(sample) < sample_size:
         RAC = [0.75*N, 0.25*N]
-        RACx = []
+        #RACx = []
         
         while len(RAC) < S:
             ind = randrange(len(RAC))
