@@ -31,7 +31,7 @@ def SimLogNorm(N, S, sample_size):
                                                       # values to be integers
             
             if v1 < 1 or v2 < 1: # forcing smallest abundance to be greater than one
-                RACx.extend ([v1, v2]) #Broken RACs added to list RACx
+                #RACx.extend ([v1, v2]) #Broken RACs added to list RACx
                 break                   #Putting Broken RAC's into RACx is not currently working
                                             
             RAC.extend([v1, v2])
