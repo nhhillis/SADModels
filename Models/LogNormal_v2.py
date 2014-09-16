@@ -3,7 +3,7 @@ from random import randrange, seed
 import matplotlib.pyplot as plt
 import sys
 
-sys.path.append('/Users/lisalocey/Desktop/RareBio/global/GenAnalysis/tools/')
+sys.path.append('/Users/Nathan_Hillis/SADModels/tools/')
 
 import macroeco_distributions  # code that provides maximum likelihood 
 # predictions for SAD models
@@ -15,10 +15,14 @@ import pln # importing the Poisson Lognormal from macroeco_distributions
 
 
 def SimLogNorm(N, S, sample_size):
+    '''Working to fix bug @ 'if v1 < 1...' trying to create list of broken RACs
+    to then determine their effect.'''
     
     sample = []
+    samplex = [] #List of RACs that Broke
     while len(sample) < sample_size:
         RAC = [0.75*N, 0.25*N]
+        RACx = []
         
         while len(RAC) < S:
             ind = randrange(len(RAC))
@@ -26,15 +30,24 @@ def SimLogNorm(N, S, sample_size):
             v1, v2 = int(0.75 * v), v - int(0.75 * v) # forcing all abundance
                                                       # values to be integers
             
-            if v1 < 1 or v2 < 1: break  # forcing smallest abundance to be 
-                                        # greater than one
+            if v1 < 1 or v2 < 1: # forcing smallest abundance to be greater than one
+                RACx.extend ([v1, v2]) #Broken RACs added to list RACx
+                break                   #Putting Broken RAC's into RACx is not currently working
+                                            
             RAC.extend([v1, v2])
-        
-        if len(RAC) == S and sum(RAC) == N:
+            
+          
+            
+        if len(RAC) == S and sum(RAC) == N: #When conditions are met sort and append
             RAC.sort()
             RAC.reverse()
             sample.append(RAC)
+            
+            #RACx.sort() #sorting and appending RACx to samplex
+            #RACx.reverse()
+            #samplex.append(RACx)
             print len(sample)
+            #print len(samplex)  Not Working as of now
             
     return sample
 
@@ -86,7 +99,7 @@ N, S = sum(MLE_RACs[0]), len(MLE_RACs[0]) # because the PLN only takes the avg
 print N, S , min(MLE_RACs[0]) # The N and S of the log-normal MLEs
 
 
-RACs = SimLogNorm(N, S, 200) # Use the random fraction function
+RACs = SimLogNorm(N, S, 10) # Use the random fraction function
 # to generate 10K random RACs
 print sum(RACs[0]), len(RACs[0]), min(RACs[0]) # N & S of the first RAC
 
@@ -107,6 +120,6 @@ plt.xlim(0, len(RAC))
 plt.xlabel('Rank in abundance', fontsize=16)
 plt.ylabel('log(abundance)', fontsize=16)
 
-plt.savefig('/Users/lisalocey/Desktop/logNormal_N='+str(N)+'_S='+str(S)+'.png',
+plt.savefig('/Users/Nathan_Hillis/Desktop/logNormal_N='+str(N)+'_S='+str(S)+'.png',
                     dpi=600, bbox_inches = 'tight', pad_inches=0.03)
 plt.show()

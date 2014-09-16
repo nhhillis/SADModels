@@ -21,9 +21,7 @@ def GetRelAbs(RACsample): # a function to transform abundance into relative abun
 
 """This script codes Broken Stick models for species abundance distribution.
     These are generally conceived as models for how species partition a niche
-    dimension or shared and limited resource. -KL 
-    
-    Task: Nathan contribute one or two nice sentences. """
+    dimension or shared and limited resource. -KL """
     
      
 def SimBrokenStick(N, S, sample_size, rel=False):
@@ -189,8 +187,12 @@ def SimLogNormFloat(N, S, sample_size, rel=False):
 
 
 def SimParetoFloat(N, S, sample_size, rel=False):
-    '''This script codes the Pareto Model'''
+    '''This script codes the Pareto Model.  The divisions of N follow the 80:20
+    rule.  The sections of N are selected at random for division. Returns
+    decimal values.'''
+    
     sample = []
+    
     while len(sample) < sample_size: 
         RAC = [0.8*N, 0.2*N]
         
@@ -211,8 +213,12 @@ def SimParetoFloat(N, S, sample_size, rel=False):
 
 
 def SimParetoInt(N, S, sample_size, rel=False):
-    '''This script codes the Pareto Model'''
+    '''This script codes the Pareto Model.  The divisions of N follow the 80:20
+    rule.  The sections of N are selected at random for division. Returns only
+    integer values.'''
+    
     sample = []
+    
     while len(sample) < sample_size: 
         RAC = [0.8*N, 0.2*N]
         
@@ -277,6 +283,10 @@ def Sample_SimpleRandomFraction(N, S, sample_size, rel=False):
     
     
 def DomDecayFloat(N, S, sample_size, rel=False):
+    '''This model randomly divides N into 2 sections, then the largest section of N is then
+    divided at random.  This continues until there are S divisions. This model
+    returns decimals values.'''
+    
     sample = [] # A list of RACs
    
     while len(sample) != sample_size: # number of samples loop     
@@ -301,6 +311,10 @@ def DomDecayFloat(N, S, sample_size, rel=False):
 
 
 def DomDecayInt(N, S, sample_size, rel=False): # Works only with positive integers    ...if you think about it, there can never be two 1's
+    '''This model randomly divides N into 2 sections, then the largest section of N is then
+    divided at random.  This continues until there are S divisions. This model
+    returns only integer values.'''
+    
     sample = [] # A list of RACs
    
     while len(sample) < sample_size: # number of samples loop     
