@@ -21,12 +21,12 @@ def SimLogNorm(N, S, sample_size):
     sample = []
     #samplex = [] #List of RACs that Broke
     while len(sample) < sample_size:
-        RAC = [0.75*N, 0.25*N]
+        RAC = [0.75*N, 0.25*N] #Initial N is split 75:25
         #RACx = []
         
         while len(RAC) < S:
-            ind = randrange(len(RAC))
-            v = RAC.pop(ind)
+            ind = randrange(len(RAC)) #
+            v = RAC.pop(ind) # Removes randomly selected number from list RAC
             v1, v2 = int(0.75 * v), v - int(0.75 * v) # forcing all abundance
                                                       # values to be integers
             
@@ -34,7 +34,7 @@ def SimLogNorm(N, S, sample_size):
                 #RACx.extend ([v1, v2]) #Broken RACs added to list RACx
                 break                   #Putting Broken RAC's into RACx is not currently working
                                             
-            RAC.extend([v1, v2])
+            RAC.extend([v1, v2]) # Adds new values to RAC
             
           
             
