@@ -28,7 +28,7 @@ def SimLogNorm(N, S, sample_size):
             ind = randrange(len(RAC)) #
             v = RAC.pop(ind) # Removes randomly selected number from list RAC
             v1, v2 = int(0.75 * v), v - int(0.75 * v) # forcing all abundance
-                                                      # values to be integers
+                                                                    # values to be integers
             
             if v1 < 1 or v2 < 1: # forcing smallest abundance to be greater than one
                 #break  #Instead of Breaking Loop, Return to line 29? 
