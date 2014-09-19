@@ -25,9 +25,9 @@ def SimLogNorm(N, S, sample_size):
        
         
         while len(RAC) < S:
-            ind = randrange(len(RAC)) #
+            ind = randrange(len(RAC)) 
             v = RAC.pop(ind) # Removes randomly selected number from list RAC
-            v1, v2 = int(0.75 * v), v - int(0.75 * v) # forcing all abundance
+            v1, v2 = int(round(0.75 * v)), v - int(round(0.75 * v)) # forcing all abundance, rounding 
                                                                     # values to be integers
             
             if v1 < 1 or v2 < 1: # forcing smallest abundance to be greater than one
@@ -95,7 +95,7 @@ N, S = sum(MLE_RACs[0]), len(MLE_RACs[0]) # because the PLN only takes the avg
 print N, S , min(MLE_RACs[0]) # The N and S of the log-normal MLEs
 
 
-RACs = SimLogNorm(N, S, 10) # Use the random fraction function
+RACs = SimLogNorm(N, S, 100) # Use the random fraction function
 # to generate 10K random RACs
 print sum(RACs[0]), len(RACs[0]), min(RACs[0]) # N & S of the first RAC
 
@@ -116,6 +116,8 @@ plt.xlim(0, len(RAC))
 plt.xlabel('Rank in abundance', fontsize=16)
 plt.ylabel('log(abundance)', fontsize=16)
 
-plt.savefig('/Users/Nathan_Hillis/Desktop/logNormal_N='+str(N)+'_S='+str(S)+'.png',
+plt.savefig('/Users/Nathan_Hillis/SADModels/figures/Debug_Figs/logNormal_N='+str(N)+'_S='+str(S)+'.png',
                     dpi=600, bbox_inches = 'tight', pad_inches=0.03)
-plt.show()
+plt.close()
+
+#plt.show()
