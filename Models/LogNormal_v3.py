@@ -35,7 +35,7 @@ def RADfigs(a, S):
     print N, S , min(MLE_RACs[0]) # The N and S of the log-normal MLEs
     
     
-    RACs = LogNormal_v2.SimLogNorm(N, S, 100) # Use the random fraction function
+    RACs = LogNormal_v2.SimLogNorm(N, S, 50) # Use the random fraction function
     # to generate 10K random RACs
     print sum(RACs[0]), len(RACs[0]), min(RACs[0]) # N & S of the first RAC
     
@@ -65,7 +65,7 @@ def RADfigs(a, S):
     
 
 a_s = [0.5, 0.6, 0.7, 0.8, 0.9, 0.99]
-Ss = [4, 8, 16, 32, 64]
+Ss = [4, 8, 16, 32]
 
 for a in a_s:
     for S in Ss:
