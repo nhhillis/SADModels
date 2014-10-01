@@ -30,8 +30,7 @@ def SimLogNorm(N, S, sample_size):
             v1, v2 = int(round(0.75 * v)), v - int(round(0.75 * v)) # forcing all abundance, rounding 
                                                                     # values to be integers
             
-            if v1 < 1 or v2 < 1: # forcing smallest abundance to be greater than one
-                #break  #Instead of Breaking Loop, Return to line 29? 
+            if v1 < 1 or v2 < 1: # forcing smallest abundance to be greater than one 
                 continue #Determining what will happen if we ignore this condition
                                             
             RAC.extend([v1, v2]) # Adds new values to RAC
