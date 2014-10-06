@@ -62,7 +62,7 @@ def get_MLEs(RAC, sample_size):
 fig = plt.figure()  # declare a figure object
 ax = plt.subplot(1,1,1) # declare an axis object
 
-S = 200  # Number of species, i.e., species richness
+S = 20  # Number of species, i.e., species richness
 
 RAC = np.random.logseries(0.99, S) # a random draw from the log-series. Note,
 # we are only constraining S here. We aren't telling it to give us a certain
@@ -87,13 +87,17 @@ fractions, the MLE function is based on the average abundance and the variance.
 Consequently, it is impressive if they match up. """
 
 
-MLE_RACs = get_MLEs(RAC, 2)
-N, S = sum(MLE_RACs[0]), len(MLE_RACs[0]) # because the PLN only takes the avg
-# abundance and variance, the resulting expected form will have a different N
-# and S than the log-series RAC that provided the starting average abundance and 
-# variance.
-print N, S , min(MLE_RACs[0]) # The N and S of the log-normal MLEs
+MLE_RACs = get_MLEs(RAC, 10)
 
+for lst in MLE_RACs:
+    N, S = sum(MLE_RACs[0]), len(MLE_RACs[0])
+    print N, S, lst
+    # because the PLN only takes the avg
+    # abundance and variance, the resulting expected form will have a different N
+    # and S than the log-series RAC that provided the starting average abundance and 
+    # variance.
+    
+sys.exit()
 
 RACs = SimLogNorm(N, S, 100) # Use the random fraction function
 # to generate 10K random RACs
