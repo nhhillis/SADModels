@@ -17,7 +17,8 @@ import pln # importing the Poisson Lognormal from macroeco_distributions
 def SimLogNorm(N, S, sample_size):
     '''Working to fix bug @ 'if v1 < 1...' trying to create list of broken RACs
     to then determine their effect.'''
-    
+    #N = 
+    #S = 
     sample = []
     
     while len(sample) < sample_size:
@@ -36,7 +37,6 @@ def SimLogNorm(N, S, sample_size):
                                             
             RAC.extend([v1, v2]) # Adds new values to RAC
             
-          
             
         if len(RAC) == S and sum(RAC) == N: #When conditions are met sort and append
             RAC.sort()
@@ -44,7 +44,6 @@ def SimLogNorm(N, S, sample_size):
             sample.append(RAC)
             print len(sample)
            
-            
     return sample
 
 
@@ -99,7 +98,7 @@ for lst in MLE_RACs:
     # and S than the log-series RAC that provided the starting average abundance and 
     # variance.
     
-sys.exit()
+#sys.exit()
 
 RACs = SimLogNorm(N, S, 100) # Use the random fraction function
 # to generate 10K random RACs
