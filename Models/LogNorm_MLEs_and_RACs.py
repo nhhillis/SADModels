@@ -4,8 +4,16 @@ import matplotlib.pyplot as plt
 import sys
 
 sys.path.append('/Users/Nathan_Hillis/SADModels/tools/')
-
+import HeatMap
 import pln 
+
+sys.path.append('/Users/Nathan_Hillis/SADModels/Analysis/')
+
+from AverageShape import PlotAvgShape
+
+
+"""Plotting SimLogNorm and MLEs"""
+#Trying to pull AvgShape in but having issues
 
 def SimLogNorm(N, S, sample_size):
     '''Working to fix bug @ 'if v1 < 1...' trying to create list of broken RACs
@@ -70,6 +78,7 @@ for lst in MLE_RACs:
 for RAC in MLE_RACs:
     plt.plot(np.log(RAC), color='0.3', lw=3, alpha = 0.6)
 
+fig = PlotAvgShape(fig, RAC) #Problem seems to be here,  Need to define fig above...
     
 plt.hexbin(x, y, mincnt=1, gridsize = 20, bins = 'log', cmap=plt.cm.jet)
     
