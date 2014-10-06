@@ -53,17 +53,19 @@ def get_MLEs(RAC, sample_size):
     sample = []
     while len(sample) < sample_size:
         RAC = pln.get_rad_from_obs(RAC, 'pln')
-        sample.append(RAC)
+        sample.append(np.var(RAC, ddof = 1))
         print 'MLEs:', len(sample)
+    
+    plt.plot(sample)
+    plt.show()
     return sample
-
 
 
 fig = plt.figure()  # declare a figure object
 ax = plt.subplot(1,1,1) # declare an axis object
 
 S = 20  # Number of species, i.e., species richness
-
+#RAC = [15, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10]
 RAC = np.random.logseries(0.99, S) # a random draw from the log-series. Note,
 # we are only constraining S here. We aren't telling it to give us a certain
 # number of individuals. Then, convert the numpy array to a Python list...
@@ -87,11 +89,11 @@ fractions, the MLE function is based on the average abundance and the variance.
 Consequently, it is impressive if they match up. """
 
 
-MLE_RACs = get_MLEs(RAC, 10)
-
+MLE_RACs = get_MLEs(RAC, 50)
+N = 0
 for lst in MLE_RACs:
     N, S = sum(MLE_RACs[0]), len(MLE_RACs[0])
-    print N, S, lst
+    print N, S, lst, np.var(lst, ddof = 1)
     # because the PLN only takes the avg
     # abundance and variance, the resulting expected form will have a different N
     # and S than the log-series RAC that provided the starting average abundance and 
