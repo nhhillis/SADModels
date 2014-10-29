@@ -59,7 +59,7 @@ def get_MLEs(RAC, sample_size):
     return sample
 N = 300
 S = 50
-sample_size = 50
+sample_size = 10
 SLN = SimLogNorm(N, S, sample_size)
 #print SLN
 
@@ -74,7 +74,9 @@ MLE_RACs = get_MLEs(RAC, 20)
 for lst in MLE_RACs:
     N, S = sum(MLE_RACs[0]), len(MLE_RACs[0])
     print N, S, lst, np.var(lst, ddof = 1)'''
-    
+
+fig = plt.figure()  # declare a figure object  
+  
 for RAC in MLE_RACs:
     plt.plot(np.log(RAC), color='0.3', lw=3, alpha = 0.6)
 
