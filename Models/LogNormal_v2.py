@@ -31,9 +31,7 @@ def SimLogNorm(N, S, sample_size):
             v1, v2 = int(round(0.75 * v)), v - int(round(0.75 * v)) # forcing all abundance, rounding 
                                                                     # values to be integers
             
-            if v1 < 1 or v2 < 1: break# forcing smallest abundance to be greater than one
-                #break  #Instead of Breaking Loop, Return to line 29? 
-                #continue #Determining what will happen if we ignore this condition
+            if v1 < 1 or v2 < 1: break
                                             
             RAC.extend([v1, v2]) # Adds new values to RAC
             
@@ -100,7 +98,7 @@ for lst in MLE_RACs:
     
 #sys.exit()
 
-RACs = SimLogNorm(N, S, 100) # Use the random fraction function
+RACs = SimLogNorm(N, S, 20) # Use the random fraction function
 # to generate 10K random RACs
 print sum(RACs[0]), len(RACs[0]), min(RACs[0]) # N & S of the first RAC
 
