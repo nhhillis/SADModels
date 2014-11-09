@@ -61,7 +61,7 @@ def RADfigs(a, S):
     plt.close()
     
     return
-    #plt.show()
+    plt.show()
     
 
 a_s = [0.5, 0.6, 0.7, 0.8, 0.9, 0.99]

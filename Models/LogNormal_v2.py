@@ -123,4 +123,4 @@ plt.savefig('/Users/Nathan_Hillis/SADModels/figures/Debug_Figs/logNormal_N='+str
                     dpi=600, bbox_inches = 'tight', pad_inches=0.03)
 plt.close()
 
-#plt.show()
+plt.show()
