@@ -54,7 +54,7 @@ def get_MLEs(RAC, sample_size):
         print 'MLEs:', len(sample)
     
     plt.plot(sample)
-    plt.show()
+    #plt.show()
     return sample
 
 
