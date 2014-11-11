@@ -51,10 +51,10 @@ def get_MLEs(RAC, sample_size):
     while len(sample) < sample_size:
         RAC = pln.get_rad_from_obs(RAC, 'pln')
         sample.append(np.var(RAC, ddof = 1))
-        print 'MLEs:', len(sample)
+        '''print 'MLEs:', len(sample), sample'''
     
     plt.plot(sample)
-    #plt.show()
+    plt.show()
     return sample
 
 
@@ -69,6 +69,7 @@ RAC = np.random.logseries(0.99, S) # a random draw from the log-series. Note,
 RAC = RAC.tolist()
 RAC.sort()
 RAC.reverse()
+print 'RAC', RAC
 
 """ Why did we make a random draw from the log-series when we are actually
 interested in the lognormal?  Unlike other models, the lognormal will not give a
@@ -86,10 +87,12 @@ fractions, the MLE function is based on the average abundance and the variance.
 Consequently, it is impressive if they match up. """
 
 
-MLE_RACs = get_MLEs(RAC, 50)
+MLE_RACs = get_MLEs(RAC, 10)
+print "MLE", MLE_RACs
+
 N = 0
 for lst in MLE_RACs:
-    N, S = sum(MLE_RACs[0]), len(MLE_RACs[0])
+    N, S = sum(MLE_RACs[0]), len(MLE_RACs[0]) #This is where the issue seems to be, "numpy.float64" object not iterable
     print N, S, lst, np.var(lst, ddof = 1)
     # because the PLN only takes the avg
     # abundance and variance, the resulting expected form will have a different N
