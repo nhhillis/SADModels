@@ -87,7 +87,7 @@ fractions, the MLE function is based on the average abundance and the variance.
 Consequently, it is impressive if they match up. """
 
 
-MLE_RACs = get_MLEs(RAC, 10)
+MLE_RACs = get_MLEs(RAC, 20)
 print "MLE", MLE_RACs
 
 N = 0

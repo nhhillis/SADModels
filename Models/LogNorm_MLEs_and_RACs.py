@@ -70,6 +70,7 @@ for RAC in SLN:
     x.extend(range(len(RAC)))
     
 MLE_RACs = get_MLEs(RAC, 20)
+print MLE_RACs
 '''N = 0
 for lst in MLE_RACs:
     N, S = sum(MLE_RACs[0]), len(MLE_RACs[0])
@@ -80,7 +81,7 @@ fig = plt.figure()  # declare a figure object
 for RAC in MLE_RACs:
     plt.plot(np.log(RAC), color='0.3', lw=3, alpha = 0.6)
 
-fig = PlotAvgShape(fig, RAC) #Problem seems to be here,  Need to define fig above...
+fig = PlotAvgShape(fig, RAC) 
     
 plt.hexbin(x, y, mincnt=1, gridsize = 20, bins = 'log', cmap=plt.cm.jet)
     
