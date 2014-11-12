@@ -12,11 +12,11 @@ import pln # importing the Poisson Lognormal from macroeco_distributions
 
 #from macroeco_distributions import pln # code that provides maximum likelihood 
 # predictions for SADs. Import the Poisson Lognormal from macroeco_distributions
-
-
+''' Working on a problem.  Seems to be hung up on line 51.  Also will only run if I remove the brackets on line
+ 98.  It seems that the MLE_RACs was treated as a list of lists but that was causing an error, so just treated it as a list.
+ Also, line 123 seemed to be causing an issue as well.  I just committed it out and it ran but the graphs look off'''
 def SimLogNorm(N, S, sample_size):
-    '''Working to fix bug @ 'if v1 < 1...' trying to create list of broken RACs
-    to then determine their effect.'''
+   
     #N = 
     #S = 
     sample = []
@@ -51,10 +51,11 @@ def get_MLEs(RAC, sample_size):
     while len(sample) < sample_size:
         RAC = pln.get_rad_from_obs(RAC, 'pln')
         sample.append(np.var(RAC, ddof = 1))
-        '''print 'MLEs:', len(sample), sample'''
+        #print 'MLEs:', len(sample)
     
-    plt.plot(sample)
-    plt.show()
+    #plt.plot(sample)
+    #plt.show()
+    
     return sample
 
 
@@ -87,12 +88,14 @@ fractions, the MLE function is based on the average abundance and the variance.
 Consequently, it is impressive if they match up. """
 
 
-MLE_RACs = get_MLEs(RAC, 20)
+MLE_RACs = get_MLEs(RAC, 10)
 print "MLE", MLE_RACs
 
+'''Generating N's and S's for SimLogNorm''' 
+
 N = 0
-for lst in MLE_RACs:
-    N, S = sum(MLE_RACs[0]), len(MLE_RACs[0]) #This is where the issue seems to be, "numpy.float64" object not iterable
+for lst in MLE_RACs: 
+    N, S = sum(MLE_RACs), len(MLE_RACs) #Removed Brackets from this statement
     print N, S, lst, np.var(lst, ddof = 1)
     # because the PLN only takes the avg
     # abundance and variance, the resulting expected form will have a different N
@@ -101,7 +104,7 @@ for lst in MLE_RACs:
     
 #sys.exit()
 
-RACs = SimLogNorm(N, S, 20) # Use the random fraction function
+RACs = SimLogNorm(N, S, 10) # Use the random fraction function
 # to generate 10K random RACs
 print sum(RACs[0]), len(RACs[0]), min(RACs[0]) # N & S of the first RAC
 
@@ -117,13 +120,13 @@ plt.hexbin(x, y, mincnt=1, gridsize = 20, bins = 'log', cmap=plt.cm.jet)
 for RAC in MLE_RACs:
     plt.plot(np.log(RAC), color='0.3', lw=3, alpha = 0.6)
 
-plt.xlim(0, len(RAC))
+#plt.xlim(0, len(RAC))
 
 plt.xlabel('Rank in abundance', fontsize=16)
 plt.ylabel('log(abundance)', fontsize=16)
 
 plt.savefig('/Users/Nathan_Hillis/SADModels/figures/Debug_Figs/logNormal_N='+str(N)+'_S='+str(S)+'.png',
                     dpi=600, bbox_inches = 'tight', pad_inches=0.03)
-plt.close()
-
 plt.show()
+
+plt.close()
