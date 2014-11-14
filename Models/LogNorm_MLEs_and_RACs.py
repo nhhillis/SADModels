@@ -46,46 +46,41 @@ def SimLogNorm(N, S, sample_size):
     return sample
     
     
-def get_MLEs(RAC, sample_size):
+def get_MLEs(RAC):
     
-    sample = []
-    while len(sample) < sample_size:
+    varlst = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    
+    while np.var(varlst, ddof = 1) > 0.01:
         RAC = pln.get_rad_from_obs(RAC, 'pln')
-        sample.append(RAC)
-        print 'MLEs:', len(sample)
+        varlst.append(np.var(RAC, ddof =1))
+        varlst.pop(0)
+        print np.var(varlst)
     
-   #plt.plot(sample)
-    #plt.show()
-    return sample
-N = 750
-S = 70
+    print RAC    
+    return RAC
+    
+    
+N = 200
+S = 20
 sample_size = 10
 SLN = SimLogNorm(N, S, sample_size)
-#print SLN
+
 
 x = []
 y = []
+
 for RAC in SLN: #Placing SLN RAC values into lists
     y.extend(np.log(RAC))
     x.extend(range(len(RAC)))
     
-MLE_RACs = get_MLEs(RAC, 2) #Finding MLEs valus
-print 'MLE', MLE_RACs
-'''N = 0
-for lst in MLE_RACs:
-    N, S = sum(MLE_RACs[0]), len(MLE_RACs[0])
-    print N, S, lst, np.var(lst, ddof = 1)'''
+MLE = get_MLEs(RAC) #Finding MLEs valus
 
-#fig = plt.figure()  # declare a figure object  
-  
-for RAC in MLE_RACs: #Plotting MLEs
-    plt.plot(np.log(RAC), color='0.3', lw=3, alpha = 0.6)
 
-#fig = PlotAvgShape(fig, RAC) 
-    
+plt.plot(np.log(MLE), color='0.3', lw=3, alpha = 0.6)
+
 plt.hexbin(x, y, mincnt=1, gridsize = 20, bins = 'log', cmap=plt.cm.jet) #Generating Heat Map for SLN RAC
     
-plt.xlim(0, len(RAC))
+plt.xlim(0, S + 5)
 plt.xlabel('Rank in abundance', fontsize=16)
 plt.ylabel('log(abundance)', fontsize=16)
 

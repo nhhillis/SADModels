@@ -30,7 +30,7 @@ def RADfigs(a, S):
     print lsRAC
     
     
-    MLE_RACs = LogNormal_v2.get_MLEs(lsRAC, 2)
+    MLE_RACs = LogNormal_v2.get_MLEs(lsRAC, 2) #Should rename function to get MLE 
     print MLE_RACs
     N, S = sum(MLE_RACs), len(MLE_RACs) #Removed brackets seems to be working but not sure
     # because the PLN only takes the avg
