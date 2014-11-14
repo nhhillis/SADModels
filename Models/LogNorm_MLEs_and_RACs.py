@@ -47,22 +47,24 @@ def SimLogNorm(N, S, sample_size):
     
     
 def get_MLEs(RAC):
+    '''Still not making this work at the moment.  MLE seems to be messing up'''
+    varlst = [1, 2, 3]#I have been decreasing the number in this list. I think that having more numbers
+    #is causing something to happen.  Not sure what, but it seems like that the more times that we
+    # require the variances to be equal the less log normal the MLE becomes.
     
-    varlst = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    
-    while np.var(varlst, ddof = 1) > 0.01:
-        RAC = pln.get_rad_from_obs(RAC, 'pln')
-        varlst.append(np.var(RAC, ddof =1))
-        varlst.pop(0)
+    while np.var(varlst, ddof = 1) > 0: # while the variance of varlst is greater than zero
+        RAC = pln.get_rad_from_obs(RAC, 'pln') #get RAC from pln
+        varlst.append(np.var(RAC, ddof =1)) # add the variance of the end RAC to the list
+        varlst.pop(0) # remove the first number in the varlst 
         print np.var(varlst)
     
     print RAC    
     return RAC
     
     
-N = 200
-S = 20
-sample_size = 10
+N = 700
+S = 25
+sample_size = 15
 SLN = SimLogNorm(N, S, sample_size)
 
 
