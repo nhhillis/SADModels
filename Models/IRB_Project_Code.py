@@ -3,13 +3,8 @@ from random import randrange
 import matplotlib.pyplot as plt
 import sys
 
-sys.path.append('/Users/Nathan_Hillis/SADModels/tools/')
-import HeatMap
-import pln 
+sys.path.append('/Users/Nathan_Hillis/')
 
-sys.path.append('/Users/Nathan_Hillis/SADModels/Analysis/')
-
-from AverageShape import PlotAvgShape
 
 
 """Plotting SimLogNorm and MLEs"""
@@ -44,27 +39,24 @@ def SimLogNorm(N, S, sample_size):
             print len(sample)
             
     return sample
-    
-    
-def get_MLEs(RAC):
-    '''Still not making this work at the moment.  MLE seems to be messing up'''
-    varlst = [1, 2, 3]#I have been decreasing the number in this list. I think that having more numbers
-    #is causing something to happen.  Not sure what, but it seems like that the more times that we
-    # require the variances to be equal the less log normal the MLE becomes.
-    
-    while np.var(varlst, ddof = 1) > 0.01: # while the variance of varlst is greater than zero
-        RAC = pln.get_rad_from_obs(RAC, 'pln') #get RAC from pln
-        varlst.append(np.var(RAC, ddof =1)) # add the variance of the end RAC to the list
-        varlst.pop(0) # remove the first number in the varlst 
-        print np.var(varlst)
-    
-    print RAC    
-    return RAC
-    
-    
-N = 1000
-S = 20
-sample_size = 10
+   
+'''import csv
+ObsRAC = []
+with open('/Users/Nathan_Hillis/Desktop/IRB_Project/1_site_97.csv', 'r') as RAC:
+    reader = csv.reader(RAC, delimiter = ',' , quoting = csv.QUOTE_NONE)
+    for values in RAC:
+        ObsRAC.append(values)
+
+print ObsRAC
+sys.exit()'''
+
+ObsRAC = [1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,3,3,3,3,4,4,4,5,5,5,6,6,8,10,10,10,12,13,15,16,16,23,25,25,25,25,30,30,34,35,37,40,41,51,52,60,96,100,111,120,142,152,155,156,1000,2300]
+ObsRAC.reverse()
+
+                  
+N = sum(ObsRAC)
+S = len(ObsRAC)
+sample_size = 50
 
 SLN = SimLogNorm(N, S, sample_size)
 
@@ -76,10 +68,10 @@ for RAC in SLN: #Placing SLN RAC values into lists
     y.extend(np.log(RAC))
     x.extend(range(len(RAC)))
     
-MLE = get_MLEs(RAC) #Finding MLEs valus
 
 
-plt.plot(np.log(MLE), color='0.3', lw=3, alpha = 0.6)
+
+plt.plot(np.log(ObsRAC), color='0.3', lw=3, alpha = 0.6)
 
 plt.hexbin(x, y, mincnt=1, gridsize = 20, bins = 'log', cmap=plt.cm.jet) #Generating Heat Map for SLN RAC
     
@@ -87,5 +79,5 @@ plt.xlim(0, S + 5)
 plt.xlabel('Rank in abundance', fontsize=16)
 plt.ylabel('log(abundance)', fontsize=16)
 
-plt.savefig('/Users/Nathan_Hillis/SADModels/figures/Debug_Figs/Ploting_MLE_RACs/logNormal_MLEs_RACs_N='+str(N)+'_S='+str(S)+'.png', dpi=600, bbox_inches = 'tight', pad_inches=0.03)
+plt.savefig('/Users/Nathan_Hillis/Desktop/IRB_Project/Three_Site_N='+str(N)+'_S='+str(S)+'.png', dpi=600, bbox_inches = 'tight', pad_inches=0.03)
 plt.show()
