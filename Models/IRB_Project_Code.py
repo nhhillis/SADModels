@@ -42,7 +42,7 @@ def SimLogNorm(N, S, sample_size):
    
 '''import csv
 ObsRAC = []
-with open('/Users/Nathan_Hillis/Desktop/IRB_Project/1_site_97.csv', 'r') as RAC:
+with open('/Users/Nathan_Hillis/Desktop/IRB_Project/All_sites_97.csv', 'r') as RAC:
     reader = csv.reader(RAC, delimiter = ',' , quoting = csv.QUOTE_NONE)
     for values in RAC:
         ObsRAC.append(values)
@@ -50,10 +50,10 @@ with open('/Users/Nathan_Hillis/Desktop/IRB_Project/1_site_97.csv', 'r') as RAC:
 print ObsRAC
 sys.exit()'''
 
-ObsRAC = [1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,3,3,3,3,4,4,4,5,5,5,6,6,8,10,10,10,12,13,15,16,16,23,25,25,25,25,30,30,34,35,37,40,41,51,52,60,96,100,111,120,142,152,155,156,1000,2300]
-ObsRAC.reverse()
+ObsRAC = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,4,4,4,5,5,5,5,6,7,7,8,8,8,8,9,9,9,9,9,10,10,11,12,12,13,14,14,15,15,17,18,18,18,20,20,23,23,24,25,26,27,28,31,34,35,37,38,38,39,40,44,47,47,48,50,50,56,61,61,63,63,66,67,67,69,81,84,87,90,99,100,105,106,106,120,136,140,142,149,152,155,161,181,205,208,219,220,253,269,306,315,330,348,365,383,394,394,420,420,428,447,459,462,487,500,518,539,574,586,614,644,675,713,737,739,744,854,918,1000,1035,1043,1044,1044,1052,1074,1124,1176,1212,1255,1305,1323,1465,1469,1501,1765,1910,1965,2094,2342,2367,2373,2526,2610,2877,3060,3296,3453,3495,3826,4592,4608,6434,6489,9015,9345,10673,11905,14266,15092,24258,45770,64560,72225,440821]
+print len(ObsRAC), sum(ObsRAC)
+ObsRAC.reverse()                  
 
-                  
 N = sum(ObsRAC)
 S = len(ObsRAC)
 sample_size = 50
@@ -79,5 +79,5 @@ plt.xlim(0, S + 5)
 plt.xlabel('Rank in abundance', fontsize=16)
 plt.ylabel('log(abundance)', fontsize=16)
 
-plt.savefig('/Users/Nathan_Hillis/Desktop/IRB_Project/Three_Site_N='+str(N)+'_S='+str(S)+'.png', dpi=600, bbox_inches = 'tight', pad_inches=0.03)
+plt.savefig('/Users/Nathan_Hillis/Desktop/IRB_Project/All_Site_N='+str(N)+'_S='+str(S)+'.png', dpi=600, bbox_inches = 'tight', pad_inches=0.03)
 plt.show()
