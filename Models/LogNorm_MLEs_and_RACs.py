@@ -52,9 +52,10 @@ def get_MLEs(RAC):
     #is causing something to happen.  Not sure what, but it seems like that the more times that we
     # require the variances to be equal the less log normal the MLE becomes.
     
-    while np.var(varlst, ddof = 1) > 0: # while the variance of varlst is greater than zero
+    while np.var(varlst, ddof = 1) > 0.001: # while the variance of varlst is greater than zero
         RAC = pln.get_rad_from_obs(RAC, 'pln') #get RAC from pln
         print RAC
+        print
         varlst.append(np.var(RAC, ddof =1)) # add the variance of the end RAC to the list
         varlst.pop(0) # remove the first number in the varlst 
         print np.var(varlst)
@@ -63,9 +64,9 @@ def get_MLEs(RAC):
     return RAC
     
     
-N = 1000
-S = 20
-sample_size = 5
+N = 10000
+S = 40
+sample_size = 25
 
 SLN = SimLogNorm(N, S, sample_size)
 
