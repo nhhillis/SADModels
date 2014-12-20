@@ -4,12 +4,12 @@ import matplotlib.pyplot as plt
 import sys
 import os
 
-mydir = os.path.expanduser("~/Desktop/repos/SADModels/") # put the path to the repo here (e.g. Ken's desktop has a directory named "repos")
+mydir = os.path.expanduser("~Nathan_Hillis/SADModels/") # put the path to the repo here (e.g. Ken's desktop has a directory named "repos")
 
 sys.path.append(mydir + "tools") # put a more explicit path here
 import pln
 
-sys.path.append(mydir + 'Analysis')
+sys.path.append(mydir + "Analysis")
 from AverageShape import AvgShape
 
 
@@ -105,8 +105,8 @@ def get_LogNormMLE(RAC):
     
     
 sample_size = 100
-N = 200
-S = 20
+N = 500
+S = 50
 RACs = SimLogNorm(N, S, sample_size)
 RAC = AvgShape(RACs) # you (nathan) were leaving this out
 
