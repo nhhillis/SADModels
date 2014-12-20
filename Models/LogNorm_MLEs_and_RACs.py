@@ -105,8 +105,8 @@ def get_LogNormMLE(RAC):
     
     
 sample_size = 100
-N = 500
-S = 50
+N = 80000
+S = 250
 RACs = SimLogNorm(N, S, sample_size)
 RAC = AvgShape(RACs) # you (nathan) were leaving this out
 
@@ -144,5 +144,5 @@ plt.xlim(0, S + 5)
 plt.xlabel('Rank in abundance', fontsize=16)
 plt.ylabel('log(abundance)', fontsize=16)
 
-#plt.savefig('/Users/Nathan_Hillis/SADModels/figures/Debug_Figs/Ploting_MLE_RACs/logNormal_MLEs_RACs_N='+str(N)+'_S='+str(S)+'.png', dpi=600, bbox_inches = 'tight', pad_inches=0.03)
+plt.savefig('/Users/Nathan_Hillis/SADModels/figures/Debug_Figs/Ploting_MLE_RACs/logNormal_MLEs_RACs_N='+str(N)+'_S='+str(S)+'.png', dpi=600, bbox_inches = 'tight', pad_inches=0.03)
 plt.show()
