@@ -14,10 +14,13 @@ from AverageShape import AvgShape
 
 
 
-"""
-    
-
-"""
+"""Code to compare SimLogNorm to the NPLogNorm to determine if the SimLogNorm code
+is biased.
+Process
+1. Use NP.random.ln to generate 500 RACs
+2. Find Average shape and plot
+3. Get N and S from NPLN
+4. Use N and S to run through SimLogNorm (x500) then plot as heat map"""
 
 def SimLogNorm(N, S, sample_size):
     
@@ -48,6 +51,7 @@ def SimLogNorm(N, S, sample_size):
     e^(mean) = e^(log(n/s))
     e^(mean) = N/S
     e^(mean) * S = N'''
+
 def npLogNorm(mean, variance, S, sample_size):#will need to change log(ab) to ab
     RACs=[]
     while RACs < sample_size:
