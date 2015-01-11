@@ -52,10 +52,17 @@ def SimLogNorm(N, S, sample_size):
     e^(mean) = N/S
     e^(mean) * S = N'''
 
+'''Working through this one.  Still working on converting the logAB to AB.'''
 def npLogNorm(mean, variance, S, sample_size):#will need to change log(ab) to ab
     RACs=[]
     while RACs < sample_size:
-        np.random.lognoramal(mean=10, sigma = 1, size =S)
+        nln = np.random.lognoramal(mean=10, sigma = 1, size =S)
+        b = []  #RAC that has been transformed
+        for i in nln:     #iterate through nln
+            b.append(np.log(i))  #add to b
+            b.sort()
+            RACs.append(b)    #append transformed RAC to RACs
+            
         
     
     
