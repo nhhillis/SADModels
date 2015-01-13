@@ -45,7 +45,10 @@ def SimLogNorm(N, S, sample_size):
             RACs.append(RAC)
             print len(RACs)
             
+        
+            
     return RACs
+    
     
 ''' Going from mean to S and N:
     e^(mean) = e^(log(n/s))
@@ -54,32 +57,43 @@ def SimLogNorm(N, S, sample_size):
 
 '''Working through this one.  Still working on converting the logAB to AB.'''
 def npLogNorm(mean, variance, S, sample_size):#will need to change log(ab) to ab
-    RACs=[]
-    while RACs < sample_size:
-        nln = np.random.lognoramal(mean=10, sigma = 1, size =S)
+    
+    RAClst=[]
+    
+    while RAClst < sample_size:
+        nln = np.random.lognoramal(mean=10, sigma = 1, size =S) #calling np.lgnm
+       
         b = []  #RAC that has been transformed
+        
         for i in nln:     #iterate through nln
             b.append(np.log(i))  #add to b
             b.sort()
-            RACs.append(b)    #append transformed RAC to RACs
-            
-        
+            RAClst.append(b)    #append transformed RAC to RACs
+   
+    return RAClst  
+    print 'Done2'    
     
     
     
-sample_size = 25
+'''sample_size = 25
 N = 10000
-S = 50
-RACs = SimLogNorm(N, S, sample_size)
+S = 50'''
+
+mean = 15
+variance = 5
+sample_size = 5
+S = 5
+
+RAClst =npLogNorm(mean,variance, S, sample_size)#Call npLogNorm fuction
+N = sum(RAClst)
+RACs = SimLogNorm(N, S, sample_size) #call SLN function 
 RAC = AvgShape(RACs) # you (nathan) were leaving this out
 
-MLE = get_LogNormMLE(RAC) #Finding MLE for log-normal for a given N and S (does not return N)
+#MLE = get_LogNormMLE(RAC) #Finding MLE for log-normal for a given N and S (does not return N)
 
-N = sum(MLE)
 print 'N =',N,', S =', S
 
-sample_size = 100
-RACs = SimLogNorm(N, S, sample_size)
+RACs = SimLogNorm(N, S, sample_size) #obtain SLN RACs
 
 SimLogNorm = AvgShape(RACs) # you (nathan) were leaving this out
 
@@ -91,11 +105,11 @@ for RAC in RACs: #Placing SLN RAC values into lists
     x.extend(range(len(RAC)))
     
 
-print len(MLE), sum(MLE), len(RAC), sum(RAC)
+print len(RAClst), sum(RAClst), len(RAC), sum(RAC) #to Check values
 
 plt.hexbin(x, y, mincnt=1, gridsize = 20, bins = 'log', cmap=plt.cm.jet) # Generating Heat Map
 
-plt.plot(np.log(MLE), color='0.3', lw=3, label='MLE: N='+str(N)+', S='+str(S)) # Plot the MLE 
+plt.plot(np.log(RAClst), color='0.3', lw=3, label='NpLogN: N='+str(N)+', S='+str(S)) # Plot the MLE 
 
 plt.plot(np.log(SimLogNorm), color='Lime', lw=3, label='Simulated N='+str(N)+', S='+str(S)) # Plot the simulated form
 
