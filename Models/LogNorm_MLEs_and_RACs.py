@@ -104,9 +104,9 @@ def get_LogNormMLE(RAC):
     return RAC
     
     
-sample_size = 25
-N = 10000
-S = 50
+sample_size = 10
+N = 100
+S = 10
 RACs = SimLogNorm(N, S, sample_size)
 RAC = AvgShape(RACs) # you (nathan) were leaving this out
 
