@@ -28,7 +28,6 @@ def SimLogNorm(N, S, sample_size):
     
     while len(RACs) < sample_size:
         RAC = [N] #Initial 
-        
         while len(RAC) < S:
             ind = randrange(len(RAC))
             v = RAC.pop(ind) # Removes randomly selected number from list RAC
@@ -43,9 +42,7 @@ def SimLogNorm(N, S, sample_size):
             RAC.sort()
             RAC.reverse()
             RACs.append(RAC)
-            print len(RACs)
-            
-        
+            print len(RAC)
             
     return RACs
     
@@ -55,37 +52,34 @@ def SimLogNorm(N, S, sample_size):
     e^(mean) = N/S
     e^(mean) * S = N'''
 
-'''Working through this one.  Still working on converting the logAB to AB.'''
-def npLogNorm(mean, variance, S, sample_size):#will need to change log(ab) to ab
-    
-    RAClst=[]
-    
-    while RAClst < sample_size:
-        nln = np.random.lognoramal(mean=10, sigma = 1, size =S) #calling np.lgnm
-       
-        b = []  #RAC that has been transformed
-        
-        for i in nln:     #iterate through nln
-            b.append(np.log(i))  #add to b
+'''Working through this one.  Still working on converting the logAB to AB. Also 
+npLogNorm does not seem to be passing to SimLogNorm'''
+
+def npLogNorm(mean, sigma, S, sample_size):#will need to change log(ab) to ab
+    RAClst = []
+    while len(RAClst) < sample_size:
+        a = np.random.lognormal(mean, sigma, S) #calling np.lgnm
+        b = []  #RAC that has been transformed 
+        for i in a:     #iterate through nln
+            c = np.log(i)
+            b.append(c)  #add to b
             b.sort()
-            RAClst.append(b)    #append transformed RAC to RACs
-   
+       
+        RAClst.append(b)    #append transformed RAC to RACs
+        
     return RAClst  
-    print 'Done2'    
-    
-    
-    
-'''sample_size = 25
-N = 10000
-S = 50'''
 
-mean = 15
-variance = 5
+mean = 100
+sigma = 5
+S = 25
 sample_size = 5
-S = 5
 
-RAClst =npLogNorm(mean,variance, S, sample_size)#Call npLogNorm fuction
-N = sum(RAClst)
+RAClst = npLogNorm(mean, sigma, S, sample_size)#Call npLogNorm fuction
+NPRAC = AvgShape(RAClst) #find Avg shape of NP log norm
+print len(NPRAC)
+print NPRAC
+
+N = np.around(np.sum(RAClst))
 RACs = SimLogNorm(N, S, sample_size) #call SLN function 
 RAC = AvgShape(RACs) # you (nathan) were leaving this out
 
@@ -93,7 +87,7 @@ RAC = AvgShape(RACs) # you (nathan) were leaving this out
 
 print 'N =',N,', S =', S
 
-RACs = SimLogNorm(N, S, sample_size) #obtain SLN RACs
+#RACs = SimLogNorm(N, S, sample_size) #obtain SLN RACs
 
 SimLogNorm = AvgShape(RACs) # you (nathan) were leaving this out
 
@@ -105,11 +99,11 @@ for RAC in RACs: #Placing SLN RAC values into lists
     x.extend(range(len(RAC)))
     
 
-print len(RAClst), sum(RAClst), len(RAC), sum(RAC) #to Check values
+#print len(RAClst), sum(RAClst), len(RAC), sum(RAC) #to Check values
 
 plt.hexbin(x, y, mincnt=1, gridsize = 20, bins = 'log', cmap=plt.cm.jet) # Generating Heat Map
 
-plt.plot(np.log(RAClst), color='0.3', lw=3, label='NpLogN: N='+str(N)+', S='+str(S)) # Plot the MLE 
+plt.plot(np.log(NPRAC), color='0.3', lw=3, label='NpLogN: N='+str(N)+', S='+str(S)) # Plot the MLE 
 
 plt.plot(np.log(SimLogNorm), color='Lime', lw=3, label='Simulated N='+str(N)+', S='+str(S)) # Plot the simulated form
 
@@ -121,5 +115,5 @@ plt.xlim(0, S + 5)
 plt.xlabel('Rank in abundance', fontsize=16)
 plt.ylabel('log(abundance)', fontsize=16)
 
-plt.savefig('/Users/Nathan_Hillis/SADModels/figures/Debug_Figs/Ploting_MLE_RACs/logNormal_MLEs_RACs_N='+str(N)+'_S='+str(S)+'.png', dpi=600, bbox_inches = 'tight', pad_inches=0.03)
+plt.savefig('/Users/Nathan_Hillis/SADModels/figures/Debug_Figs/NPLN_v_SimLN/logNormal_NPLog_V_Sim_N='+str(N)+'_S='+str(S)+'.png', dpi=600, bbox_inches = 'tight', pad_inches=0.03)
 plt.show()

@@ -115,7 +115,7 @@ MLE = get_LogNormMLE(RAC) #Finding MLE for log-normal for a given N and S (does 
 N = sum(MLE)
 print 'N =',N,', S =', S
 
-sample_size = 100
+sample_size = 25
 RACs = SimLogNorm(N, S, sample_size)
 
 SimLogNorm = AvgShape(RACs) # you (nathan) were leaving this out
