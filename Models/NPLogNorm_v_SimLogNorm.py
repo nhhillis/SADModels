@@ -75,10 +75,11 @@ def npLogNorm(mean, sigma, S, sample_size):#will need to change log(ab) to ab
 
 #mean = 100
 S = 25
-sample_size = 10
+sample_size = 25
 
 iRAC = SimLogNorm(1000,S, sample_size) # use to get a reasonable sigma
 mean = float(np.mean(iRAC))
+print mean
 
 sigma = float(np.std(iRAC))#find sigma(standard deviation), 
 print 'Sigma', sigma
