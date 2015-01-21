@@ -84,10 +84,10 @@ sigma = float(np.std(iRAC))#find sigma(standard deviation),
 print 'Sigma', sigma
 
 RAClst = npLogNorm(mean, sigma, S, sample_size)#Call npLogNorm fuction
-print RAClst
+#print RAClst
 
 NPRAC = AvgShape(RAClst) #find Avg shape of NP log norm
-print len(NPRAC)
+#print len(NPRAC)
 print NPRAC
 
 N= sum(AvgShape(RAClst))
