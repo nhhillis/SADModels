@@ -59,29 +59,41 @@ def npLogNorm(mean, sigma, S, sample_size):#will need to change log(ab) to ab
     RAClst = []
     while len(RAClst) < sample_size:
         a = np.random.lognormal(mean, sigma, S) #calling np.lgnm
-        b = []  #RAC that has been transformed 
-        for i in a:     #iterate through nln
+        a = np.log(a)
+        a = a.tolist()
+        a.sort()
+        a.reverse()
+        
+        '''for i in a:     #iterate through nln
             c = np.log(i)
             b.append(c)  #add to b
-            b.sort()
+            b.sort()'''
        
-        RAClst.append(b)    #append transformed RAC to RACs
+        RAClst.append(a)    #append transformed RAC to RACs
         
     return RAClst  
 
-mean = 100
-sigma = 5
+#mean = 100
 S = 25
-sample_size = 5
+sample_size = 10
+
+iRAC = SimLogNorm(1000,S, sample_size) # use to get a reasonable sigma
+mean = float(np.mean(iRAC))
+
+sigma = float(np.std(iRAC))#find sigma(standard deviation), 
+print 'Sigma', sigma
 
 RAClst = npLogNorm(mean, sigma, S, sample_size)#Call npLogNorm fuction
+print RAClst
+
 NPRAC = AvgShape(RAClst) #find Avg shape of NP log norm
 print len(NPRAC)
 print NPRAC
 
-N = np.around(np.sum(RAClst))
+N= sum(AvgShape(RAClst))
 RACs = SimLogNorm(N, S, sample_size) #call SLN function 
 RAC = AvgShape(RACs) # you (nathan) were leaving this out
+
 
 #MLE = get_LogNormMLE(RAC) #Finding MLE for log-normal for a given N and S (does not return N)
 
@@ -97,13 +109,15 @@ y = []
 for RAC in RACs: #Placing SLN RAC values into lists
     y.extend(np.log(RAC))
     x.extend(range(len(RAC)))
-    
+     
 
 #print len(RAClst), sum(RAClst), len(RAC), sum(RAC) #to Check values
 
 plt.hexbin(x, y, mincnt=1, gridsize = 20, bins = 'log', cmap=plt.cm.jet) # Generating Heat Map
 
-plt.plot(np.log(NPRAC), color='0.3', lw=3, label='NpLogN: N='+str(N)+', S='+str(S)) # Plot the MLE 
+ranks = (range(len(NPRAC)))
+print 'Ranks', len(ranks)
+plt.plot(ranks, np.log(NPRAC), color='0.3', lw=3, label='NPLogN: N='+str(N)+', S='+str(S)) # Plot the MLE 
 
 plt.plot(np.log(SimLogNorm), color='Lime', lw=3, label='Simulated N='+str(N)+', S='+str(S)) # Plot the simulated form
 
