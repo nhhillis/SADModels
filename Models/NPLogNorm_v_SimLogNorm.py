@@ -63,7 +63,7 @@ def npLogNorm(mean, sigma, S, sample_size):#will need to change log(ab) to ab
         a = a.tolist()
         a.sort()
         a.reverse()
-        
+        #conditional statement to kick out neg lists
         '''for i in a:     #iterate through nln
             c = np.log(i)
             b.append(c)  #add to b
