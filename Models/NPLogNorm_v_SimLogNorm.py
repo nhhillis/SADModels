@@ -42,7 +42,7 @@ def SimLogNorm(N, S, sample_size):
             RAC.sort()
             RAC.reverse()
             RACs.append(RAC)
-            print len(RAC)
+            #print len(RAC)
             
     return RACs
     
@@ -74,10 +74,10 @@ def npLogNorm(mean, sigma, S, sample_size):#will need to change log(ab) to ab
     return RAClst  
 
 #mean = 100
-S = 25
+S = 15
 sample_size = 50
 
-iRAC = SimLogNorm(1000,S, sample_size) # use to get a reasonable sigma
+iRAC = SimLogNorm(100,S, sample_size) # use to get a reasonable sigma
 mean = float(np.mean(iRAC))
 print 'Mean =', mean
 
@@ -85,18 +85,14 @@ sigma = float(np.std(iRAC))#find sigma(standard deviation),
 print 'Sigma =', sigma
 
 RAClst = npLogNorm(mean, sigma, S, sample_size)#Call npLogNorm fuction
-#print RAClst
+
 
 NPRAC = AvgShape(RAClst) #find Avg shape of NP log norm
 #print len(NPRAC)
-print NPRAC
 
 N= sum(AvgShape(RAClst))
 RACs = SimLogNorm(N, S, sample_size) #call SLN function 
 RAC = AvgShape(RACs) # you (nathan) were leaving this out
-
-
-#MLE = get_LogNormMLE(RAC) #Finding MLE for log-normal for a given N and S (does not return N)
 
 print 'N =',N,', S =', S
 
@@ -111,16 +107,15 @@ for RAC in RACs: #Placing SLN RAC values into lists
     y.extend(np.log(RAC))
     x.extend(range(len(RAC)))
      
-
-#print len(RAClst), sum(RAClst), len(RAC), sum(RAC) #to Check values
-
 plt.hexbin(x, y, mincnt=1, gridsize = 20, bins = 'log', cmap=plt.cm.jet) # Generating Heat Map
 
 ranks = (range(len(NPRAC)))
 print 'Ranks', len(ranks)
-plt.plot(ranks, np.log(NPRAC), color='0.3', lw=3, label='NPLogN: N='+str(N)+', S='+str(S)) # Plot the MLE 
+print 'NPRAC', NPRAC
 
+plt.plot(ranks, np.log(NPRAC), color='0.3', lw=3, label='NPLogN: N='+str(N)+', S='+str(S)) # Plot the MLE 
 plt.plot(np.log(SimLogNorm), color='Lime', lw=3, label='Simulated N='+str(N)+', S='+str(S)) # Plot the simulated form
+
 
 leg = plt.legend(loc=1,prop={'size':13}) # plot a legend
 leg.draw_frame(False) # don't plot the legend's frame
