@@ -52,32 +52,28 @@ def SimLogNorm(N, S, sample_size):
     e^(mean) = N/S
     e^(mean) * S = N'''
 
-'''Working through this one.  Still working on converting the logAB to AB. Also 
-npLogNorm does not seem to be passing to SimLogNorm'''
+'''Working through this one.  The negative values in RAClst seem to be throwing the 
+function off'''
 
 def npLogNorm(mean, sigma, S, sample_size):#will need to change log(ab) to ab
     RAClst = []
     while len(RAClst) < sample_size:
         a = np.random.lognormal(mean, sigma, S) #calling np.lgnm
-        a = np.log(a)
+        a = np.log(a) #transform a
         a = a.tolist()
         a.sort()
         a.reverse()
-        #conditional statement to kick out neg lists
-        '''for i in a:     #iterate through nln
-            c = np.log(i)
-            b.append(c)  #add to b
-            b.sort()'''
-       
+        if any(i <= 0 for i in a):#I thought this conditional statement would kick out negative
+            break #values but only works every once and a while
         RAClst.append(a)    #append transformed RAC to RACs
-        
+       
     return RAClst  
 
 #mean = 100
 S = 15
 sample_size = 50
 
-iRAC = SimLogNorm(100,S, sample_size) # use to get a reasonable sigma
+iRAC = SimLogNorm(1000, S, sample_size) # use to get a reasonable sigma
 mean = float(np.mean(iRAC))
 print 'Mean =', mean
 
