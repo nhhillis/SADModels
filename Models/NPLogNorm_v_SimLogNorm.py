@@ -64,7 +64,7 @@ def npLogNorm(mean, sigma, S, sample_size):#will need to change log(ab) to ab
         a.sort()
         a.reverse()
         if any(i <= 0 for i in a):#I thought this conditional statement would kick out negative
-            break #values but only works every once and a while
+            break #values but only works every once in a while
         RAClst.append(a)    #append transformed RAC to RACs
        
     return RAClst  
