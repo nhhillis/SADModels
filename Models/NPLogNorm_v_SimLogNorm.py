@@ -55,8 +55,9 @@ def SimLogNorm(N, S, sample_size):
 '''Working through this one.  The negative values in RAClst seem to be throwing the 
 function off'''
 
-def npLogNorm(mean, sigma, S, sample_size):#will need to change log(ab) to ab
+def npLogNorm(mean, sigma, S, sample_size):#Issue seems to be here.  Returning neg values
     RAClst = []
+    
     while len(RAClst) < sample_size:
         a = np.random.lognormal(mean, sigma, S) #calling np.lgnm
         a = np.log(a) #transform a
@@ -72,14 +73,15 @@ def npLogNorm(mean, sigma, S, sample_size):#will need to change log(ab) to ab
         RAClst.append(a)    #append transformed RAC to RACs
        
     return RAClst  
-
+    
 #mean = 100
-S = 15
+S = 30
 sample_size = 50
 
-iRAC = SimLogNorm(1000, S, sample_size) # use to get a reasonable sigma
+iRAC = SimLogNorm(200, S, sample_size) # use to get a reasonable sigma
 mean = float(np.mean(iRAC))
 print 'Mean =', mean
+print 'Sim', AvgShape(iRAC)
 
 sigma = float(np.std(iRAC))#find sigma(standard deviation), 
 print 'Sigma =', sigma
@@ -113,7 +115,7 @@ ranks = (range(len(NPRAC)))
 print 'Ranks', len(ranks)
 print 'NPRAC', NPRAC
 
-plt.plot(ranks, np.log(NPRAC), color='0.3', lw=3, label='NPLogN: N='+str(N)+', S='+str(S)) # Plot the MLE 
+plt.plot(ranks, np.log(NPRAC), color='0.3', lw=3, label='NPLogN: N='+str(N)+', S='+str(S)) 
 plt.plot(np.log(SimLogNorm), color='Lime', lw=3, label='Simulated N='+str(N)+', S='+str(S)) # Plot the simulated form
 
 
