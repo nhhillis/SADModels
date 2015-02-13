@@ -64,18 +64,16 @@ def npLogNorm(mean, sigma, S, sample_size):#Issue seems to be here.  Returning n
         a = a.tolist()
         a.sort()
         a.reverse()
-        """for i in a:
-            if i <= 0:
-                break   #I have tried both of these statements neither works as of yet
-        if any(i <= 0 for i in a):#I thought this conditional statement would kick out negative
-            break #values but only works every once in a while"""
+        '''for i in a:
+            if i <= 0: #Remove Negative numbers then append #still having trouble
+                a.pop()'''
         
         RAClst.append(a)    #append transformed RAC to RACs
        
     return RAClst  
     
 #mean = 100
-S = 30
+S = 15
 sample_size = 50
 
 iRAC = SimLogNorm(200, S, sample_size) # use to get a reasonable sigma
@@ -92,7 +90,8 @@ RAClst = npLogNorm(mean, sigma, S, sample_size)#Call npLogNorm fuction
 NPRAC = AvgShape(RAClst) #find Avg shape of NP log norm
 #print len(NPRAC)
 
-N= sum(AvgShape(RAClst))
+#N= sum(AvgShape(RAClst))
+N=sum(NPRAC)
 RACs = SimLogNorm(N, S, sample_size) #call SLN function 
 RAC = AvgShape(RACs) # you (nathan) were leaving this out
 
