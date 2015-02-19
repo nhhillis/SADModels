@@ -1,6 +1,6 @@
 import csv
 import numpy as np
-from random import randrange
+from random import randrange, choice
 import matplotlib.pyplot as plt
 import math
 import sys
@@ -8,8 +8,14 @@ import os
 mydir = os.path.expanduser("~Nathan_Hillis/SADModels/")
 sys.path.append(mydir + "Analysis")
 from AverageShape import AvgShape
+from AverageShape import PlotAvgShape
+sys.path.append(mydir + 'tools/')
+import HeatMap
 
-'''Comparing Obsd SADs to simlognorm'''
+'''Comparing Obsd SADs to SimLogNorm.  
+This code contains functions for reading in CSV files and obtaining predictied Avg LogNorm SADs
+getting N and S.  I am currently working on a function that will get samples from a larger data set and
+a function to graph the samples with LogNorm heat map, AvgLogNorm and observed'''
 
 def SimLogNorm(N, S, sample_size):
     
@@ -34,91 +40,110 @@ def SimLogNorm(N, S, sample_size):
             #print len(RAC)
             
     return RACs
-    
+
+###################################################################   
+
 def read_csv(filepath):
     SADs = []
+    
     with open(filepath, 'U') as csvfile:
         reader = csv.reader(csvfile)
+    
         for row in reader:  
             SAD = [int(i) for i in row]
+            SAD.reverse()
             SADs.append(SAD)
+            
     return SADs
 
-
+###################################################################
 
 def get_predx(SADs):
-    
-    for sad in SADs:
-        
-        sad.reverse()
-        print sad
+    prdSADs=[]#list of predicted SLN average SADs 
+   
+    for sad in SADs:   
         N = sum(sad)
         S = len(sad)
         sample_size = 100
+        prdSAD = AvgShape(SimLogNorm(N, S, sample_size)) #Get average shape of SLN
+        prdSADs.append(prdSAD)
+        #print prdSAD
         
-        prdSAD = AvgShape(SimLogNorm(N, S, sample_size))
-        print prdSAD
-        
-    return prdSAD
-    return sad
+    return prdSADs
 
-def graph_SAD(SADs):
+###################################################################
+
+'''def graph_SAD(SADs):
     for sad in SADs:
         rank = range(len(sad))
         sad = np.log(sad)
         plt.plot(rank, sad) 
-    plt.show()
-    
+    plt.show()'''
+
+###################################################################
+
+def get_N(SADs):
+    N = []
+   
+    while len(N) < len(SADs):
+        for sad in SADs:
+            N.append(sum(sad))
+   
+    return N
+
+###################################################################
+
+def get_S(SADs):
+    S = []
+   
+    while len(S) < len(SADs):
+        for sad in SADs:
+            S.append(len(sad))
+  
+    return S
+
+###################################################################           
+
+def get_samples(SADs, NumSamples):
+    Samples = []
+    while len(Samples) < NumSamples:
+        samp = choice(SADs) #Randomly choose sample
+        Samples.append(samp)
+    print 'Samples', Samples
+    return Samples
+
+###################################################################           
+
 SADs = read_csv('/Users/Nathan_Hillis/Dropbox/Nathan_Hillis/Data/Sample_data.csv')
-RACs = get_predx(SADs)
-graph_SAD(SADs)
 
-'''print len(RACs[0])
+Ns = get_N(SADs)
+Ss = get_S(SADs)
 
-x1 = len(RACs[0])
-x2 = len(RACs[1])
-x3 = len(RACs[2])
-x4 = len(RACs[3])
-x5 = len(RACs[4])
-x6 = len(RACs[5])
+Sample_size = 100
+Samples = get_samples(SADs, 4)
 
-y1 = sum(RACs[0])
-y2 = sum(RACs[1])
-y3 = sum(RACs[2])
-y4 = sum(RACs[3])
-y5 = sum(RACs[4])
-y6 = sum(RACs[5])
+RACs = get_predx(Samples)
+print 'LogNorm', RACs
 
-plt.subplot(6, 1, 1)
-plt.plot(x1, y1, 'yo-')
-plt.title('A tale of 2 subplots')
-plt.ylabel('Damped oscillation')
-
-plt.subplot(6, 1, 2)
-plt.plot(x2, y2, 'r.-')
-plt.xlabel('time (s)')
-plt.ylabel('Undamped')
-
-plt.subplot(6, 1, 3)
-plt.plot(x3, y3, 'r.-')
-plt.xlabel('')
-plt.ylabel('')
-
-plt.subplot(6, 2, 1)
-plt.plot(x2, y2, 'r.-')
-plt.xlabel('time (s)')
-plt.ylabel('Undamped')
-
-plt.subplot(6, 2, 2)
-plt.plot(x2, y2, 'r.-')
-plt.xlabel('time (s)')
-plt.ylabel('Undamped')
-
-plt.subplot(6, 2, 3)
-plt.plot(x2, y2, 'r.-')
-plt.xlabel('time (s)')
-plt.ylabel('Undamped')
-plt.show()'''
+'''print 'Ns = ', Ns
+print 'Ss = ', Ss
+print 'Observed = ', SADs
+print 'LogNorm Prediction = ', RACs'''
 
 
-    
+
+
+'''fig = plt.figure()
+title = 'Pilot Study'
+
+ax = fig.add_subplot(3, 3, 1)
+RACsample = SimLogNorm(len(SADs[0]), sum(SADs[0]), 100)
+fig = HeatMap.RACHeatMap(fig, RACsample)
+fig = PlotAvgShape(fig, RACsample)
+
+plt.title('Broken Stick', fontsize = 13)
+plt.xlabel('Rank')
+#plt.ylabel('Abundance')
+plt.ylabel(title)
+
+print 'finished broken stick\n'''''
