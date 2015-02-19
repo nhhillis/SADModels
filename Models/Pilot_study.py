@@ -42,7 +42,7 @@ def SimLogNorm(N, S, sample_size):
     return RACs
 
 ###################################################################   
-
+'''Function to read in a .CSV file and to reorder for SAD'''
 def read_csv(filepath):
     SADs = []
     
@@ -57,6 +57,7 @@ def read_csv(filepath):
     return SADs
 
 ###################################################################
+'''Gets predicted average LogNormal SAD for sample'''
 
 def get_predx(SADs):
     prdSADs=[]#list of predicted SLN average SADs 
@@ -72,17 +73,20 @@ def get_predx(SADs):
     return prdSADs
 
 ###################################################################
+'''Function to graph SADs, as of now only plots to one graph.
+I want to graph each sample with a heat map of predicted and the average predicted'''
 
-'''def graph_SAD(SADs):
+def graph_SAD(SADs):
     for sad in SADs:
         rank = range(len(sad))
         sad = np.log(sad)
         plt.plot(rank, sad) 
-    plt.show()'''
+    plt.show()
 
 ###################################################################
+'''Function to obtain N from SADs in sample'''
 
-def get_N(SADs):
+def get_N(SADs):#Returns the Ns for the sample
     N = []
    
     while len(N) < len(SADs):
@@ -92,8 +96,9 @@ def get_N(SADs):
     return N
 
 ###################################################################
+'''Function to obtain S from SADs in sample'''
 
-def get_S(SADs):
+def get_S(SADs): #Returns the Ss for the sample
     S = []
    
     while len(S) < len(SADs):
@@ -103,6 +108,7 @@ def get_S(SADs):
     return S
 
 ###################################################################           
+'''Function to pull samples from large data set'''
 
 def get_samples(SADs, NumSamples):
     Samples = []
@@ -116,19 +122,18 @@ def get_samples(SADs, NumSamples):
 
 SADs = read_csv('/Users/Nathan_Hillis/Dropbox/Nathan_Hillis/Data/Sample_data.csv')
 
-Ns = get_N(SADs)
-Ss = get_S(SADs)
+Ns = get_N(SADs) #Get N
+Ss = get_S(SADs) #Get S
 
-Sample_size = 100
-Samples = get_samples(SADs, 4)
+Sample_size = 100 #Number of times to run SimLogNorm to get samples
+Samples = get_samples(SADs, 6) #Number of samples to use
 
-RACs = get_predx(Samples)
-print 'LogNorm', RACs
+PredSAD = get_predx(Samples) #Get predicted SAD for the sample
+graph_SAD(PredSAD) # Graph Predicted SAD
 
-'''print 'Ns = ', Ns
+print 'Ns = ', Ns
 print 'Ss = ', Ss
-print 'Observed = ', SADs
-print 'LogNorm Prediction = ', RACs'''
+print 'LogNorm Prediction = ', PredSAD
 
 
 
