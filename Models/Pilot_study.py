@@ -73,8 +73,9 @@ def get_predx(SADs, sample_size):
     return prdSADs
 
 ###################################################################
-'''Function to graph SADs, as of now only plots to one graph.
-I want to graph each sample with a heat map of predicted and the average predicted'''
+'''Function to graph SADs, as of now only plots to one graph. May not be of much use right now.
+I want to graph each sample with a heat map of predicted and the average predicted.  Still not working
+properly.'''
 
 def graph_SAD(SADs, Title):
     for sad in SADs:
@@ -82,7 +83,12 @@ def graph_SAD(SADs, Title):
         sad = np.log(sad)
         plt.plot(rank, sad)
         plt.title(Title, fontsize = 13) 
+        plt.xlabel('Rank')
+        plt.ylabel('Abundance')
+    plt.savefig('/Users/Nathan_Hillis/SADModels/figures/Pilot_Study/Pilot_Study_'+Title+'.png', dpi=None, facecolor='w', edgecolor='w',)    
     plt.show()
+ 
+    
 
 ###################################################################
 '''Function to obtain N from SADs in sample'''
@@ -109,29 +115,35 @@ def get_S(SADs): #Returns the Ss for the sample
     return S
 
 ###################################################################           
-'''Function to pull samples from large data set'''
+'''Function to pull samples from large data set.
+Need to do this so that same SAD is not selected twice.'''
 
 def get_samples(SADs, NumSamples):
     Samples = []
     while len(Samples) < NumSamples:
         samp = choice(SADs) #Randomly choose sample
+        '''for i in Samples:
+                if sum(samp) == sum(i):
+                        break'''
         Samples.append(samp)
     print 'Samples', Samples
     return Samples
 
 ###################################################################           
 
-SADs = read_csv('/Users/Nathan_Hillis/Desktop/Data/Sample_data.csv')
+SADs = read_csv('/Users/Nathan_Hillis/Desktop/Data/Sample_data.csv') # Will have to be changed to data location
 
 Ns = get_N(SADs) #Get N
 Ss = get_S(SADs) #Get S
 
-#Sample_size = 100 #Number of times to run SimLogNorm to get samples
 Samples = get_samples(SADs, 6) #Number of samples to use
+print 'Number of Samples', len(Samples)
 
 PredSAD = get_predx(Samples, 100) #Get predicted SAD for the sample, second input is number of times to run simlognorm
+print 'Predicted Samples Number', len(PredSAD)
+
 graph_SAD(PredSAD, 'PredSAD') # Graph Predicted SAD
-graph_SAD(SADs, 'ObsSAD') #Graph Observed SADs
+graph_SAD(Samples, 'ObsSAD') #Graph Observed SADs, Plot is coming out wrong
 
 print 'Ns = ', Ns
 print 'Ss = ', Ss
