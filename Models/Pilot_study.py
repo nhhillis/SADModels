@@ -19,7 +19,7 @@ a function to graph the samples with LogNorm heat map, AvgLogNorm and observed''
 
 def SimLogNorm(N, S, sample_size):
     
-    RACs = []  # 'sample' is a function. You don't want to give variables the same name as a function 
+    RACs = []  # List of SimLogNorm RACs
     
     while len(RACs) < sample_size:
         RAC = [N] #Initial 
@@ -43,6 +43,7 @@ def SimLogNorm(N, S, sample_size):
 
 ###################################################################   
 '''Function to read in a .CSV file and to reorder for SAD'''
+
 def read_csv(filepath):
     SADs = []
     
@@ -59,13 +60,12 @@ def read_csv(filepath):
 ###################################################################
 '''Gets predicted average LogNormal SAD for sample'''
 
-def get_predx(SADs):
+def get_predx(SADs, sample_size):
     prdSADs=[]#list of predicted SLN average SADs 
    
     for sad in SADs:   
         N = sum(sad)
         S = len(sad)
-        sample_size = 100
         prdSAD = AvgShape(SimLogNorm(N, S, sample_size)) #Get average shape of SLN
         prdSADs.append(prdSAD)
         #print prdSAD
@@ -76,11 +76,12 @@ def get_predx(SADs):
 '''Function to graph SADs, as of now only plots to one graph.
 I want to graph each sample with a heat map of predicted and the average predicted'''
 
-def graph_SAD(SADs):
+def graph_SAD(SADs, Title):
     for sad in SADs:
         rank = range(len(sad))
         sad = np.log(sad)
-        plt.plot(rank, sad) 
+        plt.plot(rank, sad)
+        plt.title(Title, fontsize = 13) 
     plt.show()
 
 ###################################################################
@@ -120,35 +121,18 @@ def get_samples(SADs, NumSamples):
 
 ###################################################################           
 
-SADs = read_csv('/Users/Nathan_Hillis/Dropbox/Nathan_Hillis/Data/Sample_data.csv')
+SADs = read_csv('/Users/Nathan_Hillis/Desktop/Data/Sample_data.csv')
 
 Ns = get_N(SADs) #Get N
 Ss = get_S(SADs) #Get S
 
-Sample_size = 100 #Number of times to run SimLogNorm to get samples
+#Sample_size = 100 #Number of times to run SimLogNorm to get samples
 Samples = get_samples(SADs, 6) #Number of samples to use
 
-PredSAD = get_predx(Samples) #Get predicted SAD for the sample
-graph_SAD(PredSAD) # Graph Predicted SAD
+PredSAD = get_predx(Samples, 100) #Get predicted SAD for the sample, second input is number of times to run simlognorm
+graph_SAD(PredSAD, 'PredSAD') # Graph Predicted SAD
+graph_SAD(SADs, 'ObsSAD') #Graph Observed SADs
 
 print 'Ns = ', Ns
 print 'Ss = ', Ss
 print 'LogNorm Prediction = ', PredSAD
-
-
-
-
-'''fig = plt.figure()
-title = 'Pilot Study'
-
-ax = fig.add_subplot(3, 3, 1)
-RACsample = SimLogNorm(len(SADs[0]), sum(SADs[0]), 100)
-fig = HeatMap.RACHeatMap(fig, RACsample)
-fig = PlotAvgShape(fig, RACsample)
-
-plt.title('Broken Stick', fontsize = 13)
-plt.xlabel('Rank')
-#plt.ylabel('Abundance')
-plt.ylabel(title)
-
-print 'finished broken stick\n'''''
