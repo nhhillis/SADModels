@@ -77,7 +77,7 @@ def get_predx(SADs, sample_size):
 I want to graph each sample with a heat map of predicted and the average predicted.  Still not working
 properly.'''
 
-def graph_SAD(SADs, Title):
+'''def graph_SAD(SADs, Title):
     for sad in SADs:
         rank = range(len(sad))
         sad = np.log(sad)
@@ -86,7 +86,7 @@ def graph_SAD(SADs, Title):
         plt.xlabel('Rank')
         plt.ylabel('Abundance')
     plt.savefig('/Users/Nathan_Hillis/SADModels/figures/Pilot_Study/Pilot_Study_'+Title+'.png', dpi=None, facecolor='w', edgecolor='w',)    
-    plt.show()
+    plt.show()'''
  
     
 
@@ -142,8 +142,8 @@ print 'Number of Samples', len(Samples)
 PredSAD = get_predx(Samples, 100) #Get predicted SAD for the sample, second input is number of times to run simlognorm
 print 'Predicted Samples Number', len(PredSAD)
 
-graph_SAD(PredSAD, 'PredSAD') # Graph Predicted SAD
-graph_SAD(Samples, 'ObsSAD') #Graph Observed SADs, Plot is coming out wrong
+#graph_SAD(PredSAD, 'PredSAD') # Graph Predicted SAD
+#graph_SAD(Samples, 'ObsSAD') #Graph Observed SADs, Plot is coming out wrong
 
 print 'Ns = ', Ns
 print 'Ss = ', Ss
