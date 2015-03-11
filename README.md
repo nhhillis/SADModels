@@ -5,6 +5,7 @@ Developed by Nathan Hillis (University of Central Oklahoma) and Ken Locey (India
 
 ## Requirements (at least, what the authors used):
 
+* Enthought Canopy version 1.4.0 64-bit
 * Python version 2.7.6
 	* Check your version: python -c 'print __import__("sys").version'
 
