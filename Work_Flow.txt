@@ -1,0 +1,22 @@
+Project Work flow
+	- 3 files
+		* Models
+			- list of models
+			- This file already exists, just need to add tests to make sure it runs 
+				smoothly
+		* Prediction
+			- Get SAD
+			- Get Prediction
+			- Write ObsPred file
+			- Pilot_Study.py
+				* Needs work but basics are there
+		* Analysis
+			- Code for one-one plots
+				* Ken should have this( 
+			- Code for Kolmogorov–Smirnov test
+				* scipy.stats.ks_2samp(data1, data2)
+			- Code for Chi Squared
+				*  scipy.stats.chisquare(f_obs, f_exp=None, ddof=0, axis=0)
+			- Code for evenness, diversity and dominance
+				* found in indices file
+			- Should just require simple lines of code to run tests
