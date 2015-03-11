@@ -5,44 +5,26 @@ import matplotlib.pyplot as plt
 import math
 import sys
 import os
+
 mydir = os.path.expanduser("~Nathan_Hillis/SADModels/")
+
 sys.path.append(mydir + "Analysis")
+
 from AverageShape import AvgShape
-from AverageShape import PlotAvgShape
-sys.path.append(mydir + 'tools/')
-import HeatMap
 
-'''Comparing Obsd SADs to SimLogNorm.  
-This code contains functions for reading in CSV files and obtaining predictied Avg LogNorm SADs
-getting N and S.  I am currently working on a function that will get samples from a larger data set and
-a function to graph the samples with LogNorm heat map, AvgLogNorm and observed'''
+sys.path.append(mydir + 'Models/')
+import Models 
 
-def SimLogNorm(N, S, sample_size):
-    
-    RACs = []  # List of SimLogNorm RACs
-    
-    while len(RACs) < sample_size:
-        RAC = [N] #Initial 
-        while len(RAC) < S:
-            ind = randrange(len(RAC))
-            v = RAC.pop(ind) # Removes randomly selected number from list RAC
-            v1 = int(round(0.75 * v)) # split 75:25
-            v2 = v - v1  # force all abundances to be integers 
-            
-            if v1 < 1 or v2 < 1: break # force min(RAC) to be > 1
-                                            
-            RAC.extend([v1, v2]) # add new values to RAC, increaseing len(RAC) by 1
-            
-        if len(RAC) == S and sum(RAC) == N: # When conditions are met sort and append
-            RAC.sort()
-            RAC.reverse()
-            RACs.append(RAC)
-            #print len(RAC)
-            
-    return RACs
+'''This code will obtain observed and predicted SADs(1000) for each model.  Then create a new 
+file for each model that contains Survey Date, Site, Species, Observed AB and average Predicted AB.
+
+- As of now, need to call model functions instead of copying them (fixed this)
+- Need to add check in getsample() that keeps it from drawing same SAD (Remove SAD from list once selected)
+- Set up data so that it will work properly
+- Pull data in without CSV module'''
 
 ###################################################################   
-'''Function to read in a .CSV file and to reorder for SAD'''
+'''Function to read in a .CSV file and to reorder for SAD''' # this will not be needed
 
 def read_csv(filepath):
     SADs = []
@@ -66,32 +48,15 @@ def get_predx(SADs, sample_size):
     for sad in SADs:   
         N = sum(sad)
         S = len(sad)
-        prdSAD = AvgShape(SimLogNorm(N, S, sample_size)) #Get average shape of SLN
+        prdSAD = AvgShape(Models.SimLogNormInt(N, S, sample_size)) #Get average shape of SLN
         prdSADs.append(prdSAD)
         #print prdSAD
         
     return prdSADs
 
 ###################################################################
-'''Function to graph SADs, as of now only plots to one graph. May not be of much use right now.
-I want to graph each sample with a heat map of predicted and the average predicted.  Still not working
-properly.'''
 
-'''def graph_SAD(SADs, Title):
-    for sad in SADs:
-        rank = range(len(sad))
-        sad = np.log(sad)
-        plt.plot(rank, sad)
-        plt.title(Title, fontsize = 13) 
-        plt.xlabel('Rank')
-        plt.ylabel('Abundance')
-    plt.savefig('/Users/Nathan_Hillis/SADModels/figures/Pilot_Study/Pilot_Study_'+Title+'.png', dpi=None, facecolor='w', edgecolor='w',)    
-    plt.show()'''
- 
-    
-
-###################################################################
-'''Function to obtain N from SADs in sample'''
+'''Function to obtain N from SADs in sample''' # Not sure if this is needed but I am leaving it in
 
 def get_N(SADs):#Returns the Ns for the sample
     N = []
@@ -103,7 +68,7 @@ def get_N(SADs):#Returns the Ns for the sample
     return N
 
 ###################################################################
-'''Function to obtain S from SADs in sample'''
+'''Function to obtain S from SADs in sample''' # Not sure if this is needed but I am leaving it in 
 
 def get_S(SADs): #Returns the Ss for the sample
     S = []
@@ -119,13 +84,16 @@ def get_S(SADs): #Returns the Ss for the sample
 Need to do this so that same SAD is not selected twice.'''
 
 def get_samples(SADs, NumSamples):
+    
     Samples = []
+    
     while len(Samples) < NumSamples:
         samp = choice(SADs) #Randomly choose sample
         '''for i in Samples:
                 if sum(samp) == sum(i):
                         break'''
         Samples.append(samp)
+ 
     print 'Samples', Samples
     return Samples
 
@@ -136,15 +104,19 @@ SADs = read_csv('/Users/Nathan_Hillis/Desktop/Data/Sample_data.csv') # Will have
 Ns = get_N(SADs) #Get N
 Ss = get_S(SADs) #Get S
 
-Samples = get_samples(SADs, 6) #Number of samples to use
-print 'Number of Samples', len(Samples)
+#Samples = get_samples(SADs, 6) #Number of samples to use (Add check against redundent SADs)
 
-PredSAD = get_predx(Samples, 100) #Get predicted SAD for the sample, second input is number of times to run simlognorm
-print 'Predicted Samples Number', len(PredSAD)
 
-#graph_SAD(PredSAD, 'PredSAD') # Graph Predicted SAD
-#graph_SAD(Samples, 'ObsSAD') #Graph Observed SADs, Plot is coming out wrong
+PredSAD = get_predx(SADs, 100) #Get predicted SAD for the sample, second input is number of times to run simlognorm
 
-print 'Ns = ', Ns
+print 'Predicted Samples Number = ', len(PredSAD)
+print("\n") 
+print 'Number of ObsSADs = ', len(SADs)
+print("\n") 
+print 'Ns = ', Ns, 
+print("\n") 
 print 'Ss = ', Ss
+print("\n") 
 print 'LogNorm Prediction = ', PredSAD
+print("\n") 
+print 'Observed SADs = ', SADs
