@@ -1,36 +1,61 @@
-# Project Work flow: 3 files
+# Housekeeping
+## Folders 
+**Models**  
+There are 11 files. There should be 2: 
 
-## Models.py
+* models.py: contains functions for the models
+* test.py: contains function that test model code
 
-### Functions: 
+**Projects folder**  
+There should be a folder named "Projects". This can contain code from your IRB project, etc.
+
+
+# Project Work flow (3 files)
+## File 1: models.py
+
+**Location:** Models folder  
+
+**Functions:**  
 * list of models
 
-### Notes:  
-* This file already exists, just need to add tests to make sure it runs smoothly
+**Notes:**  
+* This file already exists
+* Need to add test.py file to make sure that functions in models.py run *correctly*
 
-## ObsPred.py
-### Functions:
-* Get SAD
-* Get Prediction
-* Write ObsPred file
 
-### Notes: 
-* Needs work but basics are there
-* 	Pilot_Study.py ...
+## File 2: obs_pred.py
+**Location:** Analysis folder  
 
-## Analysis.py
-### Functions:
+**Functions:**  
+
+* Get empirical SADs
+* Get predicted SADs
+* Write empirical and predicted SADs to a file (obs_pred.txt)
+
+**Notes:**  
+
+* Needs work but basics are there...borrow from Pilot_Study.py
+
+
+## File 3: analysis.py
+**Location:** Projects folder  
+**Functions:**
+
 * Read ObsPred text files   
 * Compare observed SADs to predicted SADs:
+
+Code needed:
+
+	One-to-one plots: 
 	
-	Code for Kolmogorov–Smirnov test:  
+	Kolmogorov–Smirnov test (two-tailed):  
 	scipy.stats.ks_2samp(data1, data2)
 	
-	Code for Chi Squared:  
+	Chi-squared:  
 	scipy.stats.chisquare(f_obs, f_exp=None, ddof=0, axis=0)
 	
-	Code for evenness, diversity and dominance  
-	found in indices file
+	Metrics: evenness, diversity, dominance, skewness (rarity)
+	All are found within Indices.py
 	
 ### Notes: 
 Should just require simple lines of code to run tests
