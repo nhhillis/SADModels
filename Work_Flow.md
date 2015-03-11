@@ -1,6 +1,6 @@
 # Housekeeping
 ## Folders 
-**Models**  
+**Models folder**  
 There are 11 files. There should be 2: 
 
 * models.py: contains functions for the models
@@ -9,6 +9,8 @@ There are 11 files. There should be 2:
 **Projects folder**  
 There should be a folder named "Projects". This can contain code from your IRB project, etc.
 
+**Tools folder:** 
+Included files provided by KJL, either coded or provided through Weecology GitHub repos.
 
 # Project Work flow (3 files)
 ## File 1: models.py
