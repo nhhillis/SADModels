@@ -55,7 +55,7 @@ Code needed:
 	scipy.stats.chisquare(f_obs, f_exp=None, ddof=0, axis=0)
 	
 	Metrics: evenness, diversity, dominance, skewness (rarity)
-	All are found within Indices.py
+	All are found within Indices.py (provided by KJL)
 	
 ### Notes: 
 Should just require simple lines of code to run tests
