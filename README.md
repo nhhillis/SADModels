@@ -1,26 +1,40 @@
-SADModels
-=========
+# SADModels
 
-Software to generate predicted forms of species abundance distributions via random fraction models, and analyze them against empirical patterns.
+Python code for generating species abundance distributions (SADs) via random fraction versions of popular SAD models, and to compare predicted forms against empirical SADs.
 Developed by Nathan Hillis (University of Central Oklahoma) and Ken Locey (Indiana University).
 
-What's a species abundance distribution? (Section on what SAD is)
+## Contents
+### Directories
+**Tools:**  
+Includes files containing function for SAD analysis. 
+Some files are from other public GitHub repositories:  
 
-History
+	1.) HeatMap.py
+	2.) Indices.py
+	3.) predRADs.py
+	4.) feasible_functions.py: 
+		https://github.com/weecology/feasiblesets
+	5.) macroeco_distributions.py: 
+		https://github.com/weecology/macroecotools
+	6.) macroecotools.py: 
+		https://github.com/weecology/macroecotools
+	7.) mete.py: 
+		https://github.com/weecology/METE
+	8.) partitions.py: 
+		https://github.com/klocey/partitions
 
-Models:
-	* Simple Random Fraction (Magurran 2004)		* For this model, we randomly divided the total abundance (N) into two parts.  Then one of these parts would be selected and randomly divided.  One of the three resulting parts would be randomly selected and divided.  This occurs until there are as many parts of N as there are number of species (S).	* Log Normal (Sugihara 1980)		* To divide N in this model, we used a 75:25 split.  Then, a random part would be divided 75:25.  This continued until there were as many parts of N equals S.  	* Broken Stick (Magurran 2004)		* This model makes S – 1 simultaneous random divisions in N. This results in S number of abundances that sum to N.  	* Dominance Preemption (Magurran 2004)		* For this model, we divided N randomly between N(0.5) and N.  The resulting part would be assigned to species 1.  The remaining portion would then be divided between N(0.5) and N.  This value would be assigned to species 2.  This continues until there are enough species.  	* Dominance Decay (Magurran 2004)		* In the Dominance Decay model, we would randomly divide N into two parts.  Then, the largest section is divided at random.  This continues until there are enough parts for each species. 	* Pareto (Persky 1992)		* This model is similar to how we coded the Log Normal model, except the ratio of divisions is 80:20.
+**Projects:**  
+Will include Python scripts from various independent projects.
 
 
-Directories:
-  
-* Models
-* Results
-* Analysis
-* Tools
+**Models:**
+A folder of Python scripts containing functions for generating and testing random fraction models:
+	1.) Simple Random Fraction (Magurran 2004)		For this model, we randomly divided the total abundance (N) into two parts.  
+	Then one of these parts would be selected and randomly divided.  One of the three resulting parts would be randomly selected and divided.  
+	This occurs until there are as many parts of N as there are number of species (S).	* Log Normal (Sugihara 1980)		* To divide N in this model, we used a 75:25 split.  Then, a random part would be divided 75:25.  This continued until there were as many parts of N equals S.  	* Broken Stick (Magurran 2004)		* This model makes S – 1 simultaneous random divisions in N. This results in S number of abundances that sum to N.  	* Dominance Preemption (Magurran 2004)		* For this model, we divided N randomly between N(0.5) and N.  The resulting part would be assigned to species 1.  The remaining portion would then be divided between N(0.5) and N.  This value would be assigned to species 2.  This continues until there are enough species.  	* Dominance Decay (Magurran 2004)		* In the Dominance Decay model, we would randomly divide N into two parts.  Then, the largest section is divided at random.  This continues until there are enough parts for each species. 	* Pareto (Persky 1992)		* This model is similar to how we coded the Log Normal model, except the ratio of divisions is 80:20.
 
 
- * In Models:
+* In Models:
  
  	* LogNorm.py-
  		- Code used to generate Log Normal heat maps.
