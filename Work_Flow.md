@@ -1,4 +1,7 @@
 # Housekeeping
+## README.md 
+Needs to be updated, reviewed, edited for accuracy and completeness
+
 ## Folders 
 **Models folder**  
 There are 11 files. There should be 2: 
