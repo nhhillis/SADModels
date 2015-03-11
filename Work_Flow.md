@@ -51,7 +51,7 @@ Included files provided by KJL, either coded or provided through Weecology GitHu
 
 Code needed:
 
-	One-to-one plots: 
+	One-to-one plots: This is in the Analysis folder -KL.
 	
 	Kolmogorov–Smirnov test (two-tailed):  
 	scipy.stats.ks_2samp(data1, data2)
