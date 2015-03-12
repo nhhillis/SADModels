@@ -17,8 +17,19 @@ from AverageShape import AvgShape
 sys.path.append(mydir + 'Models/')
 import Models
 
-'''This code contains functions to get N, S, and SAD from .txt file, get predicted SAD'''
+'''This code will do the following
+1. Obtain observed SADs for ...
+2. For each observed SAD, obtain predicted SADs for each model.
+3. Write data to an "obs_pred.txt" file; with a different file for each model
+    Each obs_pred.txt file will have these rows: Date, Site, Species, ObsAb, PredAB
+'''
 
+'''
+- As of now, need to call model functions instead of copying them (fixed this)
+- Add test functions, e.g. check that the same SAD isn't drawn twice; sample w/out replacement
+- Set up data so that it will work properly --yes, but needs clarification
+- read observed sad data from .txt or .csv files.
+'''
 
 
 ###################################################################
@@ -33,6 +44,7 @@ def get_predx(SADs, sample_size, model): #Inserted model in here so the model co
         prdSAD = AvgShape(Models.model(N, S, sample_size)) #Get average shape of predicted SAD
         prdSADs.append(prdSAD)
         
+        #What foll
         if model == 'SimBrokenStick':  #Think this might be the best way
             predRAD = 
             
