@@ -19,32 +19,18 @@ import Models
 
 '''This code contains functions for ...'''
 
-###################################################################
-'''Function to read in a .CSV file and to reorder for SAD''' # this will not be needed
 
-def read_csv(filepath):
-    SADs = []
-
-    with open(filepath, 'U') as csvfile:
-        reader = csv.reader(csvfile)
-
-        for row in reader:
-            SAD = [int(i) for i in row]
-            SAD.reverse()
-            SADs.append(SAD)
-
-    return SADs
 
 ###################################################################
-'''Gets predicted average LogNormal SAD for sample'''
+'''Gets predicted average SAD for sample'''
 
-def get_predx(SADs, sample_size):
+def get_predx(SADs, sample_size, model): #Inserted model in here so the model could be specified
     prdSADs=[]#list of predicted SLN average SADs
 
     for sad in SADs:
         N = sum(sad)
         S = len(sad)
-        prdSAD = AvgShape(Models.SimLogNormInt(N, S, sample_size)) #Get average shape of SLN
+        prdSAD = AvgShape(Models.model(N, S, sample_size)) #Get average shape of predicted SAD
         prdSADs.append(prdSAD)
         #print prdSAD
 
