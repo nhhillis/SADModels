@@ -18,6 +18,8 @@ from AverageShape import AvgShape
 sys.path.append(mydir + 'Models/')
 import Models
 
+sys.path.append(mydir + '/Projects/Mar2015meeting/functions.py')
+
 '''This code will do the following
 1. Obtain observed SADs for ...
 2. For each observed SAD, obtain predicted SADs for each model.
@@ -32,24 +34,4 @@ import Models
 - read observed sad data from .txt or .csv files.
 '''
 
-SADs = read_csv('/Users/Nathan_Hillis/Desktop/Data/Sample_data.csv') # Will have to be changed to data location
 
-Ns = get_N(SADs) #Get N
-Ss = get_S(SADs) #Get S
-
-#Samples = get_samples(SADs, 6) #Number of samples to use (Add check against redundent SADs)
-
-
-PredSAD = get_predx(SADs, 100) #Get predicted SAD for the sample, second input is number of times to run simlognorm
-
-print 'Predicted Samples Number = ', len(PredSAD)
-print("\n")
-print 'Number of ObsSADs = ', len(SADs)
-print("\n")
-print 'Ns = ', Ns,
-print("\n")
-print 'Ss = ', Ss
-print("\n")
-print 'LogNorm Prediction = ', PredSAD
-print("\n")
-print 'Observed SADs = ', SADs

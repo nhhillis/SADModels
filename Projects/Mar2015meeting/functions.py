@@ -17,7 +17,7 @@ from AverageShape import AvgShape
 sys.path.append(mydir + 'Models/')
 import Models
 
-'''This code contains functions for ...'''
+'''This code contains functions to get N, S, and SAD from .txt file, get predicted SAD'''
 
 
 
@@ -32,7 +32,36 @@ def get_predx(SADs, sample_size, model): #Inserted model in here so the model co
         S = len(sad)
         prdSAD = AvgShape(Models.model(N, S, sample_size)) #Get average shape of predicted SAD
         prdSADs.append(prdSAD)
-        #print prdSAD
+        
+        if model == 'SimBrokenStick':  #Think this might be the best way
+            predRAD = 
+            
+        elif model == 'DomPreInt':
+            predRAD = 
+            
+        elif model == 'DomPreFloat':
+            predRAD = 
+            
+        elif model == 'SimLogNormInt':
+            predRAD = 
+        
+        elif model == 'SimLogNormFloat':
+            predRAD = 
+        
+        elif model == 'SimParetoFloat':           
+            predRAD = 
+        
+        elif model == 'SimParetoInt':
+            predRAD = 
+        
+        elif model == 'Sample_SimpleRandomFraction':
+            predRAD = 
+        
+        elif model == 'DomDecayFloat':
+            predRAD = 
+        
+        elif model == 'DomDecayInt':
+            predRAD = 
 
     return prdSADs
 

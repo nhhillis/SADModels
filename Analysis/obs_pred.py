@@ -27,3 +27,6 @@ for line in SadData:
     SADs.append(SAD)
 
 print SAD
+
+
+
