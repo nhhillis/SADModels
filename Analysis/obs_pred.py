@@ -5,7 +5,7 @@
 
 #################################################################
 #Working on importing txt. file but getting ValueError: invalid literal for int() with base 10: '' 
-
+# needs to be moved to functions
 import os
 import numpy as np
 
@@ -14,19 +14,19 @@ path = ('/Users/Nathan_Hillis/Desktop/Data')
 
 datafile = path + ('/66_data.txt')
 num_lines = sum(1 for line in open(datafile))
+print num_lines
 
-
-Data = open(datafile, 'r') 
+'''Data = open(datafile, 'r') 
 SadData = [x.split("\t") for x in Data]
 
-print SadData
+print SadData'''
 
-SADs=[]
+'''SADs=[]
 for line in SadData:
     SAD = map(int, line)
     SADs.append(SAD)
 
-print SAD
+print SAD'''
 
 
 
