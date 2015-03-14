@@ -31,6 +31,10 @@ import Models
 - read observed sad data from .txt or .csv files.
 '''
 
+###################################################################
+'''Gets obsSAD from data set'''
+
+#Use dictionaries and loop
 
 ###################################################################
 '''Gets predicted average SAD for sample'''
