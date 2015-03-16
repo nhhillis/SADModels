@@ -39,7 +39,8 @@ import Models
 #Use dictionaries and loop
 
 
-#Based on KJL code, working now to make it run
+#Working now, need to make sure data is in Unicode (UTF-8)
+#This was causing the problem
 
 def get_ObsSADs():
     DATA = '/Users/Nathan_Hillis/Desktop/Data/YR_66_v2.txt'
