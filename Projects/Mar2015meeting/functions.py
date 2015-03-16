@@ -1,3 +1,4 @@
+from __future__ import division
 import csv
 import numpy as np
 from random import randrange, choice
@@ -5,6 +6,7 @@ import matplotlib.pyplot as plt
 import math
 import sys
 import os
+from scipy import stats
 
 mydir = os.path.expanduser("~/GitHub/SADModels/") # A general file path; this means that:
 # 1.) You will need to create a GitHub directory in your home directory
@@ -35,6 +37,32 @@ import Models
 '''Gets obsSAD from data set'''
 
 #Use dictionaries and loop
+
+
+def get_ObsSADs():
+    DATA = '/Macintosh HD/Users/Nathan_Hillis/Desktop/Data/YR_66_v2.txt'
+    mydict = {}
+    with open(DATA) as f:
+        for d in f:
+            if d.strip():
+                d = d.split()
+                species = d[0]
+                abundance = float(d[2])
+                if abundance > 0:
+                    if species in mydict:
+                        mydict[species].append(abundance)
+                    else:
+                            mydict[species] = [abundance]
+    SADs = []
+    SADlist = mydict.items()
+    for tup in SADlist:
+        SAD = tup[1]
+        if len(SAD) >= 1:
+            SAD.sort()
+            SAD.reverse()
+            SADs.append(SAD)
+    return SADs
+
 
 ###################################################################
 '''Gets predicted average SAD for sample'''
