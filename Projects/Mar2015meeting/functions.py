@@ -14,7 +14,7 @@ mydir = os.path.expanduser("~/GitHub/SADModels/") # A general file path; this me
 
 sys.path.append(mydir + "Analysis")
 
-from AverageShape import AvgShape
+#from AverageShape import AvgShape
 
 sys.path.append(mydir + 'Models/')
 import Models
@@ -69,7 +69,7 @@ print get_ObsSADs()
 ###################################################################
 '''Gets predicted average SAD for sample'''
 
-def get_predx(SADs, sample_size, model): #Inserted model in here so the model could be specified
+'''def get_predx(SADs, sample_size, model): #Inserted model in here so the model could be specified
     prdSADs=[]#list of predicted SLN average SADs
 
     for sad in SADs:
@@ -110,7 +110,7 @@ def get_predx(SADs, sample_size, model): #Inserted model in here so the model co
             predRAD = 
 
     return prdSADs
-
+'''
 ###################################################################
 
 '''Function to obtain N from SADs in sample''' # Not sure if this is needed but I am leaving it in

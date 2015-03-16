@@ -51,7 +51,7 @@ def get_ObsSADs():
                 print '2', d
                 species = d[0]
                 print '3', species
-                abundance = d[3]
+                abundance = float(d[3])
                 print '4', abundance
                 if abundance > 0:
                     if species in mydict:
