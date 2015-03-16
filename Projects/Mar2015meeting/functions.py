@@ -39,15 +39,17 @@ import Models
 #Use dictionaries and loop
 
 
+#Based on KJL code, working now to make it run
+
 def get_ObsSADs():
-    DATA = '/Macintosh HD/Users/Nathan_Hillis/Desktop/Data/YR_66_v2.txt'
+    DATA = '/Users/Nathan_Hillis/Desktop/Data/YR_66_v2.txt'
     mydict = {}
-    with open(DATA) as f:
-        for d in f:
+    with open(DATA) as i:
+        for d in i:
             if d.strip():
                 d = d.split()
                 species = d[0]
-                abundance = float(d[2])
+                abundance = float(d[3])
                 if abundance > 0:
                     if species in mydict:
                         mydict[species].append(abundance)
@@ -62,7 +64,7 @@ def get_ObsSADs():
             SAD.reverse()
             SADs.append(SAD)
     return SADs
-
+print get_ObsSADs()
 
 ###################################################################
 '''Gets predicted average SAD for sample'''
