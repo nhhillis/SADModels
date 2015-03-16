@@ -38,16 +38,21 @@ import Models
 
 #Use dictionaries and loop
 #Based on KJL code, working now to make it run
+#Still working on this, showing x's in the list
 
 def get_ObsSADs():
-    DATA = '/Users/Nathan_Hillis/Desktop/Data/YR_66_v2.txt'
+    myDATA = '/Users/Nathan_Hillis/Desktop/Data/YR_66_v2.txt'
     mydict = {}
-    with open(DATA) as i:
+    with open(myDATA) as i:
         for d in i:
+            print '1', d
             if d.strip():
                 d = d.split()
+                print '2', d
                 species = d[0]
-                abundance = float(d[3])
+                print '3', species
+                abundance = d[3]
+                print '4', abundance
                 if abundance > 0:
                     if species in mydict:
                         mydict[species].append(abundance)
