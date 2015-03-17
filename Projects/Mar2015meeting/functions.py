@@ -73,7 +73,7 @@ def get_ObsSADs():
 '''Gets predicted average SAD for sample'''
 
 def get_predx(SADs, sample_size): #Inserted model in here so the model could be specified
-    prdSADs=[]#list of predicted SLN average SADs
+    prdSADs=[]#list of predicted SLN average SADs 
     count = 0
     for sad in SADs:
         count += 1
@@ -84,31 +84,6 @@ def get_predx(SADs, sample_size): #Inserted model in here so the model could be 
         prdSADs.append(prdSAD)
     return prdSADs
         
-
-###################################################################
-
-'''Function to obtain N from SADs in sample''' # Not sure if this is needed but I am leaving it in
-
-def get_N(SADs):#Returns the Ns for the sample
-    N = []
-
-    while len(N) < len(SADs):
-        for sad in SADs:
-            N.append(sum(sad))
-
-    return N
-
-###################################################################
-'''Function to obtain S from SADs in sample''' # Not sure if this is needed but I am leaving it in
-
-def get_S(SADs): #Returns the Ss for the sample
-    S = []
-
-    while len(S) < len(SADs):
-        for sad in SADs:
-            S.append(len(sad))
-
-    return S
 
 ###################################################################
 '''Function to pull samples from large data set.
