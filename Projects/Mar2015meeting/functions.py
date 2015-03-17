@@ -12,9 +12,8 @@ mydir = os.path.expanduser("~/GitHub/SADModels/") # A general file path; this me
 # 1.) You will need to create a GitHub directory in your home directory
 # 2.) Move SADModels into the GitHub directory
 
-sys.path.append(mydir + "Analysis")
-
-#from AverageShape import AvgShape
+sys.path.append(mydir + "tools")
+from AverageShape import AvgShape
 
 sys.path.append(mydir + 'Models/')
 import Models
@@ -45,8 +44,11 @@ import Models
 def get_ObsSADs():
     DATA = '/Users/Nathan_Hillis/Desktop/Data/YR_66_v2.txt'
     mydict = {}
+    count = 0
     with open(DATA) as i:
         for d in i:
+            count += 1
+            print count
             if d.strip():
                 d = d.split()
                 species = d[0]
@@ -65,53 +67,24 @@ def get_ObsSADs():
             SAD.reverse()
             SADs.append(SAD)
     return SADs
-print get_ObsSADs()
+
 
 ###################################################################
 '''Gets predicted average SAD for sample'''
 
-'''def get_predx(SADs, sample_size, model): #Inserted model in here so the model could be specified
+def get_predx(SADs, sample_size): #Inserted model in here so the model could be specified
     prdSADs=[]#list of predicted SLN average SADs
-
+    count = 0
     for sad in SADs:
+        count += 1
+        print 'pred -', count
         N = sum(sad)
         S = len(sad)
-        prdSAD = AvgShape(Models.model(N, S, sample_size)) #Get average shape of predicted SAD
+        prdSAD = AvgShape(Models.SimLogNormInt(N, S, sample_size)) #Get average shape of predicted SAD
         prdSADs.append(prdSAD)
-        
-        #What foll
-        if model == 'SimBrokenStick':  #Think this might be the best way
-            predRAD = 
-            
-        elif model == 'DomPreInt':
-            predRAD = 
-            
-        elif model == 'DomPreFloat':
-            predRAD = 
-            
-        elif model == 'SimLogNormInt':
-            predRAD = 
-        
-        elif model == 'SimLogNormFloat':
-            predRAD = 
-        
-        elif model == 'SimParetoFloat':           
-            predRAD = 
-        
-        elif model == 'SimParetoInt':
-            predRAD = 
-        
-        elif model == 'Sample_SimpleRandomFraction':
-            predRAD = 
-        
-        elif model == 'DomDecayFloat':
-            predRAD = 
-        
-        elif model == 'DomDecayInt':
-            predRAD = 
-
     return prdSADs
-'''
+        
+
 ###################################################################
 
 '''Function to obtain N from SADs in sample''' # Not sure if this is needed but I am leaving it in
@@ -146,11 +119,17 @@ def get_samples(SADs, NumSamples):
     Samples = []
 
     while len(Samples) < NumSamples:
-        samp = choice(SADs) #Randomly choose sample
-        '''for i in Samples:
-                if sum(samp) == sum(i):
-                        break'''
+        
+        samp =choice(SADs) #Randomly choose sample
+        SADs.remove(samp)
         Samples.append(samp)
 
     print 'Samples', Samples
     return Samples
+###################################################################
+
+OBS = get_ObsSADs()
+print 'OBS ', OBS[0]
+sample = get_samples(OBS, 10)
+pred = get_predx(sample, 100)
+print pred
