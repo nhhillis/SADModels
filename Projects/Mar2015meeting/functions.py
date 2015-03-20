@@ -74,14 +74,40 @@ def get_ObsSADs():
 
 def get_predx(SADs, sample_size): #Inserted model in here so the model could be specified
     prdSADs=[]#list of predicted SLN average SADs 
-    count = 0
-    for sad in SADs:
-        count += 1
-        print 'pred -', count
-        N = sum(sad)
-        S = len(sad)
-        prdSAD = AvgShape(Models.SimLogNormInt(N, S, sample_size)) #Get average shape of predicted SAD
-        prdSADs.append(prdSAD)
+    SADModels = ['SimBrokenStick', 'DomPreInt', 'SimLogNormInt', 'SimParetoInt', 'Sample_SimpleRandomFraction']
+    
+    for model in SADModels:
+        
+        if model == 'SimBrokenStick':
+            for sad in SADs:
+                N = sum(sad)
+                S = len(sad)
+                prdSAD = AvgShape(Models.SimBrokenStick(N, S, sample_size)) #Get average shape of predicted SAD
+       
+        if model == 'DomPreInt':
+            for sad in SADs:
+                N = sum(sad)
+                S = len(sad)
+                prdSAD = AvgShape(Models.DomPreInt(N, S, sample_size)) #Get average shape of predicted SAD
+        
+        if model == 'SimLogNormInt':
+            for sad in SADs:
+                N = sum(sad)
+                S = len(sad)
+                prdSAD = AvgShape(Models.SimLogNormInt(N, S, sample_size)) #Get average shape of predicted SAD
+       
+        if model == 'SimParetoInt':
+            for sad in SADs:
+                N = sum(sad)
+                S = len(sad)
+                prdSAD = AvgShape(Models.SimParetoInt(N, S, sample_size)) #Get average shape of predicted SAD
+      
+        if model == 'Sample_SimpleRandomFraction':
+            for sad in SADs:
+                N = sum(sad)
+                S = len(sad)
+                prdSAD = AvgShape(Models.Sample_SimpleRandomFraction(N, S, sample_size)) #Get average shape of predicted SAD
+
     return prdSADs
         
 
