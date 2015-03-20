@@ -52,7 +52,7 @@ def get_ObsSADs():
             if d.strip():
                 d = d.split()
                 species = d[0]
-                abundance = float(d[3])
+                abundance = int(d[3])
                 if abundance > 0:
                     if species in mydict:
                         mydict[species].append(abundance)
@@ -71,44 +71,55 @@ def get_ObsSADs():
 
 ###################################################################
 '''Gets predicted average SAD for sample'''
+'''The general structure seems to be good, working on writing the results to a new file for each
+model.  The resulting file should be structured as follows: Site, Date, Species, Obs Ab, Pred Ab.'''
 
 def get_predx(SADs, sample_size): #Inserted model in here so the model could be specified
-    prdSADs=[]#list of predicted SLN average SADs 
+   # prdSADs=[]#list of predicted SLN average SADs 
     SADModels = ['SimBrokenStick', 'DomPreInt', 'SimLogNormInt', 'SimParetoInt', 'Sample_SimpleRandomFraction']
     
     for model in SADModels:
         
         if model == 'SimBrokenStick':
             for sad in SADs:
-                N = sum(sad)
-                S = len(sad)
+                N = sum(sad) # Find Total Abundance
+                S = len(sad) # Find number of species
                 prdSAD = AvgShape(Models.SimBrokenStick(N, S, sample_size)) #Get average shape of predicted SAD
-       
+                with open("BrokenStick.txt", "w") as BS:
+                       for i in prdSAD:
+                           for a in i:
+                               BS.write("%s\n" % i)
+                BS.close() #needs more work
+                
         if model == 'DomPreInt':
             for sad in SADs:
                 N = sum(sad)
                 S = len(sad)
                 prdSAD = AvgShape(Models.DomPreInt(N, S, sample_size)) #Get average shape of predicted SAD
-        
+                text_file = open('DomPre.txt', 'w')
+                
         if model == 'SimLogNormInt':
             for sad in SADs:
                 N = sum(sad)
                 S = len(sad)
                 prdSAD = AvgShape(Models.SimLogNormInt(N, S, sample_size)) #Get average shape of predicted SAD
-       
+                text_file = open('SimLogNormInt.txt', 'w')
+                
         if model == 'SimParetoInt':
             for sad in SADs:
                 N = sum(sad)
                 S = len(sad)
                 prdSAD = AvgShape(Models.SimParetoInt(N, S, sample_size)) #Get average shape of predicted SAD
-      
+                text_file = open('SimParetoInt.txt', 'w')
+                
         if model == 'Sample_SimpleRandomFraction':
             for sad in SADs:
                 N = sum(sad)
                 S = len(sad)
                 prdSAD = AvgShape(Models.Sample_SimpleRandomFraction(N, S, sample_size)) #Get average shape of predicted SAD
-
-    return prdSADs
+                text_file = open('Sample_SimpleRandomFraction', 'w')
+                
+    #return prdSADs
         
 
 ###################################################################
