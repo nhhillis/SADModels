@@ -69,8 +69,8 @@ def get_ObsSADs():
 
 ###################################################################
 '''Gets predicted average SAD for sample'''
-'''The general structure seems to be good, working on writing the results to a new file for each
-model.  The resulting file should be structured as follows: Site, Date, Species, Obs Ab, Pred Ab.'''
+'''This function is working with the small samples that I am using.  Need to run with entire dataset, 
+but it will take a while'''
 
 def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
     
@@ -82,7 +82,7 @@ def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
             print 'Writing Broken Stick Pred'
             count = 0            
             
-            with open("BrokenStickPred.txt", "w") as BS:
+            with open(mydir + "/Results/BrokenStickPred.txt", "w") as BS:
                 for sad in SADs:
                     N = sum(sad) # Find Total Abundance
                     S = len(sad) # Find number of species
@@ -103,7 +103,7 @@ def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
             print 'Writing Sim Log Norm Pred'
             count = 0            
            
-            with open("SimLogNormPred.txt", "w") as SLN:
+            with open(mydir + "/Results/SimLogNormPred.txt", "w") as SLN:
                 for sad in SADs:
                     N = sum(sad) # Find Total Abundance
                     S = len(sad) # Find number of species
@@ -122,7 +122,7 @@ def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
             print 'Writing Pareto Pred'
             count = 0            
            
-            with open("ParetoPred.txt", "w") as Par:
+            with open(mydir + "/Results/ParetoPred.txt", "w") as Par:
                 for sad in SADs:
                     N = sum(sad) # Find Total Abundance
                     S = len(sad) # Find number of species
@@ -141,7 +141,7 @@ def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
             print 'Writing Simple Random Fraction Pred'
             count = 0            
            
-            with open("RandFractPred.txt", "w") as RF:
+            with open(mydir + "/Results/RandFractPred.txt", "w") as RF:
                 for sad in SADs:
                     N = sum(sad) # Find Total Abundance
                     S = len(sad) # Find number of species
@@ -158,7 +158,8 @@ def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
         
 
 ###################################################################
-'''This function will combine the predicted SADs to the Observed'''
+'''This function will combine the predicted SADs to the Observed. The resulting file should 
+be structured as follows: Site, Date, Species, Obs Ab, Pred Ab.'''
 
 '''def combine():
     with open('file1.txt') as f1, open('file2.txt') as f2, open('new.txt', 'w') as fout:
@@ -179,7 +180,7 @@ def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
             
 ###################################################################
 '''Function to pull samples from large data set.
-Need to do this so that same SAD is not selected twice.'''
+Need to do this so that same SAD is not selected twice.s'''
 
 def get_samples(SADs, NumSamples):
 
