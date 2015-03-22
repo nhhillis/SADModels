@@ -161,22 +161,22 @@ def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
 '''This function will combine the predicted SADs to the Observed. The resulting file should 
 be structured as follows: Site, Date, Species, Obs Ab, Pred Ab.'''
 
-'''def combine():
-    with open('file1.txt') as f1, open('file2.txt') as f2, open('new.txt', 'w') as fout:
+def combine():
+    with open('/Users/Nathan_Hillis/Desktop/Data/YR_66_v2.txt') as f1, open(mydir + "/Results/BrokenStickPred.txt") as f2, open(mydir + '/Results/BSObsPred.txt', 'w') as bsop:
         for fst, snd in izip(f1, f2):
-            fout.write('{0}:{1}\n'.format(fst.rstrip(), snd.rstrip()))
+            bsop.write('{0} {1}\n'.format(fst.rstrip(), snd.rstrip()))
             
-    with open('file1.txt') as f1, open('file2.txt') as f2, open('new.txt', 'w') as fout:
+    with open('/Users/Nathan_Hillis/Desktop/Data/YR_66_v2.txt') as f1, open(mydir + "/Results/SimLogNormPred.txt") as f2, open(mydir + '/Results/SLNObsPred.txt', 'w') as slnop:
         for fst, snd in izip(f1, f2):
-            fout.write('{0}:{1}\n'.format(fst.rstrip(), snd.rstrip()))
+            slnop.write('{0} {1}\n'.format(fst.rstrip(), snd.rstrip()))
             
-    with open('file1.txt') as f1, open('file2.txt') as f2, open('new.txt', 'w') as fout:
+    with open('/Users/Nathan_Hillis/Desktop/Data/YR_66_v2.txt') as f1, open(mydir + '/Results/ParetoPred.txt') as f2, open(mydir + '/Results/ParObsPred.txt', 'w') as paop:
         for fst, snd in izip(f1, f2):
-            fout.write('{0}:{1}\n'.format(fst.rstrip(), snd.rstrip()))
+            paop.write('{0} {1}\n'.format(fst.rstrip(), snd.rstrip()))
             
-    with open('file1.txt') as f1, open('file2.txt') as f2, open('new.txt', 'w') as fout:
+    with open('/Users/Nathan_Hillis/Desktop/Data/YR_66_v2.txt') as f1, open(mydir + '/Results/RandFractPred.txt') as f2, open(mydir + '/Results/RandFracObsPred.txt', 'w') as rfop:
         for fst, snd in izip(f1, f2):
-            fout.write('{0}:{1}\n'.format(fst.rstrip(), snd.rstrip()))'''
+            rfop.write('{0} {1}\n'.format(fst.rstrip(), snd.rstrip()))
             
 ###################################################################
 '''Function to pull samples from large data set.
@@ -197,6 +197,6 @@ def get_samples(SADs, NumSamples):
 ###################################################################
 
 OBS = get_ObsSADs()
-sample = get_samples(OBS, 1)
-pred = get_predx(sample, 5)
-#combine()
+#sample = get_samples(OBS, 1)
+pred = get_predx(OBS, 1)
+combine()
