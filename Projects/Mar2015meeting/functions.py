@@ -7,6 +7,7 @@ import math
 import sys
 import os
 from scipy import stats
+from itertools import izip
 
 mydir = os.path.expanduser("~/GitHub/SADModels/") # A general file path; this means that:
 # 1.) You will need to create a GitHub directory in your home directory
@@ -35,10 +36,7 @@ import Models
 ###################################################################
 '''Gets obsSAD from data set'''
 
-#Use dictionaries and loop
-
-
-#Working now, need to make sure data is in Unicode (UTF-8)
+#Working now, need to make sure .text data is in Unicode (UTF-8)
 #This was causing the problem
 
 def get_ObsSADs():
@@ -74,54 +72,111 @@ def get_ObsSADs():
 '''The general structure seems to be good, working on writing the results to a new file for each
 model.  The resulting file should be structured as follows: Site, Date, Species, Obs Ab, Pred Ab.'''
 
-def get_predx(SADs, sample_size): #Inserted model in here so the model could be specified
-   # prdSADs=[]#list of predicted SLN average SADs 
-    SADModels = ['SimBrokenStick', 'DomPreInt', 'SimLogNormInt', 'SimParetoInt', 'Sample_SimpleRandomFraction']
+def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
+    
+    SADModels = ['SimBrokenStick', 'SimLogNormInt', 'SimParetoInt', 'Sample_SimpleRandomFraction']
     
     for model in SADModels:
         
         if model == 'SimBrokenStick':
-            for sad in SADs:
-                N = sum(sad) # Find Total Abundance
-                S = len(sad) # Find number of species
-                prdSAD = AvgShape(Models.SimBrokenStick(N, S, sample_size)) #Get average shape of predicted SAD
-                with open("BrokenStick.txt", "w") as BS:
-                       for i in prdSAD:
-                           for a in i:
-                               BS.write("%s\n" % i)
-                BS.close() #needs more work
+            print 'Writing Broken Stick Pred'
+            count = 0            
+            
+            with open("BrokenStickPred.txt", "w") as BS:
+                for sad in SADs:
+                    N = sum(sad) # Find Total Abundance
+                    S = len(sad) # Find number of species
+                    
+                    prdSAD = AvgShape(Models.SimBrokenStick(N, S, sample_size)) #Get average shape of predicted SAD 
+                    for i in prdSAD:
+                            BS.write("%s\n" % i)
+                    
+                    count += 1
+                    print count
+                    
+            print 'Broken Stick Pred Done'
+            BS.close() 
                 
-        if model == 'DomPreInt':
-            for sad in SADs:
-                N = sum(sad)
-                S = len(sad)
-                prdSAD = AvgShape(Models.DomPreInt(N, S, sample_size)) #Get average shape of predicted SAD
-                text_file = open('DomPre.txt', 'w')
+     
                 
         if model == 'SimLogNormInt':
-            for sad in SADs:
-                N = sum(sad)
-                S = len(sad)
-                prdSAD = AvgShape(Models.SimLogNormInt(N, S, sample_size)) #Get average shape of predicted SAD
-                text_file = open('SimLogNormInt.txt', 'w')
+            print 'Writing Sim Log Norm Pred'
+            count = 0            
+           
+            with open("SimLogNormPred.txt", "w") as SLN:
+                for sad in SADs:
+                    N = sum(sad) # Find Total Abundance
+                    S = len(sad) # Find number of species
+                 
+                    prdSAD = AvgShape(Models.SimLogNormInt(N, S, sample_size)) #Get average shape of predicted SAD
+                    for i in prdSAD:
+                            SLN.write("%s\n" % i)
+                 
+                    count += 1
+                    print count
+            print 'SimLogNorm Pred Done'
+            SLN.close() 
+                
                 
         if model == 'SimParetoInt':
-            for sad in SADs:
-                N = sum(sad)
-                S = len(sad)
-                prdSAD = AvgShape(Models.SimParetoInt(N, S, sample_size)) #Get average shape of predicted SAD
-                text_file = open('SimParetoInt.txt', 'w')
+            print 'Writing Pareto Pred'
+            count = 0            
+           
+            with open("ParetoPred.txt", "w") as Par:
+                for sad in SADs:
+                    N = sum(sad) # Find Total Abundance
+                    S = len(sad) # Find number of species
+               
+                    prdSAD = AvgShape(Models.SimParetoInt(N, S, sample_size)) #Get average shape of predicted SAD
+                    for i in prdSAD:
+                            Par.write("%s\n" % i)
+               
+                    count += 1
+                    print count
+            print ' Pareto Pred Done'
+            Par.close() 
+                
                 
         if model == 'Sample_SimpleRandomFraction':
-            for sad in SADs:
-                N = sum(sad)
-                S = len(sad)
-                prdSAD = AvgShape(Models.Sample_SimpleRandomFraction(N, S, sample_size)) #Get average shape of predicted SAD
-                text_file = open('Sample_SimpleRandomFraction', 'w')
-                
-    #return prdSADs
+            print 'Writing Simple Random Fraction Pred'
+            count = 0            
+           
+            with open("RandFractPred.txt", "w") as RF:
+                for sad in SADs:
+                    N = sum(sad) # Find Total Abundance
+                    S = len(sad) # Find number of species
+                   
+                    prdSAD = AvgShape(Models.Sample_SimpleRandomFraction(N, S, sample_size)) #Get average shape of predicted SAD
+                    for i in prdSAD:
+                            RF.write("%s\n" % i)
+                   
+                    count += 1
+                    print count
+            print 'Sample Rand Fract Pred Done'
+            RF.close() 
+
         
 
+###################################################################
+'''This function will combine the predicted SADs to the Observed'''
+
+'''def combine():
+    with open('file1.txt') as f1, open('file2.txt') as f2, open('new.txt', 'w') as fout:
+        for fst, snd in izip(f1, f2):
+            fout.write('{0}:{1}\n'.format(fst.rstrip(), snd.rstrip()))
+            
+    with open('file1.txt') as f1, open('file2.txt') as f2, open('new.txt', 'w') as fout:
+        for fst, snd in izip(f1, f2):
+            fout.write('{0}:{1}\n'.format(fst.rstrip(), snd.rstrip()))
+            
+    with open('file1.txt') as f1, open('file2.txt') as f2, open('new.txt', 'w') as fout:
+        for fst, snd in izip(f1, f2):
+            fout.write('{0}:{1}\n'.format(fst.rstrip(), snd.rstrip()))
+            
+    with open('file1.txt') as f1, open('file2.txt') as f2, open('new.txt', 'w') as fout:
+        for fst, snd in izip(f1, f2):
+            fout.write('{0}:{1}\n'.format(fst.rstrip(), snd.rstrip()))'''
+            
 ###################################################################
 '''Function to pull samples from large data set.
 Need to do this so that same SAD is not selected twice.'''
@@ -141,7 +196,6 @@ def get_samples(SADs, NumSamples):
 ###################################################################
 
 OBS = get_ObsSADs()
-print 'OBS ', OBS[0]
-sample = get_samples(OBS, 10)
-pred = get_predx(sample, 100)
-print pred
+sample = get_samples(OBS, 1)
+pred = get_predx(sample, 5)
+#combine()
