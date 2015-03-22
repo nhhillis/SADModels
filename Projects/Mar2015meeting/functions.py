@@ -118,24 +118,6 @@ def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
             SLN.close() 
                 
                 
-        if model == 'SimParetoInt':
-            print 'Writing Pareto Pred'
-            count = 0            
-           
-            with open(mydir + "/Results/ParetoPred.txt", "w") as Par:
-                for sad in SADs:
-                    N = sum(sad) # Find Total Abundance
-                    S = len(sad) # Find number of species
-               
-                    prdSAD = AvgShape(Models.SimParetoInt(N, S, sample_size)) #Get average shape of predicted SAD
-                    for i in prdSAD:
-                            Par.write("%s\n" % i)
-               
-                    count += 1
-                    print count
-            print ' Pareto Pred Done'
-            Par.close() 
-                
                 
         if model == 'Sample_SimpleRandomFraction':
             print 'Writing Simple Random Fraction Pred'
@@ -155,7 +137,24 @@ def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
             print 'Sample Rand Fract Pred Done'
             RF.close() 
 
-        
+
+        if model == 'SimParetoInt':
+            print 'Writing Pareto Pred'
+            count = 0            
+           
+            with open(mydir + "/Results/ParetoPred.txt", "w") as Par:
+                for sad in SADs:
+                    N = sum(sad) # Find Total Abundance
+                    S = len(sad) # Find number of species
+               
+                    prdSAD = AvgShape(Models.SimParetoInt(N, S, sample_size)) #Get average shape of predicted SAD
+                    for i in prdSAD:
+                            Par.write("%s\n" % i)
+               
+                    count += 1
+                    print count
+            print ' Pareto Pred Done'
+            Par.close() 
 
 ###################################################################
 '''This function will combine the predicted SADs to the Observed. The resulting file should 
@@ -198,5 +197,5 @@ def get_samples(SADs, NumSamples):
 
 OBS = get_ObsSADs()
 #sample = get_samples(OBS, 1)
-pred = get_predx(OBS, 1)
+pred = get_predx(OBS, 1000)
 combine()
