@@ -161,7 +161,6 @@ def SimLogNormInt(N, S, sample_size, rel=False):
                 break  # forcing smallest abundance to be 
                                         # greater than one
             RAC.extend([v1, v2])
-            print 'fail', fail
             
         if len(RAC) == S and sum(RAC) == N:
             RAC.sort()
@@ -354,7 +353,6 @@ def DomDecayInt(N, S, sample_size, rel=False): # Works only with positive intege
             ab2 = RAC.pop()
             sp2 = randint(1, int(round(ab2 * .5)))
             RAC.extend([sp2, ab2 - sp2])
-            print "fail", fail
         
         if len(RAC) == S and sum(RAC) == N:
             RAC.sort(reverse = True)
