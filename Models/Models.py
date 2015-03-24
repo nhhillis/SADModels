@@ -87,8 +87,8 @@ def DomPreInt(N, S, sample_size, rel=False): # Works only with positive integers
     '''This script codes Tokeshi's Dominance Preemption Model
     this code does not work well with small N or high S'''
     sample = [] # A list of RACs
-    fail = 0  
-    while len(sample) < sample_size: # number of samples loop     
+    fail = [0]  
+    while len(sample) < sample_size and fail < 1000: # number of samples loop     
         RAC = [] #RAC is a list
         sp1 = randrange(int(round(N *.5)), N) #Rand select from N to N(.5)
         ab1 = N - sp1
@@ -98,7 +98,10 @@ def DomPreInt(N, S, sample_size, rel=False): # Works only with positive integers
             
             ab2 = RAC.pop()
             if ab2 < S - len(RAC) or ab2 < 2:
-                fail += 1
+                for i in fail:
+                    newfail = fail[0] + 1
+                    fail.pop()
+                    fail.append(newfail)
                 break
                 
             sp2 = randrange(int(round(ab2*.5)), ab2)
@@ -108,7 +111,8 @@ def DomPreInt(N, S, sample_size, rel=False): # Works only with positive integers
             sample.append(RAC)
     
     if rel == True: sample = GetRelAbs(sample)    
-    return fail, sample
+    sample.append(fail)
+    return sample
     
 
 
@@ -136,8 +140,8 @@ def DomPreFloat(N, S, sample_size, rel=False):#Works with decimal values
 def SimLogNormInt(N, S, sample_size, rel=False):
     '''This script codes the Lognormal Model'''
     sample = []
-    fail = 0
-    while len(sample) < sample_size:
+    fail = [0]
+    while len(sample) < sample_size and fail < 1000:
         
         n = int(round(0.75 * N))
         RAC = [n, N - n]
@@ -150,7 +154,10 @@ def SimLogNormInt(N, S, sample_size, rel=False):
             v2 = v - v1   # forcing all abundance values to be integers
             
             if v1 < 1 or v2 < 1: 
-                fail += 1
+                for i in fail:
+                    newfail = fail[0] + 1
+                    fail.pop()
+                    fail.append(newfail)
                 break  # forcing smallest abundance to be 
                                         # greater than one
             RAC.extend([v1, v2])
@@ -162,7 +169,8 @@ def SimLogNormInt(N, S, sample_size, rel=False):
             sample.append(RAC)
     
     if rel == True: sample = GetRelAbs(sample)       
-    return fail, sample
+    sample.append(fail)
+    return sample
 
 
 def SimLogNormFloat(N, S, sample_size, rel=False):
@@ -223,8 +231,8 @@ def SimParetoInt(N, S, sample_size, rel=False):
     integer values.'''
     
     sample = []
-    fail = 0
-    while len(sample) < sample_size: 
+    fail =[0]
+    while len(sample) < sample_size and fail < 1000: 
         RAC = [0.8*N, 0.2*N]
         
         while len(RAC) < S:
@@ -234,7 +242,10 @@ def SimParetoInt(N, S, sample_size, rel=False):
             v2 = v - v1  # forcing all abundance values to be integers
             
             if v1 < 1 or v2 < 1: 
-                fail += 1
+                for i in fail:
+                    newfail = fail[0] + 1
+                    fail.pop()
+                    fail.append(newfail)
                 break  # forcing smallest abundance to be 
                                         # greater than one
             RAC.extend([v1, v2])       
@@ -244,7 +255,8 @@ def SimParetoInt(N, S, sample_size, rel=False):
             sample.append(RAC)
     
     if rel == True: sample = GetRelAbs(sample) 
-    return fail, sample
+    sample.append(fail)
+    return sample
     
     
 def Sample_SimpleRandomFraction(N, S, sample_size, rel=False):
@@ -323,8 +335,8 @@ def DomDecayInt(N, S, sample_size, rel=False): # Works only with positive intege
     returns only integer values.'''
     
     sample = [] # A list of RACs
-    fail = 0
-    while len(sample) < sample_size: # number of samples loop     
+    fail = [0]
+    while len(sample) < sample_size and fail < 10: # number of samples loop     
         
         RAC = [] #RAC is a list
         sp1 = randint(1, int(round(N*.5)))
@@ -333,7 +345,10 @@ def DomDecayInt(N, S, sample_size, rel=False): # Works only with positive intege
         
         while len(RAC) < S:
             if min(RAC) < 2: 
-                fail += 1
+                for i in fail:
+                    newfail = fail[0] + 1
+                    fail.pop()
+                    fail.append(newfail)
                 break
             
             ab2 = RAC.pop()
@@ -346,5 +361,6 @@ def DomDecayInt(N, S, sample_size, rel=False): # Works only with positive intege
             sample.append(RAC)
      
     if rel == True: sample = GetRelAbs(sample)     
-    return fail, sample
+    sample.append(fail)
+    return sample
 

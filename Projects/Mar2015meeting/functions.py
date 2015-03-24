@@ -88,12 +88,6 @@ def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
                     S = len(sad) # Find number of species
                     
                     prdSAD = AvgShape(Models.SimBrokenStick(N, S, sample_size)) #Get average shape of predicted SAD 
-                   
-                    '''if prdSAD :# inserted a count into the Int Models, need a conditional statement to limit number of fails
-                        fail.append(N, S)'''
-                   
-                    #else:
-                    prdSAD.pop[0]
                     for i in prdSAD:
                             BS.write("%s\n" % i)
                         
@@ -111,11 +105,14 @@ def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
            
             with open(mydir + "/Results/SimLogNormPred.txt", "w") as SLN:
                 for sad in SADs:
+                    if len(sad) <= 1:
+                        sad.remove(sad)
+                        print 'SLN fail', sad # remove fail number from list
                     N = sum(sad) # Find Total Abundance
                     S = len(sad) # Find number of species
                  
                     prdSAD = AvgShape(Models.SimLogNormInt(N, S, sample_size)) #Get average shape of predicted SAD
-                    prdSAD.pop[0]
+                    
                     for i in prdSAD:
                             SLN.write("%s\n" % i)
                  
@@ -132,11 +129,14 @@ def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
            
             with open(mydir + "/Results/RandFractPred.txt", "w") as RF:
                 for sad in SADs:
+                    if len(sad) <= 1:
+                        sad.remove(sad)
+                        print 'RF fail', sad
                     N = sum(sad) # Find Total Abundance
                     S = len(sad) # Find number of species
                    
                     prdSAD = AvgShape(Models.Sample_SimpleRandomFraction(N, S, sample_size)) #Get average shape of predicted SAD
-                    prdSAD.pop[0]                   
+                                    
                     for i in prdSAD:
                             RF.write("%s\n" % i)
                    
@@ -152,11 +152,13 @@ def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
            
             with open(mydir + "/Results/ParetoPred.txt", "w") as Par:
                 for sad in SADs:
+                    if len(sad) <= 1:
+                        sad.remove(sad)
+                        print 'Pareto fail', sad                    
                     N = sum(sad) # Find Total Abundance
                     S = len(sad) # Find number of species
                
                     prdSAD = AvgShape(Models.SimParetoInt(N, S, sample_size)) #Get average shape of predicted SAD
-                    prdSAD.pop[0]
                     for i in prdSAD:
                         Par.write("%s\n" % i)
                
