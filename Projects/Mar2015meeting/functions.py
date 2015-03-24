@@ -105,17 +105,14 @@ def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
            
             with open(mydir + "/Results/SimLogNormPred.txt", "w") as SLN:
                 for sad in SADs:
-                   
+                    
                     N = sum(sad) # Find Total Abundance
                     S = len(sad) # Find number of species
                     print SLN
                     prdSAD = AvgShape(Models.SimLogNormInt(N, S, sample_size)) #Get average shape of predicted SAD
-                    for i in prdSAD:
-                        if len(i) <= 1: # the problem seems to be here.  It is iterating through at the wrong spot
-                            sad.remove(i)
-                            print 'SLN fail', i # remove fail number from list
-                        else:
-                            continue
+                    print prdSAD
+                    
+                        
                     for i in prdSAD:
                             SLN.write("%s\n" % i)
                  
@@ -157,10 +154,7 @@ def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
                     S = len(sad) # Find number of species
                
                     prdSAD = AvgShape(Models.SimParetoInt(N, S, sample_size)) #Get average shape of predicted SAD
-                    for i in prdSAD:
-                        if len(i) <= 1:
-                            sad.remove(i)
-                            print 'Pareto fail', i 
+                   
                     for i in prdSAD:
                         Par.write("%s\n" % i)
                
