@@ -88,11 +88,17 @@ def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
                     S = len(sad) # Find number of species
                     
                     prdSAD = AvgShape(Models.SimBrokenStick(N, S, sample_size)) #Get average shape of predicted SAD 
+                   
+                    '''if prdSAD :# inserted a count into the Int Models, need a conditional statement to limit number of fails
+                        fail.append(N, S)'''
+                   
+                    #else:
+                    prdSAD.pop[0]
                     for i in prdSAD:
                             BS.write("%s\n" % i)
-                    
-                    count += 1
-                    print count
+                        
+                        #count += 1
+                       # print count
                     
             print 'Broken Stick Pred Done'
             BS.close() 
@@ -109,6 +115,7 @@ def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
                     S = len(sad) # Find number of species
                  
                     prdSAD = AvgShape(Models.SimLogNormInt(N, S, sample_size)) #Get average shape of predicted SAD
+                    prdSAD.pop[0]
                     for i in prdSAD:
                             SLN.write("%s\n" % i)
                  
@@ -129,6 +136,7 @@ def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
                     S = len(sad) # Find number of species
                    
                     prdSAD = AvgShape(Models.Sample_SimpleRandomFraction(N, S, sample_size)) #Get average shape of predicted SAD
+                    prdSAD.pop[0]                   
                     for i in prdSAD:
                             RF.write("%s\n" % i)
                    
@@ -148,8 +156,9 @@ def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
                     S = len(sad) # Find number of species
                
                     prdSAD = AvgShape(Models.SimParetoInt(N, S, sample_size)) #Get average shape of predicted SAD
+                    prdSAD.pop[0]
                     for i in prdSAD:
-                            Par.write("%s\n" % i)
+                        Par.write("%s\n" % i)
                
                     count += 1
                     print count
@@ -197,5 +206,5 @@ def get_samples(SADs, NumSamples):
 
 OBS = get_ObsSADs()
 #sample = get_samples(OBS, 1)
-pred = get_predx(OBS, 1000)
+pred = get_predx(OBS, 10)
 combine()
