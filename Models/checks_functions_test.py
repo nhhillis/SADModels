@@ -163,11 +163,14 @@ def DomDecayInt(N, S, sample_size, rel=False): # Works only with positive intege
         RAC.extend([sp1, ab1]) 
         
         while len(RAC) < S:
+            
             if min(RAC) < 2: 
+                 
                  for i in fail:
                     newfail = fail[0] + 1    
                     fail.pop(0)
                     fail.append(newfail)
+                
                  newNS = [N, S]
                  failNS.pop(0)
                  failNS.append(newNS)
