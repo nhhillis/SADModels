@@ -6,6 +6,8 @@ import random
 import matplotlib.pyplot as plt
 import scipy.stats                                       
 from random import randrange, randint, uniform, seed, choice
+
+
 def GetRelAbs(RACsample): # a function to transform abundance into relative abundances for many RACs
     
     RACs = []
@@ -24,6 +26,7 @@ def SimParetoInt(N, S, sample_size, rel=False):
     sample = []
     fail = [0] 
     failNS = [0]
+    
     while len(sample) < sample_size: 
         RAC = [0.8*N, 0.2*N]
         
@@ -34,13 +37,15 @@ def SimParetoInt(N, S, sample_size, rel=False):
             v2 = v - v1  # forcing all abundance values to be integers
             
             if v1 < 1 or v2 < 1: 
-                for i in fail:
-                    newfail = fail[0] + 1    
-                    fail.pop(0)
-                    fail.append(newfail)
-                newNS = [N, S]
+                
+                for i in fail: #everytime a sad fails this condition
+                    newfail = fail[0] + 1   #count of fails
+                    fail.pop(0) #remove old fail count
+                    fail.append(newfail) #add new count to fail
+                
+                newNS = [N, S] #defines the n/s fail combo
                 failNS.pop(0)
-                failNS.append(newNS)
+                failNS.append(newNS) #add NS of failed combo
                 break  # forcing smallest abundance to be 
                                         # greater than one
             RAC.extend([v1, v2])       
@@ -50,6 +55,7 @@ def SimParetoInt(N, S, sample_size, rel=False):
             sample.append(RAC)
     
     if rel == True: sample = GetRelAbs(sample) 
+   
     sample.append(failNS) #adds the failed N/S combos to sample
     sample.append(fail) #adds the failed count to sample, 
                                 #failed N/S and fail count will be removed by get_fail function
@@ -58,6 +64,7 @@ def SimParetoInt(N, S, sample_size, rel=False):
  
 def SimLogNormInt(N, S, sample_size, rel=False):
     '''This script codes the Lognormal Model'''
+    
     sample = []
     fail = [0]
     failNS = [0]
@@ -74,10 +81,12 @@ def SimLogNormInt(N, S, sample_size, rel=False):
             v2 = v - v1   # forcing all abundance values to be integers
             
             if v1 < 1 or v2 < 1: 
+               
                 for i in fail:
                     newfail = fail[0] + 1    
                     fail.pop(0)
                     fail.append(newfail)
+                
                 newNS = [N, S]
                 failNS.pop(0)
                 failNS.append(newNS)
@@ -91,6 +100,7 @@ def SimLogNormInt(N, S, sample_size, rel=False):
             sample.append(RAC)
     
     if rel == True: sample = GetRelAbs(sample)       
+   
     sample.append(failNS)
     sample.append(fail)
     return sample  
@@ -101,6 +111,7 @@ def DomPreInt(N, S, sample_size, rel=False): # Works only with positive integers
     sample = [] # A list of RACs
     fail = [0]
     failNS = [0]   
+    
     while len(sample) < sample_size: # number of samples loop     
         RAC = [] #RAC is a list
         sp1 = randrange(int(round(N *.5)), N) #Rand select from N to N(.5)
@@ -108,13 +119,15 @@ def DomPreInt(N, S, sample_size, rel=False): # Works only with positive integers
         RAC.extend([sp1, ab1])
         
         while len(RAC) < S:
-            
             ab2 = RAC.pop()
+            
             if ab2 < S - len(RAC) or ab2 < 2:
+                
                 for i in fail:
                     newfail = fail[0] + 1    
                     fail.pop(0)
                     fail.append(newfail)
+            
                 newNS = [N, S]
                 failNS.pop(0)
                 failNS.append(newNS)
@@ -127,6 +140,7 @@ def DomPreInt(N, S, sample_size, rel=False): # Works only with positive integers
             sample.append(RAC)
     
     if rel == True: sample = GetRelAbs(sample)    
+   
     sample.append(failNS)
     sample.append(fail)
     return sample
@@ -140,6 +154,7 @@ def DomDecayInt(N, S, sample_size, rel=False): # Works only with positive intege
     sample = [] # A list of RACs
     fail = [0]
     failNS = [0]   
+    
     while len(sample) < sample_size: # number of samples loop     
         
         RAC = [] #RAC is a list
@@ -192,6 +207,7 @@ def get_fail(SAD, sample_size):
         print 'Fail Combo' , failNS
     if len(fail) == 0: # if there is no fails
         print 'none failed'
+
     
     print 'length', len(SAD)
     #print 'SAD',SAD
@@ -199,9 +215,9 @@ def get_fail(SAD, sample_size):
     
     
     
-N = 10000
+N = 1000
 S = 10
-sample_size = 100
+sample_size = 10
 
 print '#1 - SLN'
 get_fail(SimLogNormInt(N, S, sample_size, rel=False), sample_size)
