@@ -23,7 +23,7 @@ def SimParetoInt(N, S, sample_size, rel=False):
     
     sample = []
     fail = [0] 
-    failNS = []
+    failNS = [0]
     while len(sample) < sample_size: 
         RAC = [0.8*N, 0.2*N]
         
@@ -36,9 +36,11 @@ def SimParetoInt(N, S, sample_size, rel=False):
             if v1 < 1 or v2 < 1: 
                 for i in fail:
                     newfail = fail[0] + 1    
-                    fail.pop()
+                    fail.pop(0)
                     fail.append(newfail)
-                failNS.append([N, S])
+                newNS = [N, S]
+                failNS.pop(0)
+                failNS.append(newNS)
                 break  # forcing smallest abundance to be 
                                         # greater than one
             RAC.extend([v1, v2])       
@@ -48,8 +50,9 @@ def SimParetoInt(N, S, sample_size, rel=False):
             sample.append(RAC)
     
     if rel == True: sample = GetRelAbs(sample) 
-    sample.append(failNS)
-    sample.append(fail)
+    sample.append(failNS) #adds the failed N/S combos to sample
+    sample.append(fail) #adds the failed count to sample, 
+                                #failed N/S and fail count will be removed by get_fail function
     return  sample
     
  
@@ -57,7 +60,7 @@ def SimLogNormInt(N, S, sample_size, rel=False):
     '''This script codes the Lognormal Model'''
     sample = []
     fail = [0]
-    failNS = []
+    failNS = [0]
     while len(sample) < sample_size:
         
         n = int(round(0.75 * N))
@@ -73,9 +76,11 @@ def SimLogNormInt(N, S, sample_size, rel=False):
             if v1 < 1 or v2 < 1: 
                 for i in fail:
                     newfail = fail[0] + 1    
-                    fail.pop()
+                    fail.pop(0)
                     fail.append(newfail)
-                failNS.append([N, S])
+                newNS = [N, S]
+                failNS.pop(0)
+                failNS.append(newNS)
                 break  # forcing smallest abundance to be 
                                         # greater than one
             RAC.extend([v1, v2])
@@ -95,7 +100,7 @@ def DomPreInt(N, S, sample_size, rel=False): # Works only with positive integers
     this code does not work well with small N or high S'''
     sample = [] # A list of RACs
     fail = [0]
-    failNS = []   
+    failNS = [0]   
     while len(sample) < sample_size: # number of samples loop     
         RAC = [] #RAC is a list
         sp1 = randrange(int(round(N *.5)), N) #Rand select from N to N(.5)
@@ -108,9 +113,11 @@ def DomPreInt(N, S, sample_size, rel=False): # Works only with positive integers
             if ab2 < S - len(RAC) or ab2 < 2:
                 for i in fail:
                     newfail = fail[0] + 1    
-                    fail.pop()
+                    fail.pop(0)
                     fail.append(newfail)
-                failNS.append([N, S])
+                newNS = [N, S]
+                failNS.pop(0)
+                failNS.append(newNS)
                 break
                 
             sp2 = randrange(int(round(ab2*.5)), ab2)
@@ -120,6 +127,8 @@ def DomPreInt(N, S, sample_size, rel=False): # Works only with positive integers
             sample.append(RAC)
     
     if rel == True: sample = GetRelAbs(sample)    
+    sample.append(failNS)
+    sample.append(fail)
     return sample
     
     
@@ -130,7 +139,7 @@ def DomDecayInt(N, S, sample_size, rel=False): # Works only with positive intege
     
     sample = [] # A list of RACs
     fail = [0]
-    failNS = []   
+    failNS = [0]   
     while len(sample) < sample_size: # number of samples loop     
         
         RAC = [] #RAC is a list
@@ -142,9 +151,11 @@ def DomDecayInt(N, S, sample_size, rel=False): # Works only with positive intege
             if min(RAC) < 2: 
                  for i in fail:
                     newfail = fail[0] + 1    
-                    fail.pop()
+                    fail.pop(0)
                     fail.append(newfail)
-                 failNS.append([N, S])
+                 newNS = [N, S]
+                 failNS.pop(0)
+                 failNS.append(newNS)
                  break
             
             ab2 = RAC.pop()
@@ -156,38 +167,50 @@ def DomDecayInt(N, S, sample_size, rel=False): # Works only with positive intege
             sample.append(RAC)
      
     if rel == True: sample = GetRelAbs(sample)     
+    sample.append(failNS)
+    sample.append(fail)
     return sample
     
 def get_fail(SAD, sample_size):
-    fail = []
-    failNS = [0]
+    '''This function pulls the number of fails and failed N/S
+    combos out of the SAD that is returned from models.py'''
+
+    fail = [] # number of fails
+    failNS = [[0]] # n/s combo that failed
+   
     while len(SAD) > sample_size:
-        x = SAD.pop()
-        y = SAD.pop()
+        x = SAD.pop() # pull count of fails
+        y = SAD.pop() #pull failed n/s combo 
+      
         for i in failNS:
-            if i != y:
-                failNS.append(y)
-        fail.append(x)
-        print 'fail #', fail, 'Failed NS', failNS
-    if len(fail) == 0:
+            if i != y: # if n/s combo is not in list 
+                failNS.append(y) # add n/s combo
+      
+        fail.append(x) #add count of fails
+        #print 'fail #', fail, 'Failed NS', failNS
+        print 'Fail #', fail
+        print 'Fail Combo' , failNS
+    if len(fail) == 0: # if there is no fails
         print 'none failed'
+    
     print 'length', len(SAD)
-    print 'SAD',SAD
+    #print 'SAD',SAD
     return SAD, fail, failNS
     
     
     
-N = 1000
+N = 10000
 S = 10
-sample_size = 15
+sample_size = 100
 
-testSLN = SimLogNormInt(N, S, sample_size, rel=False)
-testP =  SimParetoInt(N, S, sample_size, rel=False)
-testDomPre = DomPreInt(N, S, sample_size, rel=False)
-testDomDec = DomDecayInt(N, S, sample_size, rel=False)
+print '#1 - SLN'
+get_fail(SimLogNormInt(N, S, sample_size, rel=False), sample_size)
+print '#2 - Pareto'
+get_fail(SimParetoInt(N, S, sample_size, rel=False), sample_size)
+print '#3 - DomPre'
+get_fail(DomPreInt(N, S, sample_size, rel=False), sample_size)
+print '#4 - DomDec'
+get_fail(DomDecayInt(N, S, sample_size, rel=False), sample_size)
 
-#tests = [testSLN, testP, testDomPre, testDomDec]
-tests = [testSLN]
-for test in tests:
-    get_fail(test, sample_size)
-    print test
+
+
