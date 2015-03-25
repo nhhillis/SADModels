@@ -91,8 +91,8 @@ def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
                     for i in prdSAD:
                             BS.write("%s\n" % i)
                         
-                        #count += 1
-                       # print count
+                    count += 1
+                    print count
                     
             print 'Broken Stick Pred Done'
             BS.close() 
@@ -108,9 +108,9 @@ def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
                     
                     N = sum(sad) # Find Total Abundance
                     S = len(sad) # Find number of species
-                    print SLN
+                    
                     prdSAD = AvgShape(Models.SimLogNormInt(N, S, sample_size)) #Get average shape of predicted SAD
-                    print prdSAD
+                    
                     
                         
                     for i in prdSAD:
@@ -204,5 +204,5 @@ def get_samples(SADs, NumSamples):
 
 OBS = get_ObsSADs()
 #sample = get_samples(OBS, 1)
-pred = get_predx(OBS, 10)
+pred = get_predx(OBS, 1)
 combine()
