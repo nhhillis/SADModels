@@ -167,6 +167,10 @@ def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
 '''This function will combine the predicted SADs to the Observed. The resulting file should 
 be structured as follows: Site, Date, Species, Obs Ab, Pred Ab.'''
 
+#figured out what was causing the mismatch while writing the obs_pred
+#I was using the get_sample function which only pulls a few random SADs
+# this was then writing those preds to the original data, causing the mismatch
+
 def combine():
     with open('/Users/Nathan_Hillis/Desktop/Data/YR_66_v2.txt') as f1, open(mydir + "/Results/BrokenStickPred.txt") as f2, open(mydir + '/Results/BSObsPred.txt', 'w') as bsop:
         for fst, snd in izip(f1, f2):
