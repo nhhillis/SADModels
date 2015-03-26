@@ -107,7 +107,8 @@ def SimLogNormInt(N, S, sample_size, rel=False):
 
 def DomPreInt(N, S, sample_size, rel=False): # Works only with positive integers
     '''This script codes Tokeshi's Dominance Preemption Model
-    this code does not work well with small N or high S'''
+    this code does not work well with small N or high S.
+    This model is not practical for species richness of greater than 10'''
     sample = [] # A list of RACs
     fail = [0]
     failNS = [0]   
