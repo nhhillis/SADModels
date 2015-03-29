@@ -87,26 +87,31 @@ def DomPreInt(N, S, sample_size, rel=False): # Works only with positive integers
     '''This script codes Tokeshi's Dominance Preemption Model
     this code does not work well with small N or high S'''
     sample = [] # A list of RACs
-   
-    while len(sample) < sample_size: # number of samples loop     
-        RAC = [] #RAC is a list
-        sp1 = randrange(int(round(N *.5)), N) #Rand select from N to N(.5)
-        ab1 = N - sp1
-        RAC.extend([sp1, ab1])
-        
-        while len(RAC) < S:
+    fails = 0
+    while fails < 100000:
+           
+        while len(sample) < sample_size: # number of samples loop     
+            RAC = [] #RAC is a list
+            sp1 = randrange(int(round(N *.5)), N) #Rand select from N to N(.5)
+            ab1 = N - sp1
+            RAC.extend([sp1, ab1])
             
-            ab2 = RAC.pop()
-            if ab2 < S - len(RAC) or ab2 < 2:
-                break
+            while len(RAC) < S:
                 
-            sp2 = randrange(int(round(ab2*.5)), ab2)
-            RAC.extend([sp2, ab2-sp2])
-
-        if len(RAC) == S and sum(RAC) == N:
-            sample.append(RAC)
+                ab2 = RAC.pop()
+                if ab2 < S - len(RAC) or ab2 < 2:
+                    fails += 1
+                    break
+                    
+                sp2 = randrange(int(round(ab2*.5)), ab2)
+                RAC.extend([sp2, ab2-sp2])
     
-    if rel == True: sample = GetRelAbs(sample)    
+            if len(RAC) == S and sum(RAC) == N:
+                sample.append(RAC)
+        
+        if rel == True: sample = GetRelAbs(sample)    
+        if fails <1000:
+            print 'Small  sample returned'
     return sample
 
 
@@ -135,26 +140,30 @@ def DomPreFloat(N, S, sample_size, rel=False):#Works with decimal values
 def SimLogNormInt(N, S, sample_size, rel=False):
     '''This script codes the Lognormal Model'''
     sample = []
-    while len(sample) < sample_size:
-        
-        n = int(round(0.75 * N))
-        RAC = [n, N - n]
-        
-        while len(RAC) < S:
+    fails = 0
+    while fails < 100000:
+        while len(sample) < sample_size:
             
-            ind = randrange(len(RAC))
-            v = RAC.pop(ind)
-            v1 = int(round(0.75 * v)) 
-            v2 = v - v1   # forcing all abundance values to be integers
+            n = int(round(0.75 * N))
+            RAC = [n, N - n]
             
-            if v1 < 1 or v2 < 1: break  # forcing smallest abundance to be 
-                                        # greater than one
-            RAC.extend([v1, v2])
-        
-        if len(RAC) == S and sum(RAC) == N:
-            RAC.sort()
-            RAC.reverse()
-            sample.append(RAC)
+            while len(RAC) < S:
+                
+                ind = randrange(len(RAC))
+                v = RAC.pop(ind)
+                v1 = int(round(0.75 * v)) 
+                v2 = v - v1   # forcing all abundance values to be integers
+                
+                if v1 < 1 or v2 < 1: 
+                    fails += 1
+                    break  # forcing smallest abundance to be 
+                                            # greater than one
+                RAC.extend([v1, v2])
+            
+            if len(RAC) == S and sum(RAC) == N:
+                RAC.sort()
+                RAC.reverse()
+                sample.append(RAC)
     
     if rel == True: sample = GetRelAbs(sample)       
     return sample
@@ -218,23 +227,26 @@ def SimParetoInt(N, S, sample_size, rel=False):
     integer values.'''
     
     sample = []
-    
-    while len(sample) < sample_size: 
-        RAC = [0.8*N, 0.2*N]
-        
-        while len(RAC) < S:
-            ind = randrange(len(RAC))
-            v = RAC.pop(ind)
-            v1 = int(round(0.8 * v))
-            v2 = v - v1  # forcing all abundance values to be integers
+    fails = 0
+    while fails < 100000:
+        while len(sample) < sample_size: 
+            RAC = [0.8*N, 0.2*N]
             
-            if v1 < 1 or v2 < 1: break  # forcing smallest abundance to be 
-                                        # greater than one
-            RAC.extend([v1, v2])       
-                        
-        if len(RAC) == S and sum(RAC) == N:        
-            RAC.sort(reverse = True)
-            sample.append(RAC)
+            while len(RAC) < S:
+                ind = randrange(len(RAC))
+                v = RAC.pop(ind)
+                v1 = int(round(0.8 * v))
+                v2 = v - v1  # forcing all abundance values to be integers
+                
+                if v1 < 1 or v2 < 1: 
+                    fails += 1
+                    break  # forcing smallest abundance to be 
+                                            # greater than one
+                RAC.extend([v1, v2])       
+                            
+            if len(RAC) == S and sum(RAC) == N:        
+                RAC.sort(reverse = True)
+                sample.append(RAC)
     
     if rel == True: sample = GetRelAbs(sample) 
     return sample
