@@ -207,9 +207,6 @@ def get_samples(SADs, NumSamples):
 ###################################################################
 
 OBS = get_ObsSADs()
-sample = get_samples(OBS, 1)
-for i in sample:
-    print len(i)
-    print sum(i)
-pred = get_predx(sample, 5)
+#sample = get_samples(OBS, 1)
+pred = get_predx(OBS, 5)
 combine()
