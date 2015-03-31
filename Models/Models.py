@@ -92,7 +92,7 @@ def DomPreInt(N, S, sample_size, rel=False): # Works only with positive integers
     
     while len(sample) < sample_size: # number of samples loop     
         
-        if fails > 10:
+        if fails > 1000:
             print 'Too many attempts'
             return sample
             break
@@ -151,7 +151,7 @@ def SimLogNormInt(N, S, sample_size, rel=False):
         n = int(round(0.75 * N))
         RAC = [n, N - n]
         
-        if fails > 10:
+        if fails > 1000:
                 print 'Too many attempts'
                 return sample
                 break
@@ -241,7 +241,7 @@ def SimParetoInt(N, S, sample_size, rel=False):
     while len(sample) < sample_size: 
         RAC = [0.8*N, 0.2*N]
         
-        if fails > 10:
+        if fails > 1000:
             print ' Too many attempts'
             return sample
             break 
@@ -350,7 +350,7 @@ def DomDecayInt(N, S, sample_size, rel=False): # Works only with positive intege
         sp1 = randint(1, int(round(N*.5)))
         ab1 = N - sp1
         
-        if fails > 10:
+        if fails > 1000:
             print 'too many attempts'
             return sample
             break

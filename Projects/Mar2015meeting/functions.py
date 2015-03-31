@@ -225,5 +225,5 @@ def get_samples(SADs, NumSamples):
 
 OBS = get_ObsSADs()
 #sample = get_samples(OBS, 1)
-pred = get_predx(OBS, 1)
+pred = get_predx(OBS, 100)
 combine()
