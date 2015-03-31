@@ -89,14 +89,11 @@ def DomPreInt(N, S, sample_size, rel=False): # Works only with positive integers
     this code does not work well with small N or high S'''
     sample = [] # A list of RACs
     fails = 0   
-    start_time = time.time()
     
     while len(sample) < sample_size: # number of samples loop     
         
-        if fails > 1500000:
+        if fails > 100000:
             print 'Too many attempts'
-            elapsed_time = time.time() - start_time
-            print elapsed_time
             return sample
             break
             
@@ -148,17 +145,14 @@ def SimLogNormInt(N, S, sample_size, rel=False):
     '''This script codes the Lognormal Model'''
     sample = []
     fails = 0
-    start_time = time.time()
     
     while len(sample) < sample_size:
            
         n = int(round(0.75 * N))
         RAC = [n, N - n]
         
-        if fails > 1500000:
+        if fails > 100000:
                 print 'Too many attempts'
-                elapsed_time = time.time() - start_time
-                print elapsed_time
                 return sample
                 break
         
@@ -243,15 +237,12 @@ def SimParetoInt(N, S, sample_size, rel=False):
     
     sample = []
     fails = 0
-    start_time = time.time()
     
     while len(sample) < sample_size: 
         RAC = [0.8*N, 0.2*N]
         
-        if fails > 1500000:
+        if fails > 100000:
             print ' Too many attempts'
-            elapsed_time = time.time() - start_time
-            print elapsed_time
             return sample
             break 
             
@@ -350,7 +341,6 @@ def DomDecayInt(N, S, sample_size, rel=False): # Works only with positive intege
     
     sample = [] # A list of RACs
     fails = 0
-    start_time = time.time()
     
     while len(sample) < sample_size: # number of samples loop     
         
@@ -358,10 +348,8 @@ def DomDecayInt(N, S, sample_size, rel=False): # Works only with positive intege
         sp1 = randint(1, int(round(N*.5)))
         ab1 = N - sp1
         
-        if fails > 1500000:
+        if fails > 100000:
             print 'too many attempts'
-            elapsed_time = time.time() - start_time
-            print elapsed_time
             return sample
             break
        

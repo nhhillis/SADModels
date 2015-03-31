@@ -86,13 +86,14 @@ def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
                 for sad in SADs:
                     N = sum(sad) # Find Total Abundance
                     S = len(sad) # Find number of species
+                    # add if statement to make sure that not iterating over empty list (failed Sads)
                     
                     prdSAD = AvgShape(Models.SimBrokenStick(N, S, sample_size)) #Get average shape of predicted SAD 
-                    #getting a list index out of range error here
-                    #Must be from the blank list of the failed SAD
+                        #getting a list index out of range error here
+                        #Must be from the blank list of the failed SAD
                     for i in prdSAD:
                             BS.write("%s\n" % i)
-                        
+                            
                     count += 1
                     print count
                     
