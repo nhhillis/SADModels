@@ -74,7 +74,7 @@ but it will take a while'''
 
 def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
     
-    SADModels = ['SimBrokenStick', 'SimLogNormInt', 'SimParetoInt', 'Sample_SimpleRandomFraction']
+    SADModels = ['SimBrokenStick', 'SimLogNormInt', 'Sample_SimpleRandomFraction', 'SimParetoInt']
     
     for model in SADModels:
         
@@ -89,13 +89,17 @@ def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
                     # add if statement to make sure that not iterating over empty list (failed Sads)
                     
                     prdSAD1 = Models.SimBrokenStick(N, S, sample_size) #Get average shape of predicted SAD 
+                    
                     if len(prdSAD1) > 0:
                         prdSAD = AvgShape(prdSAD1)#getting a list index out of range error here
                         #Must be from the blank list of the failed SAD
-                    if len(prdSAD1) == 0:
-                        break
-                    for i in prdSAD:
+                        for i in prdSAD:
                             BS.write("%s\n" % i)
+                    
+                    #need to print something for failed SADs
+                    
+                   
+                    
                             
                     count += 1
                     print count
@@ -120,10 +124,11 @@ def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
                     if len(prdSAD1) > 0:
                         prdSAD = AvgShape(prdSAD1)#getting a list index out of range error here
                         #Must be from the blank list of the failed SAD
-                   
-                        
-                    for i in prdSAD:
+                        for i in prdSAD:
                             SLN.write("%s\n" % i)
+                    
+                        
+                    
                  
                     count += 1
                     print count
@@ -143,11 +148,13 @@ def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
                     S = len(sad) # Find number of species
                    
                     prdSAD1 = Models.Sample_SimpleRandomFraction(N, S, sample_size) #Get average shape of predicted SAD
-                    if prdSAD1 < 0:
+                    
+                    if len(prdSAD1) < 0:
                         prdSAD = AvgShape(prdSAD1)    
-                        
-                    for i in prdSAD:
+                        for i in prdSAD:
                             RF.write("%s\n" % i)
+                    
+                    
                    
                     count += 1
                     print count
@@ -166,10 +173,10 @@ def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
                
                     prdSAD1 = Models.SimParetoInt(N, S, sample_size) #Get average shape of predicted SAD
                     
-                    if prdSAD1 < 0:
+                    if len(prdSAD1) < 0:
                         prdSAD = AvgShape(prdSAD1)  
-                    for i in prdSAD:
-                        Par.write("%s\n" % i)
+                        for i in prdSAD:
+                            Par.write("%s\n" % i)
                
                     count += 1
                     print count
