@@ -127,16 +127,13 @@ def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
                         for i in prdSAD:
                             SLN.write("%s\n" % i)
                     
-                        
-                    
-                 
                     count += 1
                     print count
+                    
             print 'SimLogNorm Pred Done'
             SLN.close() 
                 
-                
-                
+            
         if model == 'Sample_SimpleRandomFraction':
             print 'Writing Simple Random Fraction Pred'
             count = 0            
@@ -149,7 +146,7 @@ def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
                    
                     prdSAD1 = Models.Sample_SimpleRandomFraction(N, S, sample_size) #Get average shape of predicted SAD
                     
-                    if len(prdSAD1) < 0:
+                    if len(prdSAD1) > 0:
                         prdSAD = AvgShape(prdSAD1)    
                         for i in prdSAD:
                             RF.write("%s\n" % i)
@@ -173,7 +170,7 @@ def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
                
                     prdSAD1 = Models.SimParetoInt(N, S, sample_size) #Get average shape of predicted SAD
                     
-                    if len(prdSAD1) < 0:
+                    if len(prdSAD1) > 0:
                         prdSAD = AvgShape(prdSAD1)  
                         for i in prdSAD:
                             Par.write("%s\n" % i)
