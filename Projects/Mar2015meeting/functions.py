@@ -88,9 +88,12 @@ def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
                     S = len(sad) # Find number of species
                     # add if statement to make sure that not iterating over empty list (failed Sads)
                     
-                    prdSAD = AvgShape(Models.SimBrokenStick(N, S, sample_size)) #Get average shape of predicted SAD 
-                        #getting a list index out of range error here
+                    prdSAD1 = Models.SimBrokenStick(N, S, sample_size) #Get average shape of predicted SAD 
+                    if len(prdSAD1) > 0:
+                        prdSAD = AvgShape(prdSAD1)#getting a list index out of range error here
                         #Must be from the blank list of the failed SAD
+                    if len(prdSAD1) == 0:
+                        break
                     for i in prdSAD:
                             BS.write("%s\n" % i)
                             
@@ -112,9 +115,12 @@ def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
                     N = sum(sad) # Find Total Abundance
                     S = len(sad) # Find number of species
                     
-                    prdSAD = AvgShape(Models.SimLogNormInt(N, S, sample_size)) #Get average shape of predicted SAD
+                    prdSAD1 = Models.SimLogNormInt(N, S, sample_size) #Get average shape of predicted SAD
                     
-                    
+                    if len(prdSAD1) > 0:
+                        prdSAD = AvgShape(prdSAD1)#getting a list index out of range error here
+                        #Must be from the blank list of the failed SAD
+                   
                         
                     for i in prdSAD:
                             SLN.write("%s\n" % i)
@@ -136,8 +142,10 @@ def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
                     N = sum(sad) # Find Total Abundance
                     S = len(sad) # Find number of species
                    
-                    prdSAD = AvgShape(Models.Sample_SimpleRandomFraction(N, S, sample_size)) #Get average shape of predicted SAD
-                                  
+                    prdSAD1 = Models.Sample_SimpleRandomFraction(N, S, sample_size) #Get average shape of predicted SAD
+                    if prdSAD1 < 0:
+                        prdSAD = AvgShape(prdSAD1)    
+                        
                     for i in prdSAD:
                             RF.write("%s\n" % i)
                    
@@ -156,8 +164,10 @@ def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
                     N = sum(sad) # Find Total Abundance
                     S = len(sad) # Find number of species
                
-                    prdSAD = AvgShape(Models.SimParetoInt(N, S, sample_size)) #Get average shape of predicted SAD
-                   
+                    prdSAD1 = Models.SimParetoInt(N, S, sample_size) #Get average shape of predicted SAD
+                    
+                    if prdSAD1 < 0:
+                        prdSAD = AvgShape(prdSAD1)  
                     for i in prdSAD:
                         Par.write("%s\n" % i)
                
@@ -211,5 +221,5 @@ def get_samples(SADs, NumSamples):
 
 OBS = get_ObsSADs()
 #sample = get_samples(OBS, 1)
-pred = get_predx(OBS, 5)
+pred = get_predx(OBS, 1)
 combine()
