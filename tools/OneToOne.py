@@ -16,55 +16,22 @@ import predRADs
 import mete
 
 
+""" Functions to examine observed vs. predicted abundance relationship around
+    the one-to-one line.
 
-def generate_obs_pred_data(datasets, methods):
-
-    for method in methods:
-        for dataset in datasets:
-
-            OUT = open(mydir+'/data/'+method+'_'+dataset+'_obs_pred.txt','w+')
-            IN = mydir+'/data/'+dataset+'_SADs.txt'
-            num_lines = sum(1 for line in open(IN))
-
-            for line in open(IN):
-
-                line = line.split()
-                obs = map(int, line)
-
-                N = sum(obs)
-                S = len(obs)
-
-                if S < 10:
-                    continue
-
-                obs.sort()
-                obs.reverse()
-                print method, dataset, N, S, 'countdown:', num_lines,
-
-                if method == 'geom': # Predicted geometric series
-                    pred = predRADs.get_GeomSeries(N, S, False) # False mean no zeros allowed
-
-                elif method == 'mete': # Predicted log-series
-                    logSeries = mete.get_mete_rad(S, N)
-                    pred = logSeries[0]
-
-                r2 = macroecotools.obs_pred_rsquare(np.log10(obs), np.log10(pred))
-                print " r2:", r2
-
-                # write to file, by cite, observed and expected ranked abundances
-                for i, sp in enumerate(pred):
-                    print>> OUT, obs[i], pred[i]
-
-                num_lines -= 1
-
-            OUT.close()
-
-        print dataset
+    These functions were taken from the MIT-licensed public GitHub repository:
+    github.com/weecology/white-etal-2012-ecology/blob/master/mete_sads.py
+"""
 
 
 
-def import_obs_pred_data(input_filename):   # TAKEN FROM THE mete_sads.py script used for White et al. (2012)
-    data = np.genfromtxt(input_filename, dtype = "f8,f8", names = ['obs','pred'], delimiter = " ")
+def import_obs_pred_data(input_filename):
+    # TAKEN FROM THE mete_sads.py script used for White et al. (2012)
+
+    data = np.genfromtxt(input_filename, dtype = "S15, S15, S15, f8, f8",
+                names = ['date','site','species','obs','pred'], delimiter = " ")
+
+    # ensure the delimiter is correct
     return data
 
 
@@ -87,64 +54,56 @@ def hist_mete_r2(sites, obs, pred):  # TAKEN FROM Macroecotools or the mete_sads
 
 
 
-def obs_pred_r2_multi(methods, datasets, data_dir='/home/kenlocey/data1/'): # TAKEN FROM THE mete_sads.py script
+def obs_pred_r2_multi(methods, data_dir='/home/kenlocey/data1/'): # TAKEN FROM THE mete_sads.py script
     print 'generating 1:1 line R-square values for dataset(s)'
 
-    for i, dataset in enumerate(datasets):
-        for j, method in enumerate(methods):
-            obs_pred_data = import_obs_pred_data(data_dir + dataset + '/' + dataset + '_obs_pred.txt')
-            obs = ((obs_pred_data["obs"]))
-            pred = ((obs_pred_data["pred"]))
-            print method, dataset,' ', macroecotools.obs_pred_rsquare(np.log10(obs), np.log10(pred))
+    for j, method in enumerate(methods):
+        obs_pred_data = import_obs_pred_data(data_dir + dataset + '/' + dataset + '_obs_pred.txt')
+        obs = ((obs_pred_data["obs"]))
+        pred = ((obs_pred_data["pred"]))
+        print method,' ', macroecotools.obs_pred_rsquare(np.log10(obs), np.log10(pred))
 
 
 
-def plot_obs_pred_sad(methods, datasets, data_dir='/home/kenlocey/data1/', radius=2): # TAKEN FROM THE mete_sads.py script used for White et al. (2012)
+def plot_obs_pred_sad(SADModels, data_dir='~/data/', radius=2): # TAKEN FROM THE mete_sads.py script used for White et al. (2012)
     # Used for Figure 3 Locey and White (2013)        ########################################################################################
 
     """Multiple obs-predicted plotter"""
-    for i, dataset in enumerate(datasets):
-        for j, method in enumerate(methods):
+    fig = plt.figure()
 
-            #if method == 'mete' and dataset == 'EMP': continue
+    for i, model in enumerate(SADModels):
 
-            obs_pred_data = import_obs_pred_data(mydir+'/data/truedata/'+method+'_'+dataset+'_obs_pred.txt')
-            #site = ((obs_pred_data["site"]))
-            obs = ((obs_pred_data["obs"]))
-            pred = ((obs_pred_data["pred"]))
+        fig.add_subplot(2, 2, i+1)
 
-            axis_min = 0.5 * min(obs)
-            axis_max = 2 * max(obs)
+        obs_pred_data = import_obs_pred_data(data_dir + model + /path to obs pred data) ####  <-------------- Do this.
+        site = ((obs_pred_data["site"]))
+        obs = ((obs_pred_data["obs"]))
+        pred = ((obs_pred_data["pred"]))
 
-            macroecotools.plot_color_by_pt_dens(pred, obs, radius, loglog=1,
-                            plot_obj=plt.subplot(2, 2, j+1))
+        axis_min = 0.5 * min(obs)
+        axis_max = 2 * max(obs)
 
-            plt.plot([axis_min, axis_max],[axis_min, axis_max], 'k-')
-            plt.xlim(axis_min, axis_max)
-            plt.ylim(axis_min, axis_max)
+        macroecotools.plot_color_by_pt_dens(pred, obs, radius, loglog=1,
+                        plot_obj=plt.subplot(2, 2, i+1))
 
-            plt.tick_params(axis='both', which='major', labelsize=8)
-            plt.subplots_adjust(wspace=0.5, hspace=0.3)
+        plt.plot([axis_min, axis_max],[axis_min, axis_max], 'k-')
+        plt.xlim(axis_min, axis_max)
+        plt.ylim(axis_min, axis_max)
 
-            r2 = macroecotools.obs_pred_rsquare(np.log10(obs), np.log10(pred))
-            print method, dataset, r2
+        plt.tick_params(axis='both', which='major', labelsize=8)
+        plt.subplots_adjust(wspace=0.5, hspace=0.3)
 
-            #Create inset for histogram of site level r^2 values
-            #axins = inset_axes(ax, width="30%", height="30%", loc=4)
-            #hist_mete_r2(site, np.log10(obs), np.log10(pred))
-            #plt.setp(axins, xticks=[], yticks=[])
+        r2 = macroecotools.obs_pred_rsquare(np.log10(obs), np.log10(pred))
+        print model, r2
 
-            if method == 'mete': plt.title("Log-series")
-            else: plt.title("Geometric series")
-            plt.text(1, 2000,  r'$R^2$' + '='+ str(round(r2,3)))
-            plt.ylabel('Observed abundance',rotation='90',fontsize=12)
-            plt.xlabel('Predicted abundance',fontsize=12)
+        # Create inset for histogram of site level r^2 values
+        axins = inset_axes(ax, width="30%", height="30%", loc=4)
+        hist_mete_r2(site, np.log10(obs), np.log10(pred))
+        plt.setp(axins, xticks=[], yticks=[])
+
+        plt.title(model)
+        #plt.text(1, 2000,  r'$R^2$' + '='+ str(round(r2,3)))
+        plt.ylabel('Observed abundance',rotation='90',fontsize=12)
+        plt.xlabel('Predicted abundance',fontsize=12)
+
     plt.savefig(mydir+'/obs_pred_plots.png', dpi=600)#, bbox_inches = 'tight')#, pad_inches=0)
-
-
-
-methods = ['geom', 'mete']
-datasets = ['HMP']
-
-#generate_obs_pred_data(datasets, methods)
-plot_obs_pred_sad(methods, datasets)
