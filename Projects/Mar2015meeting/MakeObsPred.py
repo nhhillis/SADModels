@@ -44,7 +44,9 @@ def import_obs_data(input_filename):
     return data
 
 
-def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
+def get_predx(SADs, sample_size):
+
+    " This function does ..."
 
     SADModels = ['SimBrokenStick', 'SimLogNormInt',
                     'Sample_SimpleRandomFraction', 'SimParetoInt']
@@ -55,9 +57,12 @@ def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
 
         with open(mydir + '/Results/' + model + '.txt', 'w') as OUT:
             for sad in SADs:
+
                 N = sum(sad) # Find Total Abundance
                 S = len(sad) # Find number of species
-                # add if statement to make sure that not iterating over empty list (failed Sads)
+
+                if N > 10**6 or S < 10: continue
+                if max(sad) < 2: continue
 
                 if model == 'SimBrokenStick':
                     prdSADs = Models.SimBrokenStick(N, S, sample_size)
@@ -71,12 +76,12 @@ def get_predx(SADs, sample_size): #Removed Dom Pre Int, need to check for bugs
                 elif model == 'SimParetoInt':
                     prdSADs = Models.SimParetoInt(N, S, sample_size)
 
-                if len(prdSAD1) > 0:
-                    prdSAD = AvgShape(prdSADs)
-                    #Get average shape of predicted SAD
+                if len(prdSADs) > 10:
+                    len(prdSADs) < 20: print "Small sample size:" len(prdSADs)
 
-                    #getting a list index out of range error here
-                    #Must be from the blank list of the failed SAD
+                    prdSAD = AvgShape(prdSADs)
+
+                    #Get average shape of the SAD from a set of simulated SADs
                     for i, pred in enumerate(prdSAD):
                         print>>OUT, date, site, species, obs, pred
 
