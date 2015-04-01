@@ -37,6 +37,29 @@ def import_obs_pred_data(input_filename):
     # ensure the delimiter is correct
     return data
 
+def fig1( ):
+    """ This function generates a 2x2 figure of Obs vs. Pred heat maps.
+    Each of the four subplots reveals the results for a single model.
+    This function also generates the modified coefficient of determination,
+    i.e., r-squared, around the 1-to-1 line. """
+
+
+
+
+def fig2( ):
+    """ This function generates a single figure of kernel density curves.
+    Each curve represents the pdf for p-values resulting from a 2-tailed
+    Kolmogorov-Smirnov test. """
+
+
+def fig3( ):
+    """
+
+
+
+    """
+
+
 
 ########### END FUNCTIONS ######################################################
 
@@ -46,6 +69,8 @@ def import_obs_pred_data(input_filename):
 SADModels = ['SimBrokenStick', 'SimLogNormInt', 'SimpleRandomFraction',
                             'SimParetoInt']
 
+
+def fig1
 for model in SADModels:
     ct = 0
     print 'Analyzing Obs vs. Pred for ' + model
