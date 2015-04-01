@@ -49,7 +49,7 @@ def get_predx(SADs, sample_size):
     " This function does ..."
 
     SADModels = ['SimBrokenStick', 'SimLogNormInt',
-                    'Sample_SimpleRandomFraction', 'SimParetoInt']
+                    'SimpleRandomFraction', 'SimParetoInt']
 
     for model in SADModels:
         ct = 0
