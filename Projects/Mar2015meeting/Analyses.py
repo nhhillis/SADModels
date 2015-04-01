@@ -37,22 +37,31 @@ def import_obs_pred_data(input_filename):
     # ensure the delimiter is correct
     return data
 
-def fig1( ):
+def fig1(SADModels):
     """ This function generates a 2x2 figure of Obs vs. Pred heat maps.
     Each of the four subplots reveals the results for a single model.
     This function also generates the modified coefficient of determination,
     i.e., r-squared, around the 1-to-1 line. """
 
+    for model in SADModels:
+        ct = 0
+        print 'Analyzing Obs vs. Pred for ' + model
+
+        SADdata(mydir + '/Results/' + model + '.txt')
+
+            with open(mydir + '/Results/' + model + '.txt', 'w') as OUT:
+                for sad in SADs:
 
 
-
-def fig2( ):
+def fig2(SADModels):
     """ This function generates a single figure of kernel density curves.
     Each curve represents the pdf for p-values resulting from a 2-tailed
     Kolmogorov-Smirnov test. """
 
 
-def fig3( ):
+
+
+def fig3(SADModels):
     """ This function generates a 2x2 figure, with these subplots:
     1. r-squared vs. N
     2. r-squard vs. S
@@ -70,13 +79,6 @@ def fig3( ):
 SADModels = ['SimBrokenStick', 'SimLogNormInt', 'SimpleRandomFraction',
                             'SimParetoInt']
 
-
-def fig1
-for model in SADModels:
-    ct = 0
-    print 'Analyzing Obs vs. Pred for ' + model
-
-    SADdata(mydir + '/Results/' + model + '.txt')
-
-        with open(mydir + '/Results/' + model + '.txt', 'w') as OUT:
-            for sad in SADs:
+fig1(SADModels)
+fig2(SADModels)
+fig3(SADModels)
