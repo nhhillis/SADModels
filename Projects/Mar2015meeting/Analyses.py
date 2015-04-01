@@ -53,10 +53,11 @@ def fig2( ):
 
 
 def fig3( ):
-    """
-
-
-
+    """ This function generates a 2x2 figure, with these subplots:
+    1. r-squared vs. N
+    2. r-squard vs. S
+    3. r-squared vs. N/S (i.e. average abundance)
+    4. ...
     """
 
 
