@@ -39,7 +39,7 @@ def import_obs_data(input_filename):
     # Inspired by a function in mete_sads.py script used for White et al. (2012)
 
     data = np.genfromtxt(input_filename, dtype = "S15, S15, S15, f8, f8", 
-    names = ['site', 'date', 'species', 'obs'], delimiter = " ")
+    names = ['site', 'date', 'species', 'obs'], delimiter = " ") #Error is returning here
     # complete the line above & ensure the delimiter is correct
     return data
 
