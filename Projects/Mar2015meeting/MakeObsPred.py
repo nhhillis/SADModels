@@ -38,8 +38,8 @@ import Models
 def import_obs_data(input_filename):
     # Inspired by a function in mete_sads.py script used for White et al. (2012)
 
-    data = np.genfromtxt(input_filename, dtype = "S15, S15, S15, f8, f8",
-    names = ['species', ..., ..., 'obs'], delimiter = " ")
+    data = np.genfromtxt(input_filename, dtype = "S15, S15, S15, f8, f8", 
+    names = ['site', 'date', 'species', 'obs'], delimiter = " ")
     # complete the line above & ensure the delimiter is correct
     return data
 
@@ -52,7 +52,7 @@ def get_predx(SADs, sample_size):
                     'SimpleRandomFraction', 'SimParetoInt']
 
     for model in SADModels:
-        ct = 0
+        count = 0
         print 'Writing ' + model
 
         with open(mydir + '/Results/' + model + '.txt', 'w') as OUT:
@@ -76,8 +76,8 @@ def get_predx(SADs, sample_size):
                 elif model == 'SimParetoInt':
                     prdSADs = Models.SimParetoInt(N, S, sample_size)
 
-                if len(prdSADs) > 10:
-                    len(prdSADs) < 20: print "Small sample size:" len(prdSADs)
+                if len(prdSADs) > 10: 
+                    if len(prdSADs) < 20: print "Small sample size:", len(prdSADs)
 
                     prdSAD = AvgShape(prdSADs)
 
@@ -116,5 +116,4 @@ def get_samples(SADs, NumSamples):
 ########### FUNCTION CALLS #####################################################
 
 ObsSADs = import_obs_data('/Users/Nathan_Hillis/Desktop/Data/YR_66_v2.txt')
-#sample = get_samples(OBS, 1)
 pred = get_predx(ObsSADs, 100)
