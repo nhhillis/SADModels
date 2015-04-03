@@ -3,14 +3,14 @@ from __future__ import division
 import sys
 import os
 
-mydir = os.path.expanduser("~/Desktop/Repos/HMP_EMP/")
+mydir = os.path.expanduser("~/Users/Nathan_Hillis/GitHub/SADModels")
 sys.path.append(mydir)
 
 import matplotlib.pyplot as plt
 import numpy as np
 from mpl_toolkits.axes_grid.inset_locator import inset_axes
 
-sys.path.append(mydir + "/global/GenAnalysis/tools/") # You'll need to change this
+sys.path.append(mydir + "/tools/") # You'll need to change this
 import macroecotools
 import predRADs
 import mete
@@ -54,7 +54,8 @@ def hist_mete_r2(sites, obs, pred):  # TAKEN FROM Macroecotools or the mete_sads
 
 
 
-def obs_pred_r2_multi(methods, data_dir='/home/kenlocey/data1/'): # TAKEN FROM THE mete_sads.py script
+def obs_pred_r2_multi(methods, data_dir= 'Users/Nathan_Hillis/Desktop/Data/'): 
+    # TAKEN FROM THE mete_sads.py script
     print 'generating 1:1 line R-square values for dataset(s)'
 
     for j, method in enumerate(methods):
@@ -65,7 +66,8 @@ def obs_pred_r2_multi(methods, data_dir='/home/kenlocey/data1/'): # TAKEN FROM T
 
 
 
-def plot_obs_pred_sad(SADModels, data_dir='~/data/', radius=2): # TAKEN FROM THE mete_sads.py script used for White et al. (2012)
+def plot_obs_pred_sad(SADModels, data_dir='~/data/', radius=2): 
+    # TAKEN FROM THE mete_sads.py script used for White et al. (2012)
     # Used for Figure 3 Locey and White (2013)        ########################################################################################
 
     """Multiple obs-predicted plotter"""
@@ -75,7 +77,7 @@ def plot_obs_pred_sad(SADModels, data_dir='~/data/', radius=2): # TAKEN FROM THE
 
         fig.add_subplot(2, 2, i+1)
 
-        obs_pred_data = import_obs_pred_data(data_dir + model + /path to obs pred data) ####  <-------------- Do this.
+        obs_pred_data = import_obs_pred_data(data_dir +  '/Results/' + model ) ####  <-------------- Do this.
         site = ((obs_pred_data["site"]))
         obs = ((obs_pred_data["obs"]))
         pred = ((obs_pred_data["pred"]))

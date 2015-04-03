@@ -6,14 +6,24 @@ import math
 import sys
 import os
 from scipy import stats
+from scipy.stats import gaussian_kde
 import matplotlib.pyplot as plt
 
 
 ''' DESCRIPTION:
-    This code obtains observed SADs, predicted SADs from various random fraction
-    models, & writes the data to a file, with different files for each model.
-
-    Each results file will has these rows: date, site, species, obs, pred '''
+    This code generates 3 figures:
+        Fig. 1 - This function generates a 2x2 figure of Obs vs. Pred heat maps.
+                    Each of the four subplots reveals the results for a single model.
+                    This function also generates the modified coefficient of determination,
+                    i.e., r-squared, around the 1-to-1 line.
+        Fig. 2 - This function generates a single figure of kernel density curves.
+                    Each curve represents the pdf for p-values resulting from a 2-tailed
+                    Kolmogorov-Smirnov test. 
+        Fig. 3 - This function generates a 2x2 figure, with these subplots:
+                    1. r-squared vs. N
+                    2. r-squard vs. S
+                    3. r-squared vs. N/S (i.e. average abundance)
+                    4. ...''' 
 
 
 
@@ -37,7 +47,9 @@ def import_obs_pred_data(input_filename):
 
     # ensure the delimiter is correct
     return data
+    
 
+    
 def fig1(SADModels):
     """ This function generates a 2x2 figure of Obs vs. Pred heat maps.
     Each of the four subplots reveals the results for a single model.
@@ -55,6 +67,9 @@ def fig2(SADModels):
     """ This function generates a single figure of kernel density curves.
     Each curve represents the pdf for p-values resulting from a 2-tailed
     Kolmogorov-Smirnov test. """
+
+    
+
 
 
 
