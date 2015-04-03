@@ -46,7 +46,8 @@ def import_obs_data(input_filename):
 
 def get_predx(SADs, sample_size):
 
-    " This function does ..."
+    '''This function obtains predicted forms of the empirical SADs and writes them to seperate ObsPred files '''
+
 
     SADModels = ['SimBrokenStick', 'SimLogNormInt',
                     'SimpleRandomFraction', 'SimParetoInt']
