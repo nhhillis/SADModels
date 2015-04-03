@@ -84,7 +84,7 @@ def get_predx(SADs, sample_size):
 
                     #Get average shape of the SAD from a set of simulated SADs
                     for i, pred in enumerate(prdSAD):
-                        print>>OUT, date, site, species, obs, pred
+                        print>>OUT, date, site, species, obs, pred # Showing these as undefined
 
                 #need to print something for failed SADs
                 count += 1
