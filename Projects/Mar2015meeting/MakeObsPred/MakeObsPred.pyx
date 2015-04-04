@@ -23,10 +23,10 @@ from itertools import izip
 mydir = os.path.expanduser("~/GitHub/SADModels/")
 data = os.path.expanduser("~/data") # a general path to a data directory
 
-sys.path.append(mydir + "tools")
+sys.path.append(mydir + "tools/AverageShape")
 from AverageShape import AvgShape
 
-sys.path.append(mydir + 'Models/')
+sys.path.append(mydir + 'Models')
 import Models
 
 ########### END ################################################################
@@ -38,13 +38,8 @@ import Models
 def import_obs_data(input_filename):
     # Inspired by a function in mete_sads.py script used for White et al. (2012)
 
-<<<<<<< HEAD
-    data = np.genfromtxt(input_filename, dtype = "S15, S15, S15, f8, f8",
-    names = ['site', 'date', 'species', 'obs', 'pred'], delimiter = "    ") #Error is returning here
-=======
     data = np.genfromtxt(input_filename, dtype = "S15, S15, S15, f8", 
     names = ['site', 'date', 'species', 'obs'], delimiter = "\t") #Error is returning here
->>>>>>> upstream/master
     # complete the line above & ensure the delimiter is correct
     return data
 
@@ -143,4 +138,4 @@ def get_samples(SADs, NumSamples):
 
 ObsSADs = import_obs_data('/Users/Nathan_Hillis/Desktop/Data/YR_66_v2.txt')
 
-pred = get_predx(ObsSADs, 50)
+pred = get_predx(ObsSADs, 30)

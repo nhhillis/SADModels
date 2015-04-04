@@ -134,7 +134,7 @@ def DomPreFloat(N, S, sample_size, rel=False):#Works with decimal values
             sp2 = uniform((ab2*.5), ab2)
             RAC.extend([sp2, ab2-sp2])
 
-    	sample.append(RAC)
+        sample.append(RAC)
 
     if rel == True: sample = GetRelAbs(sample)
     return sample

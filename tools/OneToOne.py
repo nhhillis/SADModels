@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from mpl_toolkits.axes_grid.inset_locator import inset_axes
 
-sys.path.append(mydir + "/tools/") # You'll need to change this
+sys.path.append(mydir + "/tools/macroecotools") # You'll need to change this
 import macroecotools
 
 
