@@ -69,8 +69,7 @@ def fig1(SADModels):
     This function also generates the modified coefficient of determination,
     i.e., r-squared, around the 1-to-1 line. """
 
-    OneToOne.plot_obs_pred_sad(SADModels, data_dir='~/data/')
-    # Yes, that's all. done.
+    OneToOne.plot_obs_pred_sad(SADModels, data_dir= mydir + '/Results/')
     # Be sure to look over the function in OneToOne.py, you'll need to do small modifications
 
     return

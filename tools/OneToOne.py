@@ -1,4 +1,3 @@
-#!/usr/bin/env sage -python
 from __future__ import division
 import sys
 import os
@@ -12,8 +11,7 @@ from mpl_toolkits.axes_grid.inset_locator import inset_axes
 
 sys.path.append(mydir + "/tools/") # You'll need to change this
 import macroecotools
-import predRADs
-import mete
+
 
 
 """ Functions to examine observed vs. predicted abundance relationship around
@@ -77,7 +75,7 @@ def plot_obs_pred_sad(SADModels, data_dir, radius=2):
 
         fig.add_subplot(2, 2, i+1)
 
-        obs_pred_data = import_obs_pred_data(data_dir +  '/Results/' + model ) 
+        obs_pred_data = import_obs_pred_data(data_dir + model + '.txt') 
         site = ((obs_pred_data["site"]))
         obs = ((obs_pred_data["obs"]))
         pred = ((obs_pred_data["pred"]))
@@ -108,4 +106,5 @@ def plot_obs_pred_sad(SADModels, data_dir, radius=2):
         plt.ylabel('Observed abundance',rotation='90',fontsize=12)
         plt.xlabel('Predicted abundance',fontsize=12)
 
-    plt.savefig(mydir+'/obs_pred_plots.png', dpi=600)#, bbox_inches = 'tight')#, pad_inches=0)
+    #plt.savefig(mydir+'/obs_pred_plots.png', dpi=600)#, bbox_inches = 'tight')#, pad_inches=0)
+    plt.show()
