@@ -38,8 +38,13 @@ import Models
 def import_obs_data(input_filename):
     # Inspired by a function in mete_sads.py script used for White et al. (2012)
 
+<<<<<<< HEAD
+    data = np.genfromtxt(input_filename, dtype = "S15, S15, S15, f8, f8",
+    names = ['site', 'date', 'species', 'obs', 'pred'], delimiter = "    ") #Error is returning here
+=======
     data = np.genfromtxt(input_filename, dtype = "S15, S15, S15, f8", 
     names = ['site', 'date', 'species', 'obs'], delimiter = "\t") #Error is returning here
+>>>>>>> upstream/master
     # complete the line above & ensure the delimiter is correct
     return data
 
@@ -96,7 +101,7 @@ def get_predx(obs_pred_data, sample_size):
                 elif model == 'SimParetoInt':
                     prdSADs = Models.SimParetoInt(N, S, sample_size)
 
-                if len(prdSADs) > 10: 
+                if len(prdSADs) > 10:
                     if len(prdSADs) < 20: print "Small sample size:", len(prdSADs)
 
                     prdSAD = AvgShape(prdSADs)
