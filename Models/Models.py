@@ -239,18 +239,21 @@ def SimParetoInt(N, S, sample_size, rel=False):
     fails = 0
 
     while len(sample) < sample_size:
-        RAC = [0.8*N, 0.2*N]
+
+        n = int(round(0.8 * N))
+        RAC = [n, N - n]
 
         if fails > 1000:
-            print ' Too many attempts'
-            return sample
-            break
+                print 'Too many attempts'
+                return sample
+                break
 
         while len(RAC) < S:
+
             ind = randrange(len(RAC))
             v = RAC.pop(ind)
             v1 = int(round(0.8 * v))
-            v2 = v - v1  # forcing all abundance values to be integers
+            v2 = v - v1   # forcing all abundance values to be integers
 
             if v1 < 1 or v2 < 1:
                 fails += 1
@@ -259,7 +262,8 @@ def SimParetoInt(N, S, sample_size, rel=False):
             RAC.extend([v1, v2])
 
         if len(RAC) == S and sum(RAC) == N:
-            RAC.sort(reverse = True)
+            RAC.sort()
+            RAC.reverse()
             sample.append(RAC)
 
     if rel == True: sample = GetRelAbs(sample)

@@ -58,12 +58,16 @@ def get_predx(obs_pred_data, sample_size):
     date = (obs_pred_data["date"])
     species = (obs_pred_data["species"])
     obs_data = []
+    site_data = []
+    date_data = []
+    species_data = []
     
     for sites in np.unique(site): 
         obs_data.append(obs[sites==site])
-        
-    for site in obs_data: print site
-    
+        site_data.append(site[sites==site])
+        date_data.append(date[sites == site])
+        species_data.append(species[sites ==site])
+            
     SADModels = ['SimBrokenStick', 'SimLogNormInt',
                     'SimpleRandomFraction', 'SimParetoInt']
 
@@ -71,11 +75,14 @@ def get_predx(obs_pred_data, sample_size):
         count = 0
         print 'Writing ' + model
 
-        with open(mydir + '/Results/' + model + '.txt', 'w') as OUT:
-            for sad in obs_data:
+        with open(mydir + '/Results/' + model + '.txt', 'w+') as OUT:
+            for j, sad in enumerate(obs_data):
                 
                 sad = sad.tolist()
+                sad.sort()
+                sad.reverse()
                 sad = map(int, sad)
+                
                 N = sum(sad) # Find Total Abundance
                 S = len(sad) # Find number of species
 
@@ -100,8 +107,10 @@ def get_predx(obs_pred_data, sample_size):
                     prdSAD = AvgShape(prdSADs)
 
                     #Get average shape of the SAD from a set of simulated SADs
+                    print len(prdSAD), model
+                    
                     for i, pred in enumerate(prdSAD):
-                        print>>OUT, date, site, species, obs, pred # Showing these as undefined
+                        print>>OUT, date_data[j][i], site_data[j][i], species_data[j][i], sad[i], pred # Showing these as undefined
 
                 count += 1
                 print model, count, len(obs_data)
@@ -134,4 +143,4 @@ def get_samples(SADs, NumSamples):
 
 ObsSADs = import_obs_data('/Users/Nathan_Hillis/Desktop/Data/YR_66_v2.txt')
 
-pred = get_predx(ObsSADs, 50)
+pred = get_predx(ObsSADs, 30)
