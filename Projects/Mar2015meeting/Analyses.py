@@ -128,5 +128,5 @@ SADModels = ['SimBrokenStick', 'SimLogNormInt', 'SimpleRandomFraction',
                             'SimParetoInt']
 
 fig1(SADModels)
-fig2(SADModels)
-fig3(SADModels)
+#fig2(SADModels)
+#fig3(SADModels)

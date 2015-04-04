@@ -129,4 +129,4 @@ def get_samples(SADs, NumSamples):
 
 ObsSADs = import_obs_data('/Users/Nathan_Hillis/Desktop/Data/YR_66_v2.txt')
 
-pred = get_predx(ObsSADs, 25)
+pred = get_predx(ObsSADs, 50)

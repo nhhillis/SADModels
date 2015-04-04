@@ -54,7 +54,7 @@ def hist_mete_r2(sites, obs, pred):  # TAKEN FROM Macroecotools or the mete_sads
 
 
 
-def obs_pred_r2_multi(methods, data_dir= 'Users/Nathan_Hillis/Desktop/Data/'): 
+def obs_pred_r2_multi(methods, data_dir = mydir + '/results/'): 
     # TAKEN FROM THE mete_sads.py script
     print 'generating 1:1 line R-square values for dataset(s)'
 
@@ -66,7 +66,7 @@ def obs_pred_r2_multi(methods, data_dir= 'Users/Nathan_Hillis/Desktop/Data/'):
 
 
 
-def plot_obs_pred_sad(SADModels, data_dir='~/data/', radius=2): 
+def plot_obs_pred_sad(SADModels, data_dir, radius=2): 
     # TAKEN FROM THE mete_sads.py script used for White et al. (2012)
     # Used for Figure 3 Locey and White (2013)        ########################################################################################
 
@@ -99,9 +99,9 @@ def plot_obs_pred_sad(SADModels, data_dir='~/data/', radius=2):
         print model, r2
 
         # Create inset for histogram of site level r^2 values
-        axins = inset_axes(ax, width="30%", height="30%", loc=4)
-        hist_mete_r2(site, np.log10(obs), np.log10(pred))
-        plt.setp(axins, xticks=[], yticks=[])
+        #axins = inset_axes(ax, width="30%", height="30%", loc=4)
+        #hist_mete_r2(site, np.log10(obs), np.log10(pred))
+        #plt.setp(axins, xticks=[], yticks=[])
 
         plt.title(model)
         #plt.text(1, 2000,  r'$R^2$' + '='+ str(round(r2,3)))
