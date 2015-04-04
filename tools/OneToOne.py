@@ -77,7 +77,7 @@ def plot_obs_pred_sad(SADModels, data_dir='~/data/', radius=2):
 
         fig.add_subplot(2, 2, i+1)
 
-        obs_pred_data = import_obs_pred_data(data_dir +  '/Results/' + model ) ####  <-------------- Do this.
+        obs_pred_data = import_obs_pred_data(data_dir +  '/Results/' + model ) 
         site = ((obs_pred_data["site"]))
         obs = ((obs_pred_data["obs"]))
         pred = ((obs_pred_data["pred"]))

@@ -38,17 +38,27 @@ import Models
 def import_obs_data(input_filename):
     # Inspired by a function in mete_sads.py script used for White et al. (2012)
 
-    data = np.genfromtxt(input_filename, dtype = "S15, S15, S15, f8, f8", 
-    names = ['site', 'date', 'species', 'obs', 'pred'], delimiter = "    ") #Error is returning here
+    data = np.genfromtxt(input_filename, dtype = "S15, S15, S15, f8", 
+    names = ['site', 'date', 'species', 'obs'], delimiter = "\t") #Error is returning here
     # complete the line above & ensure the delimiter is correct
     return data
 
 
-def get_predx(SADs, sample_size):
+def get_predx(obs_pred_data, sample_size):
 
     '''This function obtains predicted forms of the empirical SADs and writes them to seperate ObsPred files '''
 
-
+    site = (obs_pred_data["site"])
+    obs = (obs_pred_data["obs"])
+    date = (obs_pred_data["date"])
+    species = (obs_pred_data["species"])
+    obs_data = []
+    
+    for sites in np.unique(site): 
+        obs_data.append(obs[sites==site])
+        
+    for site in obs_data: print site
+    
     SADModels = ['SimBrokenStick', 'SimLogNormInt',
                     'SimpleRandomFraction', 'SimParetoInt']
 
@@ -57,8 +67,10 @@ def get_predx(SADs, sample_size):
         print 'Writing ' + model
 
         with open(mydir + '/Results/' + model + '.txt', 'w') as OUT:
-            for sad in SADs:
-
+            for sad in obs_data:
+                
+                sad = sad.tolist()
+                sad = map(int, sad)
                 N = sum(sad) # Find Total Abundance
                 S = len(sad) # Find number of species
 
@@ -86,9 +98,8 @@ def get_predx(SADs, sample_size):
                     for i, pred in enumerate(prdSAD):
                         print>>OUT, date, site, species, obs, pred # Showing these as undefined
 
-                #need to print something for failed SADs
                 count += 1
-                print count
+                print model, count, len(obs_data)
 
             print model + ': Done'
             OUT.close()
@@ -117,4 +128,5 @@ def get_samples(SADs, NumSamples):
 ########### FUNCTION CALLS #####################################################
 
 ObsSADs = import_obs_data('/Users/Nathan_Hillis/Desktop/Data/YR_66_v2.txt')
-pred = get_predx(ObsSADs, 100)
+
+pred = get_predx(ObsSADs, 25)
