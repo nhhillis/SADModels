@@ -158,7 +158,7 @@ def fig5(SADModels):
 
         fig.add_subplot(2, 2, i+1)
 
-        obs_pred_data = import_obs_pred_data(mydir + '/' + model + '.txt')
+        obs_pred_data = import_obs_pred_data(mydir + '/Results/' + model + '.txt')
         obs = ((obs_pred_data["obs"]))
         pred = ((obs_pred_data["pred"]))
         site = ((obs_pred_data["site"]))
@@ -181,24 +181,27 @@ def fig5(SADModels):
             Ns.append(N)
 
         plt.scatter(Ns, r2s, color='0.3', label=model) # label is for the legend
-
+        plt.xlabel('Total Abundance', fontsize=10)
+        plt.ylabel('Rsquared Value', fontsize=10)
+        
         if model == 'SimBrokenStick':
-            plt.title("Nathan will complete")
+            plt.title("Broken Stick R^2 v N", fontsize = 14)
 
         elif model == 'SimLogNormInt':
-            plt.title("Nathan will complete")
+            plt.title("Log Norm R^2 v N", fontsize = 14)
 
         elif model == 'SimpleRandomFraction':
-            plt.title("Nathan will complete")
+            plt.title("Random Fraction R^2 v N", fontsize = 14)
 
         elif model == 'SimParetoInt':
-            plt.title("Nathan will complete")
+            plt.title("Pareto Int R^2 v N", fontsize = 14)
 
         print model + ': Done'
 
-        # insert labels for x and y axes and
+    
         # insert code to plot a legend
-
+    plt.savefig('/Users/Nathan_Hillis/GitHub/SADModels/Results/R2vN.png', dpi=600, bbox_inches = 'tight', pad_inches=0.03)
+    plt.show()
     return
 
 
@@ -223,3 +226,4 @@ SADModels = ['SimBrokenStick', 'SimLogNormInt', 'SimpleRandomFraction',
 #fig1(SADModels)
 #fig2(SADModels)
 #fig3(SADModels)
+fig5(SADModels)
