@@ -74,47 +74,47 @@ def fig1(SADModels):
 
     return
 
-
 def fig2(SADModels):
-    """ This function generates a single figure of kernel density curves.
-    Each curve represents the pdf for p-values resulting from a 2-tailed
-    Kolmogorov-Smirnov test. """
+    '''Heat map'''
+    x = []
+    y = []
     
-    def kdens_full_feasibles(N,S):
-        # TAKEN FROM THE feasible_functions.py script used for White et al. (2013)
-        '''Working on this.  Just have copied it over at this point'''
-        fig = plt.figure()
-        ax = fig.add_subplot(1,1,1)
-        parts = get_all_partitions(N,S)
-        Evars = Evars_sample(parts) # This could be a sample based on another metric (above)
-        D = get_kdens(Evars)
-        plt.xlim(0.0, 1.0)
-        plt.plot(D[0],D[1],color='black',lw=5)
-        parts = get_all_partitions(N,S+10)
-        Evars = Evars_sample(parts) # This could be a sample based on another metric (above)
-        D = get_kdens(Evars)
-        plt.xlim(0.0, 1.0)
-        plt.plot(D[0],D[1],color='gray',lw=5)
-        plt.axvline(x=0.673,ymin=0,ymax=10,color='black',ls='--',lw=3) # plot a vertical line at the mode
-        plt.setp(ax, xticks=[0.2,0.6,1.0],yticks=[0,2,4,6])
-        for tick in ax.yaxis.get_major_ticks():
-            tick.label.set_fontsize(15)
-        for tick in ax.xaxis.get_major_ticks():
-            tick.label.set_fontsize(15)
-        plt.savefig('Figure3.png', dpi=400, pad_inches=0) 
+    for RAC in SLN: #Placing SLN RAC values into lists
+        y.extend(np.log(RAC))
+        x.extend(range(len(RAC)))
+    
+    
+    plt.plot(np.log(ObsRAC), color='0.3', lw=3, alpha = 0.6)
+    
+    plt.hexbin(x, y, mincnt=1, gridsize = 40, bins = 'log', cmap=plt.cm.jet) #Generating Heat Map for SLN RAC
         
-
-
-
+    plt.xlim(0, S + 5)
+    plt.xlabel('Rank in abundance', fontsize=16)
+    plt.ylabel('log(abundance)', fontsize=16)
+    
+    
+    plt.savefig('/Users/Nathan_Hillis/Desktop/IRB_Project/All_Site_N='+str(N)+'_S='+str(S)+'.png', dpi=600, bbox_inches = 'tight', pad_inches=0.03)
+    plt.show()
 
 
 def fig3(SADModels):
+    """ This function generates a single figure of kernel density curves.
+    Each curve represents the pdf for p-values resulting from a 2-tailed
+    Kolmogorov-Smirnov test. """
+     
+        
+
+
+def fig4(SADModels):
     """ This function generates a 2x2 figure, with these subplots:
-    1. r-squared vs. N
-    2. r-squard vs. S
-    3. r-squared vs. N/S (i.e. average abundance)
-    4. ...
+        One subplot for each model:
+            r-squared vs. N
+            list of r-squared values and list of Ns
+            plotted against each other
     """
+    
+def fig5(SADModels):
+    '''Compare
 
 
 
