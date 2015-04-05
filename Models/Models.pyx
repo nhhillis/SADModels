@@ -54,22 +54,27 @@ def SimBrokenStick(N, S, sample_size, rel=False):
 
     while len(RACs) < sample_size:
 
-        cuts = random.sample(range(N), S-1) # This is a time costly operation
-                                            # We want something faster
-        cuts.sort()
-        RAC = [cuts[0]]
+        RAC = []
 
-        sp_ab = float()
-        cut = float()
-        for i, cut in enumerate(cuts):
-            if i == 0:
-                continue
+        indices = []
+        while len(indices) < S-1:
+            index = random.randint(1, N-1)
+            if index in indices: continue
+            else: indices.append(index)
 
-            sp_ab = cut - cuts[i-1]
-            RAC.append(sp_ab)
+        indices.sort()
+        indices.append(N)
 
-        RAC.append(N - cut)
-        RAC.sort(reverse = True)
+        nsum = 0
+        RAC = []
+        for i in indices:
+            i -= sum(RAC)
+            RAC.append(i)
+            nsum += i
+
+        RAC.sort()
+        RAC.reverse()
+
         RACs.append(RAC)
 
         """
