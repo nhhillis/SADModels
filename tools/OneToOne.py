@@ -2,14 +2,14 @@ from __future__ import division
 import sys
 import os
 
-mydir = os.path.expanduser("~/Users/Nathan_Hillis/GitHub/SADModels")
+mydir = os.path.expanduser("~/GitHub/SADModels")
 sys.path.append(mydir)
 
 import matplotlib.pyplot as plt
 import numpy as np
 from mpl_toolkits.axes_grid.inset_locator import inset_axes
 
-sys.path.append(mydir + "/tools/macroecotools") # You'll need to change this
+sys.path.append(mydir + "/tools/macroecotools") 
 import macroecotools
 
 
@@ -106,5 +106,5 @@ def plot_obs_pred_sad(SADModels, data_dir, radius=2):
         plt.ylabel('Observed abundance',rotation='90',fontsize=12)
         plt.xlabel('Predicted abundance',fontsize=12)
 
-    #plt.savefig(mydir+'/obs_pred_plots.png', dpi=600)#, bbox_inches = 'tight')#, pad_inches=0)
+    plt.savefig(mydir+'/Results/obs_pred_plots.png', dpi=600)#, bbox_inches = 'tight')#, pad_inches=0)
     plt.show()
