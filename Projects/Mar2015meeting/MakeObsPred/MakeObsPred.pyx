@@ -21,7 +21,7 @@ from itertools import izip
 ########### PATHS & ADDITIONAL IMPORTS #########################################
 
 mydir = os.path.expanduser("~/GitHub/SADModels/")
-data = os.path.expanduser("~/data") # a general path to a data directory
+data = os.path.expanduser("~/HillisData") # a general path to a data directory
 
 sys.path.append(mydir + "tools/AverageShape")
 from AverageShape import AvgShape
@@ -38,7 +38,7 @@ import Models
 def import_obs_data(input_filename):
     # Inspired by a function in mete_sads.py script used for White et al. (2012)
 
-    data = np.genfromtxt(input_filename, dtype = "S15, S15, S15, f8", 
+    data = np.genfromtxt(input_filename, dtype = "S15, S15, S15, f8",
     names = ['site', 'date', 'species', 'obs'], delimiter = "\t") #Error is returning here
     # complete the line above & ensure the delimiter is correct
     return data
@@ -56,13 +56,13 @@ def get_predx(obs_pred_data, sample_size):
     site_data = []
     date_data = []
     species_data = []
-    
-    for sites in np.unique(site): 
+
+    for sites in np.unique(site):
         obs_data.append(obs[sites==site])
         site_data.append(site[sites==site])
         date_data.append(date[sites == site])
         species_data.append(species[sites ==site])
-            
+
     SADModels = ['SimBrokenStick', 'SimLogNormInt',
                     'SimpleRandomFraction', 'SimParetoInt']
 
@@ -72,12 +72,12 @@ def get_predx(obs_pred_data, sample_size):
 
         with open(mydir + '/Results/' + model + '.txt', 'w+') as OUT:
             for j, sad in enumerate(obs_data):
-                
+
                 sad = sad.tolist()
                 sad.sort()
                 sad.reverse()
                 sad = map(int, sad)
-                
+
                 N = sum(sad) # Find Total Abundance
                 S = len(sad) # Find number of species
 
@@ -100,12 +100,12 @@ def get_predx(obs_pred_data, sample_size):
                     if len(prdSADs) < 20: print "Small sample size:", len(prdSADs)
 
                     prdSAD = AvgShape(prdSADs)
-
+                    print prdSAD
                     #Get average shape of the SAD from a set of simulated SADs
                     print len(prdSAD), model
-                    
+
                     for i, pred in enumerate(prdSAD):
-                        print>>OUT, date_data[j][i], site_data[j][i], species_data[j][i], sad[i], pred # Showing these as undefined
+                        print>>OUT, date_data[j][i], site_data[j][i], species_data[j][i], sad[i], pred
 
                 count += 1
                 print model, count, len(obs_data)
@@ -136,6 +136,6 @@ def get_samples(SADs, NumSamples):
 
 ########### FUNCTION CALLS #####################################################
 
-ObsSADs = import_obs_data('/Users/Nathan_Hillis/Desktop/Data/YR_66_v2.txt')
+ObsSADs = import_obs_data(data+'/YR_66_v2.txt')
 
-pred = get_predx(ObsSADs, 30)
+pred = get_predx(ObsSADs, 500)
