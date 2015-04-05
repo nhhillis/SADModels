@@ -52,6 +52,9 @@ mydir = os.path.expanduser("~/GitHub/SADModels/")
 sys.path.append(mydir + '/tools')
 import OneToOne
 
+sys.path.append(mydir + "/tools/macroecotools")
+import macroecotools
+
 ########### END ################################################################
 
 
@@ -150,23 +153,27 @@ def fig4(SADModels):
             obs_data.append(obs[sites==site])
             pred_data.append(pred[sites==site])
 
+        Ns = []
+        r2s = []
 
         for j, sad in enumerate(obs_data):
 
+            r2 = macroecotools.obs_pred_rsquare(np.array(sad), np.array(pred_data[j]))
+            r2s.append(r2)
             N = sum(sad) # Find Total Abundance
-            S = len(sad) # Find number of species
+            Ns.append(N)
 
             if model == 'SimBrokenStick':
-
+                plt.title("Nathan will complete")
             elif model == 'SimLogNormInt':
-
+                plt.title("Nathan will complete")
             elif model == 'SimpleRandomFraction':
-
+                plt.title("Nathan will complete")
             elif model == 'SimParetoInt':
-
+                plt.title("Nathan will complete")
 
             print model + ': Done'
-            OUT.close()
+
 
 
 def fig5(SADModels):
