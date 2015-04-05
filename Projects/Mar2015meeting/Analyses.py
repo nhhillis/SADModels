@@ -85,8 +85,11 @@ def get_kdens(_list):
     return D
 
 
+
+
 def fig2(SADModels):
     '''Heat map'''
+
     x = []
     y = []
 
@@ -108,6 +111,8 @@ def fig2(SADModels):
     plt.show()
 
 
+
+
 def fig3(SADModels):
     """ This function generates a 2x2 figure of Obs vs. Pred heat maps.
     Each of the four subplots reveals the results for a single model.
@@ -120,15 +125,27 @@ def fig3(SADModels):
     return
 
 
-def fig3(SADModels):
-    """ This function generates a single figure of kernel density curves.
-    Each curve represents the pdf for p-values resulting from a 2-tailed
-    Kolmogorov-Smirnov test. """
-
-
-
 
 def fig4(SADModels):
+
+    """ Fig. 4 - (Note to Nathan: If possible, you could generate this figure
+        in powerpoint using previously made figures, and then save the
+        powerpoint slide as a .png file.) Otherwise,...
+
+        This function generates a 1x2 plot (1 row, 2 columns):
+        Subplot 1.) Broken Stick (i.e. geometric distribution) heatmap,
+        predicted form, and then the predicted form based on Ken's code
+        or using the prediction for the most likely RAC given N and S,
+        i.e., from mete.py """
+
+
+
+    return
+
+
+
+
+def fig5(SADModels):
     """ This function generates a 2x2 figure, with these subplots:
         One subplot for each model:
             r-squared vs. N
@@ -163,21 +180,35 @@ def fig4(SADModels):
             N = sum(sad) # Find Total Abundance
             Ns.append(N)
 
-            if model == 'SimBrokenStick':
-                plt.title("Nathan will complete")
-            elif model == 'SimLogNormInt':
-                plt.title("Nathan will complete")
-            elif model == 'SimpleRandomFraction':
-                plt.title("Nathan will complete")
-            elif model == 'SimParetoInt':
-                plt.title("Nathan will complete")
+        plt.scatter(Ns, r2s, color='0.3', label=model) # label is for the legend
 
-            print model + ': Done'
+        if model == 'SimBrokenStick':
+            plt.title("Nathan will complete")
+
+        elif model == 'SimLogNormInt':
+            plt.title("Nathan will complete")
+
+        elif model == 'SimpleRandomFraction':
+            plt.title("Nathan will complete")
+
+        elif model == 'SimParetoInt':
+            plt.title("Nathan will complete")
+
+        print model + ': Done'
+
+        # insert labels for x and y axes and
+        # insert code to plot a legend
+
+    return
 
 
 
-def fig5(SADModels):
-    '''Compare'''
+def fig6(SADModels):
+    """ This function generates a single figure of kernel density curves.
+    Each curve represents the pdf for p-values resulting from a 2-tailed
+    Kolmogorov-Smirnov test. """
+
+    return
 
 
 
