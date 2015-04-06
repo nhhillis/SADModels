@@ -180,9 +180,10 @@ def fig5(SADModels):
             N = sum(sad) # Find Total Abundance
             Ns.append(N)
 
-        plt.scatter(Ns, r2s, color='0.3', label=model) # label is for the legend
+        plt.scatter(np.log(Ns).tolist(), r2s, color='0.3', label=model) # label is for the legend
         plt.xlabel('Total Abundance', fontsize=8)
         plt.ylabel('Rsquared Value', fontsize=8)
+        plt.subplots_adjust(wspace = .35, hspace = .35)
         
         if model == 'SimBrokenStick':
             plt.title("Broken Stick R^2 v N", fontsize = 10)
@@ -226,4 +227,4 @@ SADModels = ['SimBrokenStick', 'SimLogNormInt', 'SimpleRandomFraction',
 #fig1(SADModels)
 #fig2(SADModels)
 #fig3(SADModels)
-#fig5(SADModels)
+fig5(SADModels)
