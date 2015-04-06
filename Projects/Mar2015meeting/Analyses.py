@@ -181,7 +181,7 @@ def fig5(SADModels):
             Ns.append(N)
 
         plt.scatter(np.log(Ns).tolist(), r2s, color='0.3', label=model) # label is for the legend
-        plt.xlabel('Total Abundance', fontsize=8)
+        plt.xlabel('Log Abundance', fontsize=8)
         plt.ylabel('Rsquared Value', fontsize=8)
         plt.subplots_adjust(wspace = .35, hspace = .35)
         
