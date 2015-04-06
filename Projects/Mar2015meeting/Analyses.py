@@ -181,20 +181,20 @@ def fig5(SADModels):
             Ns.append(N)
 
         plt.scatter(Ns, r2s, color='0.3', label=model) # label is for the legend
-        plt.xlabel('Total Abundance', fontsize=10)
-        plt.ylabel('Rsquared Value', fontsize=10)
+        plt.xlabel('Total Abundance', fontsize=8)
+        plt.ylabel('Rsquared Value', fontsize=8)
         
         if model == 'SimBrokenStick':
-            plt.title("Broken Stick R^2 v N", fontsize = 14)
+            plt.title("Broken Stick R^2 v N", fontsize = 10)
 
         elif model == 'SimLogNormInt':
-            plt.title("Log Norm R^2 v N", fontsize = 14)
+            plt.title("Log Norm R^2 v N", fontsize = 10)
 
         elif model == 'SimpleRandomFraction':
-            plt.title("Random Fraction R^2 v N", fontsize = 14)
+            plt.title("Random Fraction R^2 v N", fontsize = 10)
 
         elif model == 'SimParetoInt':
-            plt.title("Pareto Int R^2 v N", fontsize = 14)
+            plt.title("Pareto Int R^2 v N", fontsize = 10)
 
         print model + ': Done'
 
