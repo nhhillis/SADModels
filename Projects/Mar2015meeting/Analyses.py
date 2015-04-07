@@ -49,8 +49,12 @@ import matplotlib.pyplot as plt
 ########### PATHS & ADDITIONAL IMPORTS #########################################
 
 mydir = os.path.expanduser("~/GitHub/SADModels/")
+sys.path.append(mydir + 'Models/')
+import Models
 sys.path.append(mydir + '/tools')
 import OneToOne
+import HeatMap
+
 
 sys.path.append(mydir + "/tools/macroecotools")
 import macroecotools
@@ -88,27 +92,30 @@ def get_kdens(_list):
 
 
 def fig2(SADModels):
-    '''Heat map'''
-
-    x = []
-    y = []
-
-    for RAC in SLN: #Placing SLN RAC values into lists
-        y.extend(np.log(RAC))
-        x.extend(range(len(RAC)))
-
-
-    plt.plot(np.log(ObsRAC), color='0.3', lw=3, alpha = 0.6)
-
-    plt.hexbin(x, y, mincnt=1, gridsize = 40, bins = 'log', cmap=plt.cm.jet) #Generating Heat Map for SLN RAC
-
-    plt.xlim(0, S + 5)
-    plt.xlabel('Rank in abundance', fontsize=16)
-    plt.ylabel('log(abundance)', fontsize=16)
-
-
-    plt.savefig('/Users/Nathan_Hillis/Desktop/IRB_Project/All_Site_N='+str(N)+'_S='+str(S)+'.png', dpi=600, bbox_inches = 'tight', pad_inches=0.03)
+    '''Heat map of one site, observed v heat from each model'''
+    # Still working...
+    
+    fig = plt.figure()
+    
+    for i, model in enumerate(SADModels):
+       
+        fig.add_subplot(2, 2, i+1)
+        
+        data = import_obs_pred_data(mydir + '/Results/' + model + '.txt')
+        
+        site = ((data["site"]))
+        
+        while site == 'AB06':
+            
+            obs = ((data["obs"]))
+            sads = Models.model(obs)
+            HeatMap.RACHeatMap(fig, sads)
+        
+        print obs
+        sys.exit()
+            
     plt.show()
+    return
 
 
 
@@ -225,6 +232,6 @@ SADModels = ['SimBrokenStick', 'SimLogNormInt', 'SimpleRandomFraction',
                             'SimParetoInt']
 
 #fig1(SADModels)
-#fig2(SADModels)
+fig2(SADModels)
 #fig3(SADModels)
-fig5(SADModels)
+#fig5(SADModels)
