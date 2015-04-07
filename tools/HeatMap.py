@@ -15,6 +15,6 @@ def RACHeatMap(fig, RACs):
         ab.extend(RAC)
         ranks.extend(range(len(RAC)))
     
-    plt.hexbin(ranks, ab, mincnt=1, gridsize = grdsize, bins = 'log', cmap=plt.cm.Greys)
+    plt.hexbin(ranks, ab, mincnt=1, gridsize = grdsize, bins = 'log', cmap=plt.cm.jet)
     
     return fig

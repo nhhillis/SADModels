@@ -94,26 +94,56 @@ def get_kdens(_list):
 def fig2(SADModels):
     '''Heat map of one site, observed v heat from each model'''
     # Still working...
+    #1. get obs for one site 2. put into each model 3. heat map
     
     fig = plt.figure()
-    
+
     for i, model in enumerate(SADModels):
-       
+
         fig.add_subplot(2, 2, i+1)
+
+        obs_pred_data = import_obs_pred_data(mydir + '/Results/' + model + '.txt')
+        obs = ((obs_pred_data["obs"]))
+        site = ((obs_pred_data["site"]))
         
-        data = import_obs_pred_data(mydir + '/Results/' + model + '.txt')
-        
-        site = ((data["site"]))
-        
-        while site == 'AB06':
+        obs_data = []
+
+        for sites in np.unique(site):
+            obs_data.append(obs[sites==site])
             
-            obs = ((data["obs"]))
-            sads = Models.model(obs)
-            HeatMap.RACHeatMap(fig, sads)
+        OBSSad = obs_data[10]
         
-        print obs
-        sys.exit()
-            
+        OBSSad = map(int, OBSSad.tolist())
+        N = sum(OBSSad)
+        S = len(OBSSad)
+        sample_size = 100
+        print OBSSad
+        
+        if model == 'SimBrokenStick':
+            prdSADs = Models.SimBrokenStick(N, S, sample_size)
+            HeatMap.RACHeatMap(fig, prdSADs)
+        
+        elif model == 'SimLogNormInt':
+            prdSADs = Models.SimLogNormInt(N, S, sample_size)
+            HeatMap.RACHeatMap(fig, prdSADs)
+        
+        elif model == 'SimpleRandomFraction':
+            prdSADs = Models.SimpleRandomFraction(N, S, sample_size)
+            HeatMap.RACHeatMap(fig, prdSADs)
+
+        elif model == 'SimParetoInt':
+            prdSADs = Models.SimParetoInt(N, S, sample_size)
+            HeatMap.RACHeatMap(fig, prdSADs)
+        
+        plt.title(model)
+        plt.plot(np.log(OBSSad), color='k', lw=3, alpha = 0.6)
+        
+        plt.xlim(0, S + 2)
+        plt.xlabel('Rank in abundance', fontsize=12)
+        plt.ylabel('log(abundance)', fontsize=12)
+        plt.subplots_adjust(wspace = .35, hspace = .35)
+
+    plt.savefig('/Users/Nathan_Hillis/GitHub/SADModels/Results/HeatMaps_OneSite.png', dpi=600, bbox_inches = 'tight', pad_inches=0.03)
     plt.show()
     return
 
@@ -192,6 +222,7 @@ def fig5(SADModels):
         plt.ylabel('Rsquared Value', fontsize=8)
         plt.subplots_adjust(wspace = .35, hspace = .35)
         plt.axhline(y = 0)
+        
         if model == 'SimBrokenStick':
             plt.title("Broken Stick R^2 v N", fontsize = 10)
 
