@@ -55,6 +55,11 @@ sys.path.append(mydir + '/tools')
 import OneToOne
 import HeatMap
 
+sys.path.append(mydir + '/tools/AverageShape')
+import AverageShape
+
+
+
 
 sys.path.append(mydir + "/tools/macroecotools")
 import macroecotools
@@ -122,28 +127,36 @@ def fig2(SADModels):
         if model == 'SimBrokenStick':
             prdSADs = Models.SimBrokenStick(N, S, sample_size)
             HeatMap.RACHeatMap(fig, prdSADs)
-        
+            plt.plot(np.log(AverageShape.AvgShape(prdSADs)), color = 'lime', label = 'Predicted', lw = 2)
+            
         elif model == 'SimLogNormInt':
             prdSADs = Models.SimLogNormInt(N, S, sample_size)
             HeatMap.RACHeatMap(fig, prdSADs)
-        
+            plt.plot(np.log(AverageShape.AvgShape(prdSADs)), color = 'lime', label = 'Predicted', lw = 2)
+            
         elif model == 'SimpleRandomFraction':
             prdSADs = Models.SimpleRandomFraction(N, S, sample_size)
             HeatMap.RACHeatMap(fig, prdSADs)
-
+            plt.plot(np.log(AverageShape.AvgShape(prdSADs)), color = 'lime', label = 'Predicted', lw = 2)
+            
         elif model == 'SimParetoInt':
             prdSADs = Models.SimParetoInt(N, S, sample_size)
             HeatMap.RACHeatMap(fig, prdSADs)
+            plt.plot(np.log(AverageShape.AvgShape(prdSADs)), color = 'lime', label = 'Predicted', lw = 2)
         
         plt.title(model)
-        plt.plot(np.log(OBSSad), color='k', lw=3, alpha = 0.6)
+        plt.plot(np.log(OBSSad), color='m', lw=3, label = "Observed", alpha = 1.0)
         
+        leg = plt.legend(loc=1,prop={'size':8})
+        leg.draw_frame(False)
+        plt.text(10, 8, 'N =' + str(N) + ', S =' + str(S), fontsize = 8)
         plt.xlim(0, S + 2)
         plt.xlabel('Rank in abundance', fontsize=12)
         plt.ylabel('log(abundance)', fontsize=12)
         plt.subplots_adjust(wspace = .35, hspace = .35)
+        
 
-    plt.savefig('/Users/Nathan_Hillis/GitHub/SADModels/Results/HeatMaps_OneSite.png', dpi=600, bbox_inches = 'tight', pad_inches=0.03)
+    plt.savefig('/Users/Nathan_Hillis/GitHub/SADModels/Projects/Mar2015meeting/HeatMaps_OneSite.png', dpi=600, bbox_inches = 'tight', pad_inches=0.03)
     plt.show()
     return
 
