@@ -19,9 +19,9 @@ Well it was a nice try but I ran out of memory.'''
 
 SADModels = ['SimBrokenStick', 'SimLogNormInt', 'SimpleRandomFraction',
                             'SimParetoInt']
-N = 400000000000000
-S = 9956
-sample_size = 100
+N = 400000
+S = 100
+sample_size = 1000
 fig = plt.figure()
 
 for i, model in enumerate(SADModels):
@@ -60,5 +60,5 @@ for i, model in enumerate(SADModels):
         plt.ylabel('log(abundance)', fontsize=12)
             
 
-plt.savefig('/Users/Nathan_Hillis/Desktop/WorldBirds_HeatMap.png', dpi=600, bbox_inches = 'tight', pad_inches=0.03)
+plt.savefig('/Users/Nathan_Hillis/GitHub/SADModels/projects/Mar2015meeting/BigNumbers/BigNumbers_HeatMap.png', dpi=600, bbox_inches = 'tight', pad_inches=0.03)
 plt.show()
