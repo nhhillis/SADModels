@@ -19,9 +19,9 @@ Well it was a nice try but I ran out of memory.'''
 
 SADModels = ['SimBrokenStick', 'SimLogNormInt', 'SimpleRandomFraction',
                             'SimParetoInt']
-N = 400000
+N = 40000
 S = 100
-sample_size = 1000
+sample_size = 100
 fig = plt.figure()
 
 for i, model in enumerate(SADModels):
@@ -32,22 +32,25 @@ for i, model in enumerate(SADModels):
                     prdSADs = Models.SimBrokenStick(N, S, sample_size)
                     HeatMap.RACHeatMap(fig, prdSADs)
                     plt.plot(np.log(AverageShape.AvgShape(prdSADs)), color = 'lime', label = 'Predicted', lw = 2)
+                    print 'BS'
                     
         elif model == 'SimLogNormInt':
                     prdSADs = Models.SimLogNormInt(N, S, sample_size)
                     HeatMap.RACHeatMap(fig, prdSADs)
                     plt.plot(np.log(AverageShape.AvgShape(prdSADs)), color = 'lime', label = 'Predicted', lw = 2)
+                    print 'SLN'
                     
         elif model == 'SimpleRandomFraction':
                     prdSADs = Models.SimpleRandomFraction(N, S, sample_size)
                     HeatMap.RACHeatMap(fig, prdSADs)
                     plt.plot(np.log(AverageShape.AvgShape(prdSADs)), color = 'lime', label = 'Predicted', lw = 2)
+                    print 'RandFrac'
                     
         elif model == 'SimParetoInt':
                     prdSADs = Models.SimParetoInt(N, S, sample_size)
                     HeatMap.RACHeatMap(fig, prdSADs)
                     plt.plot(np.log(AverageShape.AvgShape(prdSADs)), color = 'lime', label = 'Predicted', lw = 2)
-
+                    print 'Par'
 
 
         plt.title(model +'_WorldBirds')
